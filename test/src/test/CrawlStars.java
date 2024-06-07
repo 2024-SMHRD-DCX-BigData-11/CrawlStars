@@ -7,6 +7,7 @@ public class CrawlStars {
 		System.out.println("위건 왔다감~");
 		
 		System.out.println("원지은 왔다감");
+		System.out.println("배소정 왔다감");
 	}
 	
 }
