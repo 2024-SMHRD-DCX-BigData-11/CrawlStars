@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- db.properties 파일 연결하기 -->
+	<properties resource="com/crawlstars/database/db.properties" />
+	
+	<typeAliases>
+		<typeAlias type="com.smhrd.model.Member" alias="Member"/>
+		<typeAlias type="com.smhrd.model.Message" alias="Message"/>
+		<typeAlias type="com.smhrd.model.Board" alias="Board"/>
+	</typeAliases>
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+      </dataSource>
+    </environment>
+  </environments>
+  
+  <!-- sql문들을 정의해주는 mapper.xml을 계속해서 만들건데 어디에 있는지 경로를 지정해주는 태그 -->
+  <mappers>
+    <mapper resource="com/smhrd/database/MemberMapper.xml"/>
+	<mapper resource="com/smhrd/database/MessageMapper.xml"/>
+	<mapper resource="com/smhrd/database/BoardMapper.xml"/>
+	
+    
+  </mappers>
+</configuration>
