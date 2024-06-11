@@ -11,7 +11,7 @@ public class SqlSessionManager {
 	public static SqlSessionFactory sqlSessionFactory;
 
    static {
-      String resource = "com/smhrd/database/mybatis-config.xml";       
+      String resource = "com/crawlstars/database/mybatis-config.xml";       
       Reader reader;
       try {
          reader = Resources.getResourceAsReader(resource);

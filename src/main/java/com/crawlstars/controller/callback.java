@@ -54,8 +54,8 @@ public class callback extends HttpServlet {
 	    		    .build();
 	       User user = getCurrentUsersProfileRequest.execute();
 
-	      out.println(user.getBirthdate());
-	      out.println(user.getId());
+	      out.println(user.getBirthdate()+"<br>");
+	      out.println(user.getId()+"<br>");
 	      out.println(user.getEmail()+"<br>");
 		} catch (ParseException e) {
 			e.printStackTrace();

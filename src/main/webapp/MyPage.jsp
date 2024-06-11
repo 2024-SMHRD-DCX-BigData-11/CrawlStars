@@ -69,10 +69,16 @@ GetPlaylistRequest getPlaylistRequest = spotifyApi.getPlaylist("3cEYpjA9oz9GiPac
 Playlist playlist =  getPlaylistRequest.execute();
 %>
 <!-- header -->
-<header>
 <!-- 나중에 적절한 이미지로 교체 -->
-<button id="menuButton">Sidebar</button>
-<b>PlyPick</b>
+<header>
+	<!-- 나중에 적절한 이미지로 교체 -->
+	<a id="menuButton" class="headericon">
+	<img alt="" src="images/버튼.png" onclick="" width="30" height="27"/>
+	</a>
+	<a href="Mainpage.jsp" class="headericon">
+	<img alt="" src="images/플리픽 로고1.png" onclick="" height="30"/ >
+	</a>
+	
 </header>
 <br>
 <br>
