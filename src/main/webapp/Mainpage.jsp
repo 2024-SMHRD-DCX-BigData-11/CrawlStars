@@ -58,7 +58,13 @@ header {
 .playlist {
     margin-left: 20px; /* 사이드바가 숨겨진 경우 여백을 조정 */
     padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
 }
+.headericon{
+	diplay:flex;
+}
+
 </style>
 
 </head>
@@ -70,12 +76,17 @@ Playlist playlist =  getPlaylistRequest.execute();
 %>
 <!-- header -->
 <header>
-<!-- 나중에 적절한 이미지로 교체 -->
-<button id="menuButton">Sidebar</button>
-<b>PlyPick</b>
+	<!-- 나중에 적절한 이미지로 교체 -->
+	<a id="menuButton" class="headericon">
+	<img alt="" src="images/버튼.png" onclick="" width="30" height="27"/>
+	</a>
+	<a href="Mainpage.jsp" class="headericon">
+	<img alt="" src="images/플리픽 로고1.png" onclick="" height="30"/ >
+	</a>
+	
 </header>
-<br>
-<br>
+	<br>
+	<br>
 
 <!-- Sidebar -->
 <nav id="menu">
@@ -89,6 +100,7 @@ Playlist playlist =  getPlaylistRequest.execute();
 
 <!-- playlist Stub -->
 <div class="playlist">
+<div class="playlistmusic">
 <table border="1px">
 	<tr>
 		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="300px" height="300px"></td>
@@ -101,6 +113,10 @@ Playlist playlist =  getPlaylistRequest.execute();
 	</tr>
 </table>
 </div>
+
+</div>
+
+
 
 <script>
 // JavaScript를 사용하여 사이드바를 토글하는 함수
