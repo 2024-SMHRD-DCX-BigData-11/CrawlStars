@@ -17,7 +17,6 @@
 <% GetCurrentUsersProfileRequest getCurrentUsersProfileRequest = spotifyApi.getCurrentUsersProfile()
 .build();
 User user = getCurrentUsersProfileRequest.execute(); %>
-<!-- div로 태그 바꿀게요 -->
 <form action="" method="post">
 	<table>
 		<tr>
@@ -26,7 +25,7 @@ User user = getCurrentUsersProfileRequest.execute(); %>
 		</tr>
 		<tr>
 			<td>닉네임</td>
-			<td><input type="text" name="nick"> <input type="button" value="중복확인"></td>
+			<td><input type="text" id="inputNick" name="nick"> <input type="button" value="중복확인" onclick="checkNick()"><span id="resultCheck"></span></td>
 		</tr>
 		<tr>
 			<td>성별</td>
@@ -38,16 +37,8 @@ User user = getCurrentUsersProfileRequest.execute(); %>
 		<tr>
 			<td>생년월일</td>
 			<td><!-- 생년월일 연도 드롭다운 -->
-				<select name="birthdate_year" id="birthdate_year">
-    			<% 
-    				// 1950년부터 2000년까지의 옵션 생성
-    				for (int i = 1950; i <= 2024; i++) {
-   				 %>
-        		<option value="<%= i %>"><%= i %></option>
-    			<% 
-    				}
-    			%>
-				</select>
+				<input type="text" name="birthdate_year" id="birthdate_year">년
+    			
 
 				<!-- 생년월일 월 드롭다운 -->
 				<select name="birthdate_month" id="birthdate_month">
@@ -55,11 +46,11 @@ User user = getCurrentUsersProfileRequest.execute(); %>
     				// 1월부터 12월까지의 옵션 생성
     				for (int i = 1; i <= 12; i++) {
     			%>
-        		<option value="<%= i %>"><%= i %>월</option>
+        		<option value="<%= i %>"><%= i %></option>
     			<% 
    	 				}
     			%>
-				</select>
+				</select>월
 
 				<!-- 생년월일 일 드롭다운 -->
 				<select name="birthdate_day" id="birthdate_day">
@@ -67,11 +58,11 @@ User user = getCurrentUsersProfileRequest.execute(); %>
     				// 1일부터 31일까지의 옵션 생성
     				for (int i = 1; i <= 31; i++) {
     			%>
-        			<option value="<%= i %>"><%= i %>일</option>
+        			<option value="<%= i %>"><%= i %></option>
     			<% 
     				}
     			%>
-				</select>
+				</select>일
 			</td>
 		</tr>
 		<tr>
@@ -81,8 +72,8 @@ User user = getCurrentUsersProfileRequest.execute(); %>
 		<tr>
 			<td>플레이리스트 연동</td>
 			<td>
-			<input type="radio" name="PL_link" value="Y">예 
-			<input type="radio" name="PL_link" value="N">아니오
+			<input type="radio" name="Sync_Playlist" value="Y">예 
+			<input type="radio" name="Sync_Playlist" value="N">아니오
 			</td>
 		</tr>
 		<tr>
@@ -91,6 +82,35 @@ User user = getCurrentUsersProfileRequest.execute(); %>
 	</table>
 
 </form>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+	function checkNick(){
+		var inputNick = $('#inputNick').val();
+		
+		$.ajax({ // {key1: value1, key2: value2, key3: {}}
+			//어디로 요청할건지
+			url : 'NickCheckCon',
+			// 요청 데이터 타입(json)
+			data : {'inputNick' : inputNick},
+			// 요청방식
+			type : 'get',
+			// 요청-응답-성공
+			success : function(data){
+				/* alert(data); */
+				if(data=='true'){
+					$('#resultCheck').text('사용중인 닉네임입니다');
+					$('#resultCheck').css('color','red');
+				}else if(data=='false'){
+					$('#resultCheck').text('사용할 수 있는 닉네임입니다');
+				}
+			},
+			error : function(){
+				alert('error');
+			}
+			
+		})
+	}
+</script>
 
 </body>
 </html>
