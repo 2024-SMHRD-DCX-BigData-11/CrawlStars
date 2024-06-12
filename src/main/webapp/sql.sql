@@ -71,7 +71,7 @@ REFERENCING NEW AS NEW FOR EACH ROW
 BEGIN 
     SELECT posts_SEQ.NEXTVAL
     INTO :NEW.post_id
-    FROM DUAL;
+    FROM DUAL
 END;
 
 -- DROP TRIGGER posts_AI_TRG; 
@@ -150,7 +150,7 @@ REFERENCING NEW AS NEW FOR EACH ROW
 BEGIN 
     SELECT playlists_SEQ.NEXTVAL
     INTO :NEW.pl_id
-    FROM DUAL;
+    FROM DUAL
 END;
 
 -- DROP TRIGGER playlists_AI_TRG; 
@@ -225,7 +225,7 @@ REFERENCING NEW AS NEW FOR EACH ROW
 BEGIN 
     SELECT pl_replies_SEQ.NEXTVAL
     INTO :NEW.pl_reply_id
-    FROM DUAL;
+    FROM DUAL
 END;
 
 -- DROP TRIGGER pl_replies_AI_TRG; 
@@ -284,7 +284,7 @@ REFERENCING NEW AS NEW FOR EACH ROW
 BEGIN 
     SELECT post_replies_SEQ.NEXTVAL
     INTO :NEW.post_reply_id
-    FROM DUAL;
+    FROM DUAL
 END;
 
 -- DROP TRIGGER post_replies_AI_TRG; 
@@ -351,7 +351,7 @@ REFERENCING NEW AS NEW FOR EACH ROW
 BEGIN 
     SELECT block_users_SEQ.NEXTVAL
     INTO :NEW.block_id
-    FROM DUAL;
+    FROM DUAL
 END;
 
 -- DROP TRIGGER block_users_AI_TRG; 
@@ -405,7 +405,7 @@ REFERENCING NEW AS NEW FOR EACH ROW
 BEGIN 
     SELECT pl_reply_hashtags_SEQ.NEXTVAL
     INTO :NEW.pl_reply_hashtag_id
-    FROM DUAL;
+    FROM DUAL
 END;
 
 -- DROP TRIGGER pl_reply_hashtags_AI_TRG; 
@@ -456,7 +456,7 @@ REFERENCING NEW AS NEW FOR EACH ROW
 BEGIN 
     SELECT pl_hashtags_SEQ.NEXTVAL
     INTO :NEW.pl_hashtag_id
-    FROM DUAL;
+    FROM DUAL
 END;
 
 -- DROP TRIGGER pl_hashtags_AI_TRG; 
@@ -507,7 +507,7 @@ REFERENCING NEW AS NEW FOR EACH ROW
 BEGIN 
     SELECT post_reply_hashtags_SEQ.NEXTVAL
     INTO :NEW.hashtag_id
-    FROM DUAL;
+    FROM DUAL
 END;
 
 -- DROP TRIGGER post_reply_hashtags_AI_TRG; 
@@ -558,7 +558,7 @@ REFERENCING NEW AS NEW FOR EACH ROW
 BEGIN 
     SELECT post_hashtags_SEQ.NEXTVAL
     INTO :NEW.hashtag_id
-    FROM DUAL;
+    FROM DUAL
 END;
 
 -- DROP TRIGGER post_hashtags_AI_TRG; 
@@ -610,7 +610,7 @@ REFERENCING NEW AS NEW FOR EACH ROW
 BEGIN 
     SELECT post_likes_SEQ.NEXTVAL
     INTO :NEW.like_id
-    FROM DUAL;
+    FROM DUAL
 END;
 
 -- DROP TRIGGER post_likes_AI_TRG; 
@@ -674,7 +674,7 @@ REFERENCING NEW AS NEW FOR EACH ROW
 BEGIN 
     SELECT block_posts_SEQ.NEXTVAL
     INTO :NEW.block_id
-    FROM DUAL;
+    FROM DUAL
 END;
 
 -- DROP TRIGGER block_posts_AI_TRG; 
@@ -738,7 +738,7 @@ REFERENCING NEW AS NEW FOR EACH ROW
 BEGIN 
     SELECT follows_SEQ.NEXTVAL
     INTO :NEW.follow_id
-    FROM DUAL;
+    FROM DUAL
 END;
 
 -- DROP TRIGGER follows_AI_TRG; 
@@ -793,7 +793,7 @@ REFERENCING NEW AS NEW FOR EACH ROW
 BEGIN 
     SELECT like_pls_SEQ.NEXTVAL
     INTO :NEW.like_id
-    FROM DUAL;
+    FROM DUAL
 END;
 
 -- DROP TRIGGER like_pls_AI_TRG; 
@@ -857,7 +857,7 @@ REFERENCING NEW AS NEW FOR EACH ROW
 BEGIN 
     SELECT block_pls_SEQ.NEXTVAL
     INTO :NEW.block_id
-    FROM DUAL;
+    FROM DUAL
 END;
 
 -- DROP TRIGGER block_pls_AI_TRG; 

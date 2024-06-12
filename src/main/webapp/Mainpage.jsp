@@ -25,6 +25,7 @@ header {
     position: fixed; /* 헤더를 화면 상단에 고정 */
     width: 100%; /* 헤더의 너비를 화면 전체로 설정 */
     z-index: 2; /* 헤더를 사이드바 위에 표시 */
+    
 }
 
 #menu {
@@ -61,8 +62,15 @@ header {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
 }
+.playlistmusic{
+	margin-top: 10px;
+}
 .headericon{
 	diplay:flex;
+}
+#menuButton{
+	margin-right:20px; 
+	margin-left:10px; 
 }
 
 </style>
@@ -103,7 +111,150 @@ Playlist playlist =  getPlaylistRequest.execute();
 <div class="playlistmusic">
 <table border="1px">
 	<tr>
-		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="300px" height="300px"></td>
+		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getName() %></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getDescription() %></td>
+	</tr>
+</table>
+</div>
+<div class="playlistmusic">
+<table border="1px">
+	<tr>
+		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getName() %></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getDescription() %></td>
+	</tr>
+</table>
+</div>
+<div class="playlistmusic">
+<table border="1px">
+	<tr>
+		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getName() %></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getDescription() %></td>
+	</tr>
+</table>
+</div>
+<div class="playlistmusic">
+<table border="1px">
+	<tr>
+		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getName() %></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getDescription() %></td>
+	</tr>
+</table>
+</div>
+<div class="playlistmusic">
+<table border="1px">
+	<tr>
+		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getName() %></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getDescription() %></td>
+	</tr>
+</table>
+</div>
+<div class="playlistmusic">
+<table border="1px">
+	<tr>
+		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getName() %></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getDescription() %></td>
+	</tr>
+</table>
+</div>
+<div class="playlistmusic">
+<table border="1px">
+	<tr>
+		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getName() %></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getDescription() %></td>
+	</tr>
+</table>
+</div>
+<div class="playlistmusic">
+<table border="1px">
+	<tr>
+		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getName() %></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getDescription() %></td>
+	</tr>
+</table>
+</div>
+<div class="playlistmusic">
+<table border="1px">
+	<tr>
+		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getName() %></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getDescription() %></td>
+	</tr>
+</table>
+</div>
+<div class="playlistmusic">
+<table border="1px">
+	<tr>
+		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getName() %></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getDescription() %></td>
+	</tr>
+</table>
+</div>
+<div class="playlistmusic">
+<table border="1px">
+	<tr>
+		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getName() %></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlist.getDescription() %></td>
+	</tr>
+</table>
+</div>
+<div class="playlistmusic">
+<table border="1px">
+	<tr>
+		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
 	</tr>
 	<tr>
 		<td align="center"><%= playlist.getName() %></td>
@@ -126,6 +277,7 @@ document.getElementById("menuButton").addEventListener("click", function() {
     if (menu.style.left === "0px") {
         menu.style.left = "-200px";
         document.querySelector(".playlist").style.marginLeft = "20px"; // 사이드바가 숨겨진 경우 여백 조정
+        
     } else {
         menu.style.left = "0px";
         document.querySelector(".playlist").style.marginLeft = "220px"; // 사이드바가 보이는 경우 여백 조정
