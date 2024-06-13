@@ -17,7 +17,7 @@
 <% GetCurrentUsersProfileRequest getCurrentUsersProfileRequest = spotifyApi.getCurrentUsersProfile()
 .build();
 User user = getCurrentUsersProfileRequest.execute(); %>
-<form action="" method="post">
+<form action="JoinCon" method="post" enctype="multipart/form-data">
 	<table>
 		<tr>
 			<td>사용자 이름</td>
@@ -97,6 +97,7 @@ User user = getCurrentUsersProfileRequest.execute(); %>
 			// 요청-응답-성공
 			success : function(data){
 				/* alert(data); */
+				$('#resultCheck').text('중복확인을 해주세요')
 				if(data=='true'){
 					$('#resultCheck').text('사용중인 닉네임입니다');
 					$('#resultCheck').css('color','red');

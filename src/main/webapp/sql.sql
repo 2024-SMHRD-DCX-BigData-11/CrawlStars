@@ -13,7 +13,8 @@ CREATE TABLE users
     user_type    CHAR(1)           NOT NULL, 
      PRIMARY KEY (sp_id)
 );
-
+select * from users;
+delete from users where nick='derm';
 -- 테이블 Comment 설정 SQL - users
 COMMENT ON TABLE users IS '회원';
 

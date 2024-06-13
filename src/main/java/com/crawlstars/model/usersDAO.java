@@ -9,9 +9,9 @@ public class usersDAO {
 
 	SqlSessionFactory sqlSessionFactory = SqlSessionManager.getSqlSession();
 
-	public int join(users member) {
+	public int join(users users) {
 		SqlSession session = sqlSessionFactory.openSession(true);
-		int cnt = session.insert("", member);
+		int cnt = session.insert("com.crawlstars.database.usersMapper.join", users);
 		session.close();
 		return cnt;
 	}

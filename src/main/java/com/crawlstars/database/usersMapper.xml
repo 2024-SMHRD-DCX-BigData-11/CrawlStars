@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.crawlstars.database.BoardMapper">
-	<insert id="join" parameterType="Member">
-     	insert into users values(#{SP_name}, #{nick}, #{gender}, #{birthdate}, sysdate, #{uesr_type})
+<mapper namespace="com.crawlstars.database.usersMapper">
+	<insert id="join" parameterType="users">
+     	insert into users values(#{SP_name}, #{nick}, #{gender}, #{birthdate}, #{user_img}, sysdate, #{uesr_type})
     </insert>
 
 </mapper>
