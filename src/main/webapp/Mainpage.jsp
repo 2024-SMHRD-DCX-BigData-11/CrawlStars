@@ -16,11 +16,11 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #181818;
+    background-color: black;
 }
 
 header {
-   background-color:#181818;
+   	background-color:#333;
     color: #fff;
     padding: 10px;
     position: fixed; /* 헤더를 화면 상단에 고정 */
@@ -40,15 +40,8 @@ header {
 	margin-right:20px; 
 	margin-left:10px; 
 }
-.input-group{ /*검색창*/
-	margin-left: 20px;
 
-}
-#form1{
-	height: 30px; width:400px;
-	margin: 0;
-	auto
-}
+
 
 
 
@@ -81,26 +74,53 @@ header {
 }
 
 .stub_box{ /*플레이리스트 div태그를 감싸주는 태그.*/
-	margin-left: 20px; 
+	margin : 20px; 
     padding: 20px;
+    padding-bottom:40px;
+    width: 95%;
+	float: center;
+	background-color: rgb(18, 18, 18);
+	border-radius: 20px;
 }
 
 .playlist {
-	border:1px white;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+	
+    display: flex;
+    overflow: auto;
+  	white-space: nowrap;
 }
 .playlist_best { /*플레이리스트와는 별개의 베스트 음악 리스트.*/
-	border:1px white;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    overflow: auto;
+  	white-space: nowrap;
 }
 .playlistmusic{ /*플레이리스트 div태그를 내부의 각각의 리스트 음악들.*/
-	margin-top: 10px;
+	margin: 10px;
+	margin-bottom: 20px;
+	flow:left;
 }
 h1{
 	color:grey;
 }
+
+.search-input {
+        border-radius: 20px;
+        padding: 10px;
+        
+        border-width:2px;
+        border-color: grey;
+        width: 400px;
+        height:20px;
+        background-image: url('images/SearchQ.png');
+        background-repeat: no-repeat;
+        background-position: left center;
+        padding-left: 20px; 
+        background-size: 20px 20px;
+        background-color: #181818;
+
+    }
+
+
 
 </style>
 
@@ -122,7 +142,6 @@ Playlist playlist =  getPlaylistRequest.execute();
 	<a href="Mainpage.jsp" class="headericon">
 	<img alt="" src="images/플리픽 로고1.png" onclick="" height="30"/>
 	</a>
-  	
 	</div>
 		
 </header>
@@ -140,12 +159,19 @@ Playlist playlist =  getPlaylistRequest.execute();
 </ul>
 </nav>
 
+
+
 <!--플레이리스트와는 별개의 베스트 음악 리스트 -->
 <div class="stub_box">
-<h1>Best Music</h1>
+
+<div class="PlaylistSearch" align="center">
+	<input type="text" placeholder="검색어를 입력하세요..." class="search-input">
+</div>
+
+	<h1>Best Music</h1>
 <div class="playlist_best">
 <div class="playlistmusic">
-<table border="1px">
+<table>
 	<tr>
 		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
 	</tr>
@@ -158,7 +184,7 @@ Playlist playlist =  getPlaylistRequest.execute();
 </table>
 </div>
 <div class="playlistmusic">
-<table border="1px">
+<table>
 	<tr>
 		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
 	</tr>
@@ -171,7 +197,7 @@ Playlist playlist =  getPlaylistRequest.execute();
 </table>
 </div>
 <div class="playlistmusic">
-<table border="1px">
+<table>
 	<tr>
 		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
 	</tr>
@@ -184,7 +210,7 @@ Playlist playlist =  getPlaylistRequest.execute();
 </table>
 </div>
 <div class="playlistmusic">
-<table border="1px">
+<table>
 	<tr>
 		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
 	</tr>
@@ -198,6 +224,7 @@ Playlist playlist =  getPlaylistRequest.execute();
 </div>
 </div>
 </div>
+
 
 
 <!-- playlist Stub -->
@@ -205,7 +232,7 @@ Playlist playlist =  getPlaylistRequest.execute();
 <h1>추천 음악</h1>
 <div class="playlist">
 <div class="playlistmusic">
-<table border="1px">
+<table>
 	<tr>
 		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
 	</tr>
@@ -218,7 +245,7 @@ Playlist playlist =  getPlaylistRequest.execute();
 </table>
 </div>
 <div class="playlistmusic">
-<table border="1px">
+<table>
 	<tr>
 		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
 	</tr>
@@ -231,7 +258,7 @@ Playlist playlist =  getPlaylistRequest.execute();
 </table>
 </div>
 <div class="playlistmusic">
-<table border="1px">
+<table>
 	<tr>
 		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
 	</tr>
@@ -244,7 +271,7 @@ Playlist playlist =  getPlaylistRequest.execute();
 </table>
 </div>
 <div class="playlistmusic">
-<table border="1px">
+<table>
 	<tr>
 		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
 	</tr>
@@ -257,7 +284,7 @@ Playlist playlist =  getPlaylistRequest.execute();
 </table>
 </div>
 <div class="playlistmusic">
-<table border="1px">
+<table>
 	<tr>
 		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
 	</tr>
@@ -270,7 +297,7 @@ Playlist playlist =  getPlaylistRequest.execute();
 </table>
 </div>
 <div class="playlistmusic">
-<table border="1px">
+<table>
 	<tr>
 		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
 	</tr>
@@ -283,7 +310,7 @@ Playlist playlist =  getPlaylistRequest.execute();
 </table>
 </div>
 <div class="playlistmusic">
-<table border="1px">
+<table>
 	<tr>
 		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
 	</tr>
@@ -296,7 +323,7 @@ Playlist playlist =  getPlaylistRequest.execute();
 </table>
 </div>
 <div class="playlistmusic">
-<table border="1px">
+<table>
 	<tr>
 		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
 	</tr>
@@ -307,11 +334,15 @@ Playlist playlist =  getPlaylistRequest.execute();
 		<td align="center"><%= playlist.getDescription() %></td>
 	</tr>
 </table>
-</div>
-</div>
 </div>
 
 
+</div>
+
+</div>
+
+
+<script src="./jquery-3.7.1.min.js"></script>
 
 <script>
 // JavaScript를 사용하여 사이드바를 토글하는 함수
@@ -329,6 +360,11 @@ document.getElementById("menuButton").addEventListener("click", function() {
         //document.querySelectorAll(".stub_box")[1].style.marginLeft = "220px";
     }
 });
+
+
+
+
+
 </script>
 
 </body>

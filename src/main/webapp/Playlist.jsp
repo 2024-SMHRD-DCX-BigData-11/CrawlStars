@@ -46,6 +46,12 @@ header {
 	width: 100%; /* 헤더의 너비를 화면 전체로 설정 */
 	z-index: 2; /* 헤더를 사이드바 위에 표시 */
 }
+#menuButton{
+	margin-right:20px; 
+	margin-left:10px; 
+	}
+
+	
 .PlaylistMain{
 	width:100%;
 	color: white;
@@ -90,9 +96,12 @@ background-color: rgb(18, 18, 18);
 	float: right;
 background-color: rgb(18, 18, 18);
 	border-radius: 20px;
+	display: grid;
+    grid-template-columns: repeat(4, 1fr);
 
 }
 #menu {
+	
 	width: 200px; /* 사이드바의 너비 */
 	position: fixed; /* 페이지 스크롤과 상관없이 고정 */
 	top: 0; /* 화면 상단부터 고정 */
@@ -113,7 +122,7 @@ background-color: rgb(18, 18, 18);
 	display: block;
 	padding: 10px;
 	text-decoration: none;
-	color: #333;
+	color: grey;
 }
 
 #menu li a:hover {
@@ -321,7 +330,7 @@ width:70;
 	<header>
 		<!-- 나중에 적절한 이미지로 교체 -->
 		<a id="menuButton" class="headericon"> <img alt=""
-			src="images/버튼.png" onclick="" width="30" height="27" />
+			src="images/메뉴버튼.png" onclick="" width="30" height="30" />
 		</a> <a href="Mainpage.jsp" class="headericon"> <img alt=""
 			src="images/플리픽 로고1.png" onclick="" height="30"/ >
 		</a>
@@ -359,10 +368,10 @@ width:70;
 	<div class="PlaylistDetail">
 	<!-- playlist Stub -->
 	<div class="playlist">
-		<table border="1px">
+		<table>
 			<tr>
 				<td><img src="<%=playlist.getImages()[0].getUrl()%>"
-					width="300px" height="300px"></td>
+					width="250px" height="250px"></td>
 			</tr>
 			<tr>
 				<td align="center"><%=playlist.getName()%></td>
@@ -374,11 +383,12 @@ width:70;
 		</table>
 	
 	</div>
+	
 	<div class="playlist">
-		<table border="1px">
+		<table>
 			<tr>
 				<td><img src="<%=playlist.getImages()[0].getUrl()%>"
-					width="300px" height="300px"></td>
+					width="250px" height="250px"></td>
 			</tr>
 			<tr>
 				<td align="center"><%=playlist.getName()%></td>
