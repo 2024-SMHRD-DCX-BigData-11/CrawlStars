@@ -15,6 +15,8 @@ public class NickCheckCon extends HttpServlet {
 
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
 		String inputNick = request.getParameter("inputNick");
 		
 		System.out.println(inputNick);

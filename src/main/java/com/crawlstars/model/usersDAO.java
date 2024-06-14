@@ -18,7 +18,7 @@ public class usersDAO {
 
 	public boolean NickCheck(String inputNick) {
 		SqlSession session = sqlSessionFactory.openSession(true);
-		boolean result = session.selectOne("", inputNick);
+		boolean result = session.selectOne("com.crawlstars.database.usersMapper.nickCheck", inputNick);
 		session.close();
 		return result;
 	}

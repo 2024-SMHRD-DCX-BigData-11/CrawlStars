@@ -13,13 +13,13 @@ import lombok.ToString;
 @Setter
 @ToString
 
-public class Member {
+public class follows {
 	@NonNull
-	private String SP_name;
+	private String follow_id;
 	@NonNull
-	private String nick;
-	private String gender;
-	private String birthdate;
-	//+프로필 이미지
-	private String PL_link;
+	private String follower;
+	@NonNull
+	private String followee;
+	@NonNull
+	private String flowered_at;
 }

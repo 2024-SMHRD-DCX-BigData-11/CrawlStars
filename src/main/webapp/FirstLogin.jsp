@@ -17,7 +17,7 @@
 <% GetCurrentUsersProfileRequest getCurrentUsersProfileRequest = spotifyApi.getCurrentUsersProfile()
 .build();
 User user = getCurrentUsersProfileRequest.execute(); %>
-<form action="JoinCon" method="post" enctype="multipart/form-data">
+<form action="JoinCon" method="post" enctype="multipart/form-data" name="JoinForm">
 	<table>
 		<tr>
 			<td>사용자 이름</td>
@@ -77,7 +77,7 @@ User user = getCurrentUsersProfileRequest.execute(); %>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2"><input type="submit" value="회원가입"></td>
+			<td colspan="2"><input type="button" value="회원가입" onclick="CheckForm()"></td>
 		</tr>
 	</table>
 
@@ -103,6 +103,7 @@ User user = getCurrentUsersProfileRequest.execute(); %>
 					$('#resultCheck').css('color','red');
 				}else if(data=='false'){
 					$('#resultCheck').text('사용할 수 있는 닉네임입니다');
+					$('#resultCheck').css('color','blue');
 				}
 			},
 			error : function(){
@@ -111,6 +112,49 @@ User user = getCurrentUsersProfileRequest.execute(); %>
 			
 		})
 	}
+	function CheckForm(){
+		if(JoinForm.nick.value==""){
+			alert("닉네임을 확인해주세요.");
+			myform.id.focus();
+			return false;
+		}
+		
+		flag = false;
+		for(i=0; i < JoinForm.gender.length; i++){
+			if(JoinForm.gender[i].checked){
+				flag = true;
+				break;
+			}
+		}
+		
+		if(flag == false){
+			alert("성별을 확인해주세요.");
+			return false;
+		}
+		
+		if(JoinForm.birthdate_year.value==""){
+			alert("생년월일을 확인해주세요.");
+			JoinForm.birthdate_year.focus();
+			return false;
+		}
+		
+		flag = false;
+		for(i=0; i < JoinForm.Sync_Playlist.length; i++){
+			if(JoinForm.Sync_Playlist[i].checked){
+				flag = true;
+				break;
+			}
+		}
+		
+		if(flag == false){
+			alert("플레이리스트 연동을 확인해주세요.");
+			return false;
+		}
+		
+		JoinForm.submit();
+		
+	}
+		
 </script>
 
 </body>

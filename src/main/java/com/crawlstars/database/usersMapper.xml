@@ -6,5 +6,13 @@
 	<insert id="join" parameterType="users">
      	insert into users values(#{SP_name}, #{nick}, #{gender}, #{birthdate}, #{user_img}, sysdate, #{uesr_type})
     </insert>
-
+    
+	<select id="nickCheck" parameterType="String" resultType="boolean">
+		select case when count(*)>0 then 1
+			else 0
+			end result
+		from users where nick=#{nick}
+	</select>
+	
+	
 </mapper>

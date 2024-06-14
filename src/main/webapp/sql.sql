@@ -727,6 +727,9 @@ CREATE TABLE follows
      PRIMARY KEY (follow_id)
 );
 
+
+select follower from follows where follower='31t2evngqbv5f4oqowjfzlil6gji';
+select count(*) as cnt from follows where followee='31t2evngqbv5f4oqowjfzlil6gji';
 -- Auto Increment를 위한 Sequence 추가 SQL - follows.follow_id
 CREATE SEQUENCE follows_SEQ
 START WITH 1
@@ -764,6 +767,10 @@ COMMENT ON COLUMN follows.flowered_at IS '팔로우 날짜';
 -- Foreign Key 설정 SQL - follows(follower) -> users(sp_id)
 ALTER TABLE follows
     ADD CONSTRAINT FK_follows_follower_users_sp_e FOREIGN KEY (follower)
+        REFERENCES users (sp_id) ;
+        
+ALTER TABLE follows
+    ADD CONSTRAINT FK_follows_followee_users_sp_e FOREIGN KEY (followee)
         REFERENCES users (sp_id) ;
 
 -- Foreign Key 삭제 SQL - follows(follower)

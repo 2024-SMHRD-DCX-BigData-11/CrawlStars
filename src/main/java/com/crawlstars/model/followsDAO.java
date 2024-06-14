@@ -5,15 +5,14 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.crawlstars.database.SqlSessionManager;
 
-public class MemberDAO {
-
+public class followsDAO {
 	SqlSessionFactory sqlSessionFactory = SqlSessionManager.getSqlSession();
-
-	public int join(Member member) {
-		
-		return 0;
+	
+	public int follower_cnt() {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		int FLcnt = session.insert("com.crawlstars.database.followsMapper.follower_cnt");
+		session.close();
+		return FLcnt;
 	}
-	
-	
-	
+
 }
