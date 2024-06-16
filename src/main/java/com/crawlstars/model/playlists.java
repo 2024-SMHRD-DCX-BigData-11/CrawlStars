@@ -13,22 +13,17 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-
+@RequiredArgsConstructor
 public class playlists {
 	@NonNull
-	private int pl_id;
-	@NonNull
-	private String song;
+	private String pl_id;
 	@NonNull
 	private String pl_title;
 	@NonNull
 	private String sp_id;
 	@NonNull
-	private String singer;
-	@NonNull
+	private String status;
 	private String pl_image;
-	@NonNull
 	private String created_at;
-	@NonNull
 	private String updated_at;
 }

@@ -22,9 +22,13 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.specification.Paging;
+import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
+import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.model_objects.specification.User;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
+import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest;
+import se.michaelthelin.spotify.requests.data.tracks.GetTrackRequest;
 import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest;
 
 import org.apache.hc.core5.http.ParseException;
@@ -84,8 +88,32 @@ public class JoinCon extends HttpServlet {
         	    	GetListOfCurrentUsersPlaylistsRequest GetListOfCurrentUsersPlaylistsRequest = spotifyApi.getListOfCurrentUsersPlaylists()
         	                .build();
         	        try {
-        	            GetListOfCurrentUsersPlaylistsRequest.execute();
-        	            
+        	            Paging<PlaylistSimplified> playlistsA = GetListOfCurrentUsersPlaylistsRequest.execute();
+        	            for(int i=0;i<playlistsA.getTotal();i++) {
+        	            	String pl_title = playlistsA.getItems()[i].getName();
+        	            	String pl_id = playlistsA.getItems()[i].getId();
+        	            	String pl_image = "images/플리픽도안2.png";
+        	        		if(playlistsA.getItems()[i].getImages()!=null){
+        	        			pl_image = playlistsA.getItems()[i].getImages()[0].getUrl();}
+        	        		playlists playlists =  new playlists(pl_id,pl_title,SP_name,pl_image);
+        	        		int result = new playlistsDAO().Insertuserpl(playlists);
+        	            	GetPlaylistRequest getPlaylistRequest = spotifyApi.getPlaylist(pl_id)
+        	                .build();
+        	            	Playlist pl= getPlaylistRequest.execute();
+        	            	if(pl.getTracks().getTotal() != 0) {
+        	            		for(int j=0; j<pl.getTracks().getTotal(); j++) {
+        	            			String song =pl.getTracks().getItems()[j].getTrack().getName();
+        	            			GetTrackRequest getTrackRequest =  spotifyApi.getTrack(pl.getTracks().getItems()[j].getTrack().getId()).build();
+        	            			Track trackA= getTrackRequest.execute();
+        	            			String singer = trackA.getArtists()[0].getName();
+        	            			for(int r=1;r<trackA.getArtists().length;r++ ) {
+        	            				singer += ","+trackA.getArtists()[r].getName();
+        	            			}
+        	            			
+        	            		}
+        	            	}
+        	            	
+        	            }
         	        } catch (SpotifyWebApiException | ParseException e) {
         	            e.printStackTrace();
         	        }

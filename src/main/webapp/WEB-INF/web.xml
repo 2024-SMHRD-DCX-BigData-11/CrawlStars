@@ -10,8 +10,18 @@
   	<description></description>
   	<servlet-class>com.crawlstars.controller.NickCheckCon</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>UserIdCheckCon</servlet-name>
+  	<display-name>UserIdCheckCon</display-name>
+  	<description></description>
+  	<servlet-class>com.crawlstars.controller.UserIdCheckCon</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>NickCheckCon</servlet-name>
   	<url-pattern>/NickCheckCon</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>UserIdCheckCon</servlet-name>
+  	<url-pattern>/UserIdCheckCon</url-pattern>
   </servlet-mapping>
 </web-app>

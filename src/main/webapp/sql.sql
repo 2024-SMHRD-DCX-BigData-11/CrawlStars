@@ -50,7 +50,7 @@ CREATE TABLE posts
 (
     post_id       NUMBER(18, 0)     NOT NULL, 
     post_title    VARCHAR(800)      NOT NULL, 
-    pl_id         NUMBER(18, 0)     NULL, 
+    pl_id         VARCHAR2(50)     NULL, 
     pl_title      VARCHAR2(800)     NOT NULL, 
     sp_id      VARCHAR2(50)      NOT NULL, 
     post_body     CLOB              NOT NULL, 
@@ -127,37 +127,46 @@ ALTER TABLE posts
 -- 테이블 생성 SQL - playlists
 CREATE TABLE playlists
 (
-    pl_id         NUMBER(18, 0)     NOT NULL, 
-    song          VARCHAR2(100)     NOT NULL, 
+    pl_id         VARCHAR2(50)     NOT NULL, 
     pl_title      VARCHAR2(500)     NOT NULL, 
     sp_id      VARCHAR2(50)      NOT NULL, 
-    singer        VARCHAR2(100)     NOT NULL, 
     status        CHAR(1)           NOT NULL, 
     pl_image      VARCHAR2(1000)    NOT NULL, 
     created_at    DATE              DEFAULT SYSDATE NOT NULL, 
     updated_at    DATE              NULL, 
      PRIMARY KEY (pl_id)
 );
-
+ALTER TABLE playlists DROP COLUMN song;
+ALTER TABLE 
 -- Auto Increment를 위한 Sequence 추가 SQL - playlists.pl_id
 CREATE SEQUENCE playlists_SEQ
 START WITH 1
 INCREMENT BY 1;
 
 -- Auto Increment를 위한 Trigger 추가 SQL - playlists.pl_id
-CREATE OR REPLACE TRIGGER playlists_AI_TRG
-BEFORE INSERT ON playlists 
+CREATE OR REPLACE TRIGGER playlist_songs_AI_TRG
+BEFORE INSERT ON playlist_songs 
 REFERENCING NEW AS NEW FOR EACH ROW 
 BEGIN 
     SELECT playlists_SEQ.NEXTVAL
-    INTO :NEW.pl_id
+    INTO :NEW.pl_songs_id
     FROM DUAL
 END;
 
--- DROP TRIGGER playlists_AI_TRG; 
-
--- DROP SEQUENCE playlists_SEQ; 
-
+ create table playlist_songs(
+ 	pl_songs_id   NUMBER(18, 0) NOT NULL,
+ 	pl_id         VARCHAR2(50)     NOT NULL, 
+    song          VARCHAR2(100)     NOT NULL,
+ 	singer        VARCHAR2(100)     NOT NULL
+ )
+ 
+ CREATE INDEX IX_playlists_1
+    ON playlist_songs(song);
+    
+ ALTER TABLE playlist_songs
+    ADD CONSTRAINT FK_playlist_songs_playlists FOREIGN KEY (pl_id)
+        REFERENCES playlists (pl_id) ;
+ 
 -- 테이블 Comment 설정 SQL - playlists
 COMMENT ON TABLE playlists IS '플레이리스트';
 
@@ -207,13 +216,13 @@ ALTER TABLE playlists
 CREATE TABLE pl_replies
 (
     pl_reply_id         NUMBER(18, 0)    NOT NULL, 
-    pl_id               NUMBER(18, 0)    NOT NULL, 
+    pl_id               VARCHAR2(50)   NOT NULL, 
     pl_reply_content    VARCHAR2(900)    NOT NULL, 
     replied_at          DATE             NOT NULL, 
     sp_id            VARCHAR2(50)     NOT NULL, 
      PRIMARY KEY (pl_reply_id)
 );
-
+drop table pl_replies;
 -- Auto Increment를 위한 Sequence 추가 SQL - pl_replies.pl_reply_id
 CREATE SEQUENCE pl_replies_SEQ
 START WITH 1
@@ -440,7 +449,7 @@ ALTER TABLE pl_reply_hashtags
 CREATE TABLE pl_hashtags
 (
     pl_hashtag_id    NUMBER(18, 0)    NOT NULL, 
-    pl_id            NUMBER(18, 0)    NOT NULL, 
+    pl_id            VARCHAR2(50)    NOT NULL, 
     hashtag          VARCHAR2(100)    NOT NULL, 
      PRIMARY KEY (pl_hashtag_id)
 );
@@ -784,7 +793,7 @@ CREATE TABLE like_pls
 (
     like_id     NUMBER(18, 0)    NOT NULL, 
     sp_id    VARCHAR2(50)     NOT NULL, 
-    pl_id       NUMBER(18, 0)    NOT NULL, 
+    pl_id       VARCHAR2(50)    NOT NULL, 
     liked_at    VARCHAR(50)      DEFAULT 'SYSDATE' NOT NULL, 
      PRIMARY KEY (like_id)
 );
@@ -848,7 +857,7 @@ CREATE TABLE block_pls
 (
     block_id      NUMBER(18, 0)    NOT NULL, 
     sp_id      VARCHAR2(50)     NOT NULL, 
-    pl_id         NUMBER(18, 0)    NOT NULL, 
+    pl_id         VARCHAR2(50)   NOT NULL, 
     blocked_at    VARCHAR(50)      DEFAULT 'SYSDATE' NOT NULL, 
      PRIMARY KEY (block_id)
 );

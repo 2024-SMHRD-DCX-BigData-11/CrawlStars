@@ -57,6 +57,7 @@ public class callback extends HttpServlet {
 	      out.println(user.getBirthdate()+"<br>");
 	      out.println(user.getId()+"<br>");
 	      out.println(user.getEmail()+"<br>");
+	      response.sendRedirect("UserIdCheckCon");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		} catch (SpotifyWebApiException e) {

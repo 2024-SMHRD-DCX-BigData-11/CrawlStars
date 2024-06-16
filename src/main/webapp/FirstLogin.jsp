@@ -82,6 +82,7 @@ User user = getCurrentUsersProfileRequest.execute(); %>
 	</table>
 
 </form>
+<a href="Mainpage.jsp">임시탈출</a>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
 	function checkNick(){

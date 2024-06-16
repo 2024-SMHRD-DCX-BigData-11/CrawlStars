@@ -22,6 +22,13 @@ public class usersDAO {
 		session.close();
 		return result;
 	}
+
+	public boolean CheckId(String sp_id) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		boolean result = session.selectOne("com.crawlstars.database.usersMapper.idCheck", sp_id);
+		session.close();
+		return result;
+	}
 	
 	
 	
