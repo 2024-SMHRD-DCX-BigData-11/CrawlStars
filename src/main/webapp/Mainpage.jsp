@@ -42,7 +42,9 @@ header {
 	margin-left:10px; 
 }
 
-
+.PlaylistSearch{
+float:left;
+}
 
 
 
@@ -603,7 +605,7 @@ Playlist playlist =  getPlaylistRequest.execute();
 		<br> <span>다음 재생</span> <br>
 		<div id="NextQueue"></div>
 	</div>
-
+<!-- 플레이어 -->
 	<footer>
 		<div id="wrapper">
 			<div class="first">

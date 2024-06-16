@@ -81,7 +81,10 @@ header {
 	margin-bottom: 10px;
 	text-align: center;
 }
-
+.PlaylistDetail{
+overflow-y: auto;
+height: 600px;
+}
 .PlaylistSearch button {
 	margin-bottom: 5px;
 }
@@ -488,7 +491,7 @@ Button:hover {
         text-align: center;
         border-radius: 10px;
     }
-#SongAddPDiv{
+#SongAddPDiv ,#SongAddInPToggle{
 	position: absolute;
         width: 250px;
         background-color: rgb(18, 18, 18);
@@ -512,7 +515,10 @@ Button:hover {
 	margin: 0px;
 	color: white;
 }
-
+.Pl-reply{
+	display:grid;
+	grid-template-columns: 20px 1fr 2fr 1fr 1fr;
+}
 </style>
 
 </head>
@@ -554,9 +560,9 @@ Button:hover {
 		<div class="PlaylistLibSearch">
 			<div class="PlaylistSearch">
 				<input type="text" placeholder="검색어를 입력하세요..." class="search-input">
-				<button onclick="ForwardPage()">앞으로</button>
+					<button onclick="BackPage()">뒤로</button>
 				<button onclick="RefreshPage()">홈으로</button>
-				<button onclick="BackPage()">뒤로</button>
+				<button onclick="ForwardPage()">앞으로</button>
 			</div>
 			<div class="PlaylistLibrary">
 				<span>내 라이브러리</span>
@@ -736,8 +742,9 @@ Button:hover {
 	    newDiv.style.top = y + 'px';
 	    document.body.appendChild(newDiv);}
 };
-	const SongAddP = (event,songId)=>{
+ 	const SongAddP = (event,songUri)=>{
 	 SongAddPDiv = document.getElementById('SongAddPDiv');
+	 console.log("X 좌표:"+event.clientX+"Y좌표 : "+ event.clientX)
 	 if (SongAddPDiv) {
 		 document.body.removeChild(SongAddPDiv)
 	 }else{
@@ -745,14 +752,101 @@ Button:hover {
 		 var y = event.clientY;
 		 var newDiv = document.createElement('div');
 		 newDiv.id = 'SongAddPDiv';
-		 newDiv.innerHTML = "<div><span>플레이리스트에 추가하기</span></div><div><span>재생목록에 추가하기</span></div>";
+		 newDiv.innerHTML = "<div onclick='SongAddInPToggle(event,\""+songUri+"\")'><span>플레이리스트에 추가하기</span></div><div onclick='SongAddInQ(\""+songUri+"\")'><span>재생목록에 추가하기</span></div>";
 		 newDiv.style.left = x + 'px';
 		 newDiv.style.top = y + 'px';
 		 document.body.appendChild(newDiv);
-	 }
+	 } };
+	const SongAddInPToggle = (event, songUri)=>{
+		var Url="https://api.spotify.com/v1/me/playlists"
+		fetch(Url,{
+			method: 'GET',
+			headers:{
+				 'Authorization': `Bearer <%=spotifyApi.getAccessToken()%>`
+			}
+			
+		}).then(response => {
+			   if (!response.ok) {
+				     throw new Error('Network response was not ok');
+				   }
+				   return response.json();
+				 })
+				 .then(data => {
+		var SongAddInPToggleDiv = document.getElementById('SongAddInPToggle')
+		if (SongAddInPToggleDiv){
+			document.body.removeChild(SongAddInPToggleDiv)
+		}else{
+			var x = event.clientX;
+			 var y = event.clientY;
+			 var newDiv = document.createElement('div');
+			 newDiv.id = 'SongAddPDiv';
+			 if(data.total!=0){
+			 for(i=0;i<data.total;i++){
+			 newDiv.innerHTML = newDiv.innerHTML + "<div onclick='SongAddInP(\""+songUri+"\",\""+data.items[i].id+"\")'>"
+			 +"<span>"+data.items[i].name+"</span>"
+			 }
+			 }else{
+				 newDiv.innerHTML="<span>플레이리스트가 없습니다.</span>"
+			 }
+			 newDiv.style.left = x + 'px';
+			 newDiv.style.top = y + 'px';
+			 document.body.appendChild(newDiv);
+		}
+						
+				 }).catch(error => {
+					    console.error('Error adding track:', error);
+					});
+	}
+	const SongAddInQ = (songUri=>{
+		var Url = "https://api.spotify.com/v1/me/player/queue?uri="+songUri;
+		fetch(Url, {
+			method: 'POST',
+			headers:{
+				 'Authorization': `Bearer <%=spotifyApi.getAccessToken()%>`
+			}			
+		}).then(response=>{
+			 if (!response.ok) {
+			        throw new Error('Network response was not ok');
+			    }
+			})
+			.then(data => {
+			    console.log('Successfully added track:', data);
+			    document.body.removeChild(SongAddPDiv);
+			})
+			.catch(error => {
+			    console.error('Error adding track:', error);
+			});
+		})
 		
 		
+	const SongAddInP = (songUri, playlistId)=>{
+		var apiUrl = "https://api.spotify.com/v1/playlists/"+playlistId+"/tracks";
+		const postData = {
+			    uris: [songUri], // 예시로 사용할 트랙 URI
+			    position: 0
+			};
+		fetch(apiUrl, {
+		    method: 'POST',
+		    headers: {
+		        'Authorization': `Bearer <%=spotifyApi.getAccessToken()%>`,
+		        'Content-Type': 'application/json'
+		    },
+		    body: JSON.stringify(postData)
+		})
+		.then(response => {
+		    if (!response.ok) {
+		        throw new Error('Network response was not ok');
+		    }
+		    return response.json();
+		})
+		.then(data => {
+		    console.log('Successfully added track:', data);
+		})
+		.catch(error => {
+		    console.error('Error adding track:', error);
+		});
 	};
+
 
 	const msToTime = (msd)=>{
 		// 전달된 밀리초(ms)를 분과 초로 나누기
@@ -835,18 +929,36 @@ Button:hover {
 				        '">' +
 				        '</div>' +
 				        '<div class="first-second">' +
-				            '<span>' + data.tracks.items[i].track.name + '</span><br>' +
-				            '<span>' + songsinger + '</span>' +
+				            '<span onclick="SearchP(\''+data.tracks.items[i].track.name+'\')">' + data.tracks.items[i].track.name + '</span><br>' +
+				            '<span onclick="SearchP(\''+songsinger+'\')">' + songsinger + '</span>' +
 				        '</div></div>'+
 				    	'<div class="song-album" onclick="DetailA(\''+data.tracks.items[i].track.album.id+'\')"><span>'+data.tracks.items[i].track.album.name+'</span></div>'+
 				    	'<div class="song-addtime"><span>'+data.tracks.items[i].added_at.substr(0,10)+'</span></div>'+
-				    	'<div class="song-time"><span>'+msToTime(data.tracks.items[i].track.duration_ms)+'</span><button onclick="SongAddP(event,\''+data.tracks.items[i].track.id+'\')">+</button></div>';
+				    	'<div class="song-time"><span>'+msToTime(data.tracks.items[i].track.duration_ms)+'</span><button onclick="SongAddP(event,\''+data.tracks.items[i].track.uri+'\')">+</button></div>';
 				        temp.querySelector('img').addEventListener('click', function() {
 				            ChangeSonginQ(i+1); // 이미 생성된 변수 i를 사용하여 함수 호출
 				        });
 				        
 				        PlaylistDetail.append(temp); 
 				    }
+				        temp = document.createElement("hr");
+				    	PlaylistDetail.append(temp);
+				    	temp = document.createElement("div");
+				    	temp.className="Pl-reply"
+				    	temp.innerHTML = 
+				    		'<div class="pl-reply-num"><span>#</span></div>'+
+				    		'<div class="pl-reply-owner"><span>이름</span></div>'+
+				    		'<div class="pl-reply-content"></div>'+
+				    		'<div class="pl-reply-hashtag"><span>hashtag<span></div>'
+				    	PlaylistDetail.append(temp);
+				    	temp = document.createElement("hr");
+				    	PlaylistDetail.append(temp);
+				    	//리플내용달기
+				    	temp = document.createElement("div");
+				    	temp.id="Pl-reply-input"
+				    	temp.innerHTML=
+				    		'<input id="pl-reply-input" type="text"><button>제출</button>'
+				    	PlaylistDetail.append(temp);
 			 })
 			 .catch(error => {
 			   console.error('There was a problem with your fetch operation:', error);
@@ -986,7 +1098,7 @@ Button:hover {
 				        '</div></div>'+
 				    	'<div class="song-album" onclick="SearchP(\''+data.name+'\')"><span>'+data.name+'</span></div>'+
 				    	'<div class="song-addtime"><span>'+data.release_date+'</span></div>'+
-				    	'<div class="song-time"><span>'+msToTime(data.tracks.items[i].duration_ms)+'</span><button onclick="SongAddP(event,\''+data.tracks.items[i].id+'\')">+</button></div>';
+				    	'<div class="song-time"><span>'+msToTime(data.tracks.items[i].duration_ms)+'</span><button onclick="SongAddP(event,\''+data.tracks.items[i].uri+'\')">+</button></div>';
 				        temp.querySelector('img').addEventListener('click', function() {
 				            ChangeSonginQ(i+1); // 이미 생성된 변수 i를 사용하여 함수 호출
 				        });   
@@ -1033,9 +1145,9 @@ Button:hover {
 			 	var temp = document.createElement("div");
 		        temp.className = "playlistLine"
 		        for(j=0;j<3;j++){
-		        	var trackSinger = data.tracks.items[i].album.artists[0].name
+		        	var trackSinger = data.tracks.items[i].album.artists[0].name;
 		        	for(r=1;r<data.tracks.items[i].album.artists.length;r++){
-		        		trackSinger = trackSinger +data.tracks.items[i].album.artists[r].name
+		        		trackSinger = trackSinger+data.tracks.items[i].album.artists[r].name;
 		        	}
 		        	temp.innerHTML=temp.innerHTML+ "<div class='playlist'>"+
 		        	'<table><tr><td><img src="'+data.tracks.items[i].album.images[0].url+'"width="250px" height="250px" onclick="DetailA(\''+data.tracks.items[i].album.id+'\')">'+
@@ -1065,6 +1177,7 @@ Button:hover {
 			   console.error('There was a problem with your fetch operation:', error);
 		 });
 	}
+	
 	</script>
 	<script src="https://sdk.scdn.co/spotify-player.js"></script>
 	<!-- player 연동을위해 필요한 javascript -->
