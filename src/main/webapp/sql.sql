@@ -17,6 +17,18 @@ select * from users;
 delete from users where nick='derm';
 select * from playlists;
 delete from playlists where STATUS='O';
+insert into users values ('test1','test1','t','test','images/플리픽도안2.png',SYSDATE,'o');
+insert into users values ('test2','test2','t','test','images/플리픽도안2.png',SYSDATE,'o');
+insert into users values ('test3','test3','t','test','images/플리픽도안2.png',SYSDATE,'o');
+insert into users values ('test4','test4','t','test','images/플리픽도안2.png',SYSDATE,'o');
+insert into users values ('test5','test5','t','test','images/플리픽도안2.png',SYSDATE,'o');
+//회원가입 취소 쿼리
+select*from playlist_songs;
+select*from playlists;
+//sp_id는 자기꺼 넣으세요 아래에서 위순서대로
+delete from users where sp_id='31usxxrxygnn5zkg27776ylsknom'
+delete from playlists where sp_id='31usxxrxygnn5zkg27776ylsknom'
+delete from playlist_songs where pl_id in (select pl_id from playlists where sp_id='31usxxrxygnn5zkg27776ylsknom')
 -- 테이블 Comment 설정 SQL - users
 COMMENT ON TABLE users IS '회원';
 
@@ -141,8 +153,20 @@ CREATE TABLE playlists
     updated_at    DATE              NULL, 
      PRIMARY KEY (pl_id)
 );
+ALTER TABLE playlists MODIFY (pl_id VARCHAR2(1000) NOT NULL);
+
+ALTER TABLE playlists 
 ALTER TABLE playlists DROP COLUMN song;
-ALTER TABLE 
+102rwYtlszP9nks5BpWOyo
+2V5LvQfBJLdfj9y3SVtTFk
+1HU4Ik89RuPE9WH1cBbpvm
+2Bx66ShEWNPX1WCbjSt98n
+7sK9BfD9jSK8gcRHTWjfwR
+insert into playlists values('102rwYtlszP9nks5BpWOyo','아이유노래1','test1','O','https://mosaic.scdn.co/640/ab67616d0000b273010ddb7…fff4109b1ab67616d0000b273904295277c8e443e39c8e5d9',SYSDATE,'');
+insert into playlists values('2V5LvQfBJLdfj9y3SVtTFk','아이유노래2','test1','O','https://mosaic.scdn.co/640/ab67616d0000b2734ed058b…8512fd85eab67616d0000b273c63be04ae902b1da7a54d247',SYSDATE,'');
+insert into playlists values('1HU4Ik89RuPE9WH1cBbpvm','아이유노래3','test1','O','https://mosaic.scdn.co/640/ab67616d0000b2734ed058b…c17ea8fe6ab67616d0000b273c06f0e8b33ac2d246158253e',SYSDATE,'');
+insert into playlists values('2Bx66ShEWNPX1WCbjSt98n','아이유노래4','test1','O','https://mosaic.scdn.co/640/ab67616d0000b27317ac1b8…255024c01ab67616d0000b273fca7f5aebfb6010c6da60e00',SYSDATE,'');
+insert into playlists values('7sK9BfD9jSK8gcRHTWjfwR','아이유노래5','test1','O','https://image-cdn-ak.spotifycdn.com/image/ab67706c0000bebbb33d11abbd1c2d95f23b82da',SYSDATE,'');
 -- Auto Increment를 위한 Sequence 추가 SQL - playlists.pl_id
 CREATE SEQUENCE playlists_SEQ
 START WITH 1
@@ -164,6 +188,13 @@ select * from playlist_songs;
     song          VARCHAR2(100)     NOT NULL,
  	singer        VARCHAR2(100)     NOT NULL
  )
+insert into playlist_songs values (num_playlist_songs.nextval,'102rwYtlszP9nks5BpWOyo','나의 사춘기에게','볼빨간사춘기')
+DROP TRIGGER playlist_songs_AI_TRG; 
+
+DROP SEQUENCE playlists_SEQ; 
+ 
+create sequence num_playlist_songs start with 1
+						    increment by 1; 
  
  CREATE INDEX IX_playlists_1
     ON playlist_songs(song);

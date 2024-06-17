@@ -21,8 +21,8 @@ public class playlists {
 	private String pl_title;
 	@NonNull
 	private String sp_id;
-	@NonNull
 	private String status;
+	@NonNull
 	private String pl_image;
 	private String created_at;
 	private String updated_at;

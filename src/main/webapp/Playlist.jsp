@@ -436,6 +436,7 @@ footer {
 
 #MyPlaylist {
 	margin-top: 25px;
+	margin-bottom:25px;
 }
 
 Button {
@@ -571,6 +572,7 @@ Button:hover {
 				<div Id="MyPlaylist">
 					<%	GetListOfCurrentUsersPlaylistsRequest getListOfCurrentUsersPlaylistsRequest = spotifyApi
 		    .getListOfCurrentUsersPlaylists().build();
+					if(getListOfCurrentUsersPlaylistsRequest!=null){
 	Paging<PlaylistSimplified> playlistSimplifiedPaging = getListOfCurrentUsersPlaylistsRequest.execute();
 	playlistSimplifiedPaging.getItems()[0].getId(); //나중에 온클릭요소로 넣자
 	playlistSimplifiedPaging.getItems()[0].getUri(); //나중에 온클릭요소로 넣자
@@ -590,11 +592,13 @@ Button:hover {
 							<span><%=playlistSimplifiedPaging.getItems()[i].getOwner().getDisplayName() %></span>
 						</div>
 					</div>
-					<%}
+					<%}}
 	
 	%>
 
 				</div>
+				
+			<span>좋아요한 플레이리스트</span>
 			</div>
 
 		</div>
@@ -742,7 +746,7 @@ Button:hover {
 	    newDiv.style.top = y + 'px';
 	    document.body.appendChild(newDiv);}
 };
- 	const SongAddP = (event,songUri)=>{
+ 	const SongAddP = (event,songUri,Songid)=>{
 	 SongAddPDiv = document.getElementById('SongAddPDiv');
 	 console.log("X 좌표:"+event.clientX+"Y좌표 : "+ event.clientX)
 	 if (SongAddPDiv) {
@@ -752,12 +756,41 @@ Button:hover {
 		 var y = event.clientY;
 		 var newDiv = document.createElement('div');
 		 newDiv.id = 'SongAddPDiv';
-		 newDiv.innerHTML = "<div onclick='SongAddInPToggle(event,\""+songUri+"\")'><span>플레이리스트에 추가하기</span></div><div onclick='SongAddInQ(\""+songUri+"\")'><span>재생목록에 추가하기</span></div>";
+		 newDiv.innerHTML = "<div onclick='SongAddInPToggle(event,\""+songUri+"\",\""+Songid+"\")'><span>플레이리스트에 추가하기</span></div><div onclick='SongAddInQ(\""+songUri+"\")'><span>재생목록에 추가하기</span></div>";
 		 newDiv.style.left = x + 'px';
 		 newDiv.style.top = y + 'px';
 		 document.body.appendChild(newDiv);
 	 } };
-	const SongAddInPToggle = (event, songUri)=>{
+	 const addSongToPlaylist=(track_id, pl_id)=> {
+		    var xhr = new XMLHttpRequest();
+		    var url = 'insertSonglist';  // 서블릿 URL
+		    var params = 'PL_ID=' + encodeURIComponent(pl_id) + '&track_id=' + encodeURIComponent(track_id);
+		    
+		    xhr.open('POST', url, true);
+		    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+		    xhr.onreadystatechange = function() {
+		        if (xhr.readyState == XMLHttpRequest.DONE) {
+		            if (xhr.status == 200) {
+		                var response = xhr.responseText;
+		                if (response.trim() === 'True') {
+		                    console.log('Song added successfully.');
+		                    // Handle success case here
+		                } else {
+		                    console.log('Failed to add song.');
+		                    // Handle failure case here
+		                }
+		            } else {
+		                console.error('Error:', xhr.status, xhr.statusText);
+		                // Handle other HTTP status codes
+		            }
+		        }
+		    };
+
+		    xhr.send(params);
+		}
+
+	const SongAddInPToggle = (event, songUri, Songid)=>{
 		var Url="https://api.spotify.com/v1/me/playlists"
 		fetch(Url,{
 			method: 'GET',
@@ -841,6 +874,7 @@ Button:hover {
 		})
 		.then(data => {
 		    console.log('Successfully added track:', data);
+		    addSongToPlaylist(,playlistId)
 		})
 		.catch(error => {
 		    console.error('Error adding track:', error);
@@ -934,7 +968,7 @@ Button:hover {
 				        '</div></div>'+
 				    	'<div class="song-album" onclick="DetailA(\''+data.tracks.items[i].track.album.id+'\')"><span>'+data.tracks.items[i].track.album.name+'</span></div>'+
 				    	'<div class="song-addtime"><span>'+data.tracks.items[i].added_at.substr(0,10)+'</span></div>'+
-				    	'<div class="song-time"><span>'+msToTime(data.tracks.items[i].track.duration_ms)+'</span><button onclick="SongAddP(event,\''+data.tracks.items[i].track.uri+'\')">+</button></div>';
+				    	'<div class="song-time"><span>'+msToTime(data.tracks.items[i].track.duration_ms)+'</span><button onclick="SongAddP(event,\''+data.tracks.items[i].track.uri+'\',\''+data.tracks.items[i].track.id+'\')">+</button></div>';
 				        temp.querySelector('img').addEventListener('click', function() {
 				            ChangeSonginQ(i+1); // 이미 생성된 변수 i를 사용하여 함수 호출
 				        });
@@ -1246,7 +1280,6 @@ Button:hover {
 							     if (!response.ok) {
 							       throw new Error('Network response was not ok');
 							     }else{
-
 									 player.togglePlay().then(() => {
 										 toggleplay.innerText="일시정지"
 											 intervalId = setInterval(() => {

@@ -217,7 +217,7 @@ User user = getCurrentUsersProfileRequest.execute(); %>
 
 </form>
 <a href="Mainpage.jsp">임시탈출</a>
-
+<a href="insertSonglist?PL_ID=1HU4Ik89RuPE9WH1cBbpvm">아이유</a>
 </div>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">

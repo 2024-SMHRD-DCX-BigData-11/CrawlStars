@@ -98,7 +98,7 @@ public class JoinCon extends HttpServlet {
         	            	String status = "O";
         	        		if(playlistsA.getItems()[i].getImages()!=null){
         	        			pl_image = playlistsA.getItems()[i].getImages()[0].getUrl();}
-        	        		playlists playlists =  new playlists(pl_id,pl_title,SP_name,pl_image,status);
+        	        		playlists playlists =  new playlists(pl_id,pl_title,SP_name,pl_image);
         	        		int result = new playlistsDAO().Insertuserpl(playlists);
         	            	GetPlaylistRequest getPlaylistRequest = spotifyApi.getPlaylist(pl_id)
         	                .build();
