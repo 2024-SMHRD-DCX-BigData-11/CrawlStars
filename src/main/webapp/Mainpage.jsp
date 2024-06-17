@@ -5,9 +5,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Insert title here</title>
 
 <style>
@@ -77,34 +78,29 @@ float:left;
 }
 
 .stub_box{ /*플레이리스트 div태그를 감싸주는 태그.*/
-	margin : 20px; 
-    padding: 20px;
-    padding-bottom:40px;
-    width: 95%;
+	margin-top : 20px;
+    padding-top: 20px;
+    padding-left:40px;
+    padding-bottom:20px;
+    width: 100%;
 	float: center;
 	background-color: rgb(18, 18, 18);
-	border-radius: 20px;
+	
 }
 
 .playlist {
-	
-    display: flex;
-    overflow: auto;
-  	white-space: nowrap;
+	height: 490px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    overflow-y : auto;
+ 
 }
-.playlist_best { /*플레이리스트와는 별개의 베스트 음악 리스트.*/
-    display: flex;
-    overflow: auto;
-  	white-space: nowrap;
-}
+
 .playlistmusic{ /*플레이리스트 div태그를 내부의 각각의 리스트 음악들.*/
 	margin: 10px;
 	margin-bottom: 20px;
-	flow:left;
 }
-h1{
-	color:grey;
-}
+
 
 .search-input {
         border-radius: 20px;
@@ -123,8 +119,64 @@ h1{
 
     }
 
+/* 게시물 업로드 팝업 */
+.popup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
 
+.popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #181818;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    max-width: 700px;
+    text-align: center;
+    color: #fff;
+}
 
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+#post_content{
+ text-align: left;
+}
+.post_input{
+	width:300px;
+	float: right;
+}
+#input_content{
+width: 400px;
+height: 200px;
+resize: none;
+
+}
+.post_button{
+	background-color: #181818;
+	border: none;
+	color: white; 	
+}
+.post_button:hover{
+	background-color: #ED1C24;
+}
+#postimg{
+	width: 100px;
+	height: 100px;
+	float: left;
+}
 </style>
 <!-- 음악플레이어를 위한 css -->
 <style>
@@ -402,76 +454,31 @@ Playlist playlist =  getPlaylistRequest.execute();
 </nav>
 
 
-
-<!--플레이리스트와는 별개의 베스트 음악 리스트 -->
+<!-- playlist Stub -->
 <div class="stub_box">
 
-<div class="PlaylistSearch" align="center">
+<div>
+<div class="PlaylistSearch" align="center"><!-- 검색창 -->
 	<input type="text" placeholder="검색어를 입력하세요..." class="search-input">
 </div>
 
-	<h1>Best Music</h1>
-<div class="playlist_best">
-<div class="playlistmusic">
-<table>
-	<tr>
-		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getName() %></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getDescription() %></td>
-	</tr>
-</table>
-</div>
-<div class="playlistmusic">
-<table>
-	<tr>
-		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getName() %></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getDescription() %></td>
-	</tr>
-</table>
-</div>
-<div class="playlistmusic">
-<table>
-	<tr>
-		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getName() %></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getDescription() %></td>
-	</tr>
-</table>
-</div>
-<div class="playlistmusic">
-<table>
-	<tr>
-		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getName() %></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getDescription() %></td>
-	</tr>
-</table>
-</div>
-</div>
+<button style="margin-left:20px; height: 30px;" id="showPopup"><!-- New Post -->
+<label>
+New Post
+</label>
+ </button>
+
+ 
+<button style="height: 30px;"><!-- My Post -->
+<label>
+My Post
+</label>
+</button>
 </div>
 
 
 
-<!-- playlist Stub -->
-<div class="stub_box">
-<h1>추천 음악</h1>
+<br>
 <div class="playlist">
 <div class="playlistmusic">
 <table>
@@ -582,6 +589,70 @@ Playlist playlist =  getPlaylistRequest.execute();
 </div>
 
 </div>
+
+<!-- 새로운 포스트 작성 팝업창 -->
+<div id="popupContainer" class="popup-container">
+<form action="" method="post">
+	<div class="popup">
+	<span id="closePopup" class="close-btn">×</span>
+	<div id = "post_content">
+				<table id="post_upload">
+					<tr><td>새로운 게시물 작성</td></tr>
+					<tr><td>앨범 이미지</td></tr>
+					<!--<tr><td>
+					<img id="postimg" alt="" src="images/플리픽도안2.png"> 
+					</td></tr>-->
+					<tr>
+						<td colspan="2">
+							<input id="filename" type="file" style="float: left;">
+						</td>
+					</tr>
+					<tr>
+						<td>곡명<input type="text" class="post_input"> </td>					
+						</tr>
+					<tr>
+
+						<td>아티스트 <input type="text" class ="post_input"> </td>
+					</tr>
+					<tr>
+						<td colspan="2">설명</td>
+					</tr>
+					<tr>
+					<td>
+					<textarea id="input_content" ></textarea>
+					</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<input type="reset" value="초기화" class="post_button">
+							<input type="submit" value="작성하기" class="post_button">
+						</td>
+					</tr>
+				</table>
+	</div>
+ </div>
+ </form>
+</div>
+
+
+<script>
+   // 게시물 작성 팝업 JS
+ // 레이어 팝업 열기
+    document.getElementById('showPopup').addEventListener('click', function() {
+        document.getElementById('popupContainer').style.display = 'block';
+    });
+
+    // 레이어 팝업 닫기
+    document.getElementById('closePopup').addEventListener('click', function() {
+        document.getElementById('popupContainer').style.display = 'none';
+    });
+    
+</script>
+
+
+
+
+
 <!-- 재생 목록 -->
 	<div id="CurrentTrack_Detail">
 		<br> <br>
@@ -931,10 +1002,11 @@ document.getElementById("menuButton").addEventListener("click", function() {
 				   })
 				 };
 		   
-
+				
 				 fetch('https://api.spotify.com/v1/me/player', options)
 				   .then(response => {
 				     if (!response.ok) {
+				    	 console.log("aa:"+options)
 				       throw new Error('Network response was not ok');
 				     }else{
 
