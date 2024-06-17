@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
+import com.crawlstars.model.Playlist_songs;
+import com.crawlstars.model.Playlist_songsDAO;
 import com.crawlstars.model.playlists;
 import com.crawlstars.model.playlistsDAO;
 import com.crawlstars.model.users;
@@ -93,9 +95,10 @@ public class JoinCon extends HttpServlet {
         	            	String pl_title = playlistsA.getItems()[i].getName();
         	            	String pl_id = playlistsA.getItems()[i].getId();
         	            	String pl_image = "images/플리픽도안2.png";
+        	            	String status = "O";
         	        		if(playlistsA.getItems()[i].getImages()!=null){
         	        			pl_image = playlistsA.getItems()[i].getImages()[0].getUrl();}
-        	        		playlists playlists =  new playlists(pl_id,pl_title,SP_name,pl_image);
+        	        		playlists playlists =  new playlists(pl_id,pl_title,SP_name,pl_image,status);
         	        		int result = new playlistsDAO().Insertuserpl(playlists);
         	            	GetPlaylistRequest getPlaylistRequest = spotifyApi.getPlaylist(pl_id)
         	                .build();
@@ -109,6 +112,14 @@ public class JoinCon extends HttpServlet {
         	            			for(int r=1;r<trackA.getArtists().length;r++ ) {
         	            				singer += ","+trackA.getArtists()[r].getName();
         	            			}
+        	            			
+        	            			Playlist_songs Playlistsongs = new Playlist_songs(pl_id, song, singer);
+        	            			int result_song = new Playlist_songsDAO().insertplsong(Playlistsongs);
+        	            			if (result_song == 1) {
+        	            	            System.out.println("플레이리스트 입력 성공");
+        	            	        } else {
+        	            	            System.out.println("플레이리스트 입력 실패");
+        	            	        }
         	            			
         	            		}
         	            	}

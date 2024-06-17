@@ -9,17 +9,12 @@ public class playlistsDAO {
 	
 	SqlSessionFactory sqlSessionFactory = SqlSessionManager.getSqlSession();
 
-	public void linkPL() {
-		
-		
-	}
-
 	public int Insertuserpl(playlists playlists) {
 		
 		SqlSession session = sqlSessionFactory.openSession(true);
 		int cnt = session.insert("com.crawlstars.database.playlistsMapper.insert", playlists);
 		session.close();
-		return cnt;		
+		return cnt;
 	}
 
 }

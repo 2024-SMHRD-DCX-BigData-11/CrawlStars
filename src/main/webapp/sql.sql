@@ -15,6 +15,8 @@ CREATE TABLE users
 );
 select * from users;
 delete from users where nick='derm';
+select * from playlists;
+delete from playlists where STATUS='O';
 -- 테이블 Comment 설정 SQL - users
 COMMENT ON TABLE users IS '회원';
 
@@ -125,6 +127,9 @@ ALTER TABLE posts
 
 -- playlists Table Create SQL
 -- 테이블 생성 SQL - playlists
+
+-- 조회
+
 CREATE TABLE playlists
 (
     pl_id         VARCHAR2(50)     NOT NULL, 
@@ -152,7 +157,7 @@ BEGIN
     INTO :NEW.pl_songs_id
     FROM DUAL
 END;
-
+select * from playlist_songs;
  create table playlist_songs(
  	pl_songs_id   NUMBER(18, 0) NOT NULL,
  	pl_id         VARCHAR2(50)     NOT NULL, 
