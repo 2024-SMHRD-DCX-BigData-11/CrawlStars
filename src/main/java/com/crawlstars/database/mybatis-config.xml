@@ -29,6 +29,8 @@
     <mapper resource="com/crawlstars/database/playlistsMapper.xml"/>
     <mapper resource="com/crawlstars/database/playlist_songsMapper.xml"/>
 	<mapper resource="com/crawlstars/database/followsMapper.xml"/>
+	<mapper resource="com/crawlstars/database/PL_REPLY_HASHTAGSMapper.xml"/>
+	<mapper resource="com/crawlstars/database/PL_REPLIESMapper.xml"/>
 	
     
   </mappers>

@@ -16,7 +16,7 @@ import lombok.ToString;
 
 public class users {
 	@NonNull
-	private String SP_name;
+	private String SP_id;
 	@NonNull
 	private String nick;
 	@NonNull
@@ -33,7 +33,7 @@ public class users {
 	public users(@NonNull String sP_name, @NonNull String nick, @NonNull String gender, @NonNull String birthdate,
 			@NonNull String user_img, @NonNull String uesr_type) {
 		super();
-		SP_name = sP_name;
+		SP_id = SP_id;
 		this.nick = nick;
 		this.gender = gender;
 		this.birthdate = birthdate;

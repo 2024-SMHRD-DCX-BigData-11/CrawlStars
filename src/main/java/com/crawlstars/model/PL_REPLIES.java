@@ -20,7 +20,6 @@ private int PL_REPLY_ID ;
 private String PL_ID;
 @NonNull
 private String PL_REPLY_CONTENT;
-@NonNull
 private String REPLIED_AT;
 @NonNull
 private String SP_ID;

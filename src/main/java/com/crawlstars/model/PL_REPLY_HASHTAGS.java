@@ -15,9 +15,9 @@ import lombok.ToString;
 @ToString
 @RequiredArgsConstructor
 public class PL_REPLY_HASHTAGS {
-	private String PL_REPLY_HASHTAG_ID;
+	private int PL_REPLY_HASHTAG_ID;
 	@NonNull
-	private String PL_REPLY_ID;
+	private int PL_REPLY_ID;
 	@NonNull
 	private String HASHTAG;
 }

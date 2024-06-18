@@ -1,0 +1,11 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.crawlstars.database.PL_REPLY_HASHTAGSMapper">
+	<insert id="insert" parameterType="String">
+		insert into PL_REPLY_HASHTAGS values (PL_REPLY_HASHTAGS_SEQ.NEXTVAL,pl_replies_SEQ.CURRVAL,#{hashtag})
+    </insert>
+    <select id="getHashtag" parameterType="String" resultType="com.crawlstars.model.PL_REPLY_HASHTAGS">
+    	select * from PL_REPLY_HASHTAG where PL_REPLY_ID = #{PL_REPLY_ID}
+    </select>
+	</mapper>

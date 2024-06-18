@@ -1032,7 +1032,7 @@ Button:hover {
 				    	temp = document.createElement("div");
 				    	temp.id="Pl-reply-input"
 				    	temp.innerHTML=
-				    		'<input id="pl-reply-input" type="text"><button>제출</button>'
+				    		'<input id="pl-reply-input" type="text"><button onclick="InsertPlreply(\''+data.id+'\')">제출</button>'
 				    	PlaylistDetail.append(temp);
 			 })
 			 .catch(error => {
@@ -1279,6 +1279,38 @@ Button:hover {
 			   console.error('There was a problem with your fetch operation:', error);
 		 });
 	}
+	const InsertPlreply = (pl_id)=>{
+		var xhr = new XMLHttpRequest();
+		var reply_input = document.getElementById('pl-reply-input');
+	    var url = 'AddReplyCon';  // 서블릿 URL
+	    var input_value = reply_input.value;
+	    var params = 'PL_ID=' + encodeURIComponent(pl_id)+ '&reply_body=' + encodeURIComponent(input_value);
+	    
+	    xhr.open('POST', url, true);
+	    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+	    xhr.onreadystatechange = function() {
+	        if (xhr.readyState == XMLHttpRequest.DONE) {
+	            if (xhr.status == 200) {
+	                var response = xhr.responseText;
+	                consol.log(response);
+	                if (response.trim() === 'True') {
+	                    console.log('PL_reply added successfully.');
+	                    // Handle success case here
+	                } else {
+	                    console.log('Failed to add PL_reply');
+	                    // Handle failure case here
+	                }
+	            } else {
+	                console.error('Error:', xhr.status, xhr.statusText);
+	                // Handle other HTTP status codes
+	            }
+	        }
+	    };
+
+	    xhr.send(params);
+	
+}
 	
 	</script>
 	<script src="https://sdk.scdn.co/spotify-player.js"></script>
