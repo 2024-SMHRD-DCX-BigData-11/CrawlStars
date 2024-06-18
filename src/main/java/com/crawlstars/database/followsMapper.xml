@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.crawlstars.database.followsMapper">
-	<select id="followee">
+	<select id="getFollowees"  parameterType="String" resultType="com.crawlstars.model.follows">
 		select followee from follows where follower=#{follower}
 	</select>
 	
@@ -11,9 +11,9 @@
 		select count(*) as cnt from follows where follower=#{follower}
 	</select>
 	
-	<select id="follower">
-		select follower from follows where followee=#{followee}
-	</select>
+	<select id="getFollowers" parameterType="String" resultType="com.crawlstars.model.follows">
+        select follower from follows where followee=#{followee}
+    </select>
 	
 	<select id="follower_cnt">
 		select count(*) as cnt from follows where followee=#{followee}

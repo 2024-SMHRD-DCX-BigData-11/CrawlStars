@@ -136,7 +136,7 @@ select:focus {
 }
 
 #JoinPageLogo{
-	align: center;
+	
 }
 
 </style>

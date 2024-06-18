@@ -2,6 +2,7 @@
 
 -- users Table Create SQL
 -- 테이블 생성 SQL - users
+select * from playlist_songs
 CREATE TABLE users
 (
     sp_id     VARCHAR2(50)      NOT NULL, 
@@ -14,9 +15,6 @@ CREATE TABLE users
      PRIMARY KEY (sp_id)
 );
 select * from users;
-delete from users where nick='derm';
-select * from playlists;
-delete from playlists where STATUS='O';
 insert into users values ('test1','test1','t','test','images/플리픽도안2.png',SYSDATE,'o');
 insert into users values ('test2','test2','t','test','images/플리픽도안2.png',SYSDATE,'o');
 insert into users values ('test3','test3','t','test','images/플리픽도안2.png',SYSDATE,'o');
@@ -25,10 +23,19 @@ insert into users values ('test5','test5','t','test','images/플리픽도안2.pn
 //회원가입 취소 쿼리
 select*from playlist_songs;
 select*from playlists;
+select*from follows;
 //sp_id는 자기꺼 넣으세요 아래에서 위순서대로
 delete from users where sp_id='31usxxrxygnn5zkg27776ylsknom'
 delete from playlists where sp_id='31usxxrxygnn5zkg27776ylsknom'
 delete from playlist_songs where pl_id in (select pl_id from playlists where sp_id='31usxxrxygnn5zkg27776ylsknom')
+
+delete from users where sp_id='31t2evngqbv5f4oqowjfzlil6gji'
+delete from playlists where sp_id='31t2evngqbv5f4oqowjfzlil6gji'
+delete from playlist_songs where pl_id in (select pl_id from playlists where sp_id='31t2evngqbv5f4oqowjfzlil6gji')
+
+delete from users where sp_id='31qg5bahnuz2z2eeps5ii2tv5reu'
+delete from playlists where sp_id='31qg5bahnuz2z2eeps5ii2tv5reu'
+delete from playlist_songs where pl_id in (select pl_id from playlists where sp_id='31qg5bahnuz2z2eeps5ii2tv5reu')
 -- 테이블 Comment 설정 SQL - users
 COMMENT ON TABLE users IS '회원';
 
@@ -376,6 +383,8 @@ ALTER TABLE post_replies
 
 -- block_users Table Create SQL
 -- 테이블 생성 SQL - block_users
+insert into block_users values(block_users_SEQ.NEXTVAL, '31t2evngqbv5f4oqowjfzlil6gji', 'test5', sysdate);
+select * from BLOCK_USERS;
 CREATE TABLE block_users
 (
     block_id          NUMBER(18, 0)    NOT NULL, 
@@ -384,6 +393,10 @@ CREATE TABLE block_users
     blocked_at        DATE             NOT NULL, 
      PRIMARY KEY (block_id)
 );
+
+DROP TRIGGER block_users_AI_TRG; 
+
+DROP SEQUENCE block_users_SEQ;
 
 -- Auto Increment를 위한 Sequence 추가 SQL - block_users.block_id
 CREATE SEQUENCE block_users_SEQ
@@ -771,10 +784,20 @@ CREATE TABLE follows
     flowered_at    DATE             NOT NULL, 
      PRIMARY KEY (follow_id)
 );
-
-
-select follower from follows where follower='31t2evngqbv5f4oqowjfzlil6gji';
+insert into FOLLOWS values(follows_SEQ.NEXTVAL, 'test1', '31t2evngqbv5f4oqowjfzlil6gji', sysdate);
+insert into FOLLOWS values(follows_SEQ.NEXTVAL, 'test2', '31t2evngqbv5f4oqowjfzlil6gji', sysdate);
+insert into FOLLOWS values(follows_SEQ.NEXTVAL, '31t2evngqbv5f4oqowjfzlil6gji', 'test1', sysdate);
+insert into FOLLOWS values(follows_SEQ.NEXTVAL, '31t2evngqbv5f4oqowjfzlil6gji', 'test3', sysdate);
+insert into FOLLOWS values(follows_SEQ.NEXTVAL, '31t2evngqbv5f4oqowjfzlil6gji', 'test4', sysdate);
+select * from follows where followee='31t2evngqbv5f4oqowjfzlil6gji';
 select count(*) as cnt from follows where followee='31t2evngqbv5f4oqowjfzlil6gji';
+select followee from follows where follower='31t2evngqbv5f4oqowjfzlil6gji';
+select count(*) as cnt from follows where follower='31t2evngqbv5f4oqowjfzlil6gji';
+
+DROP TRIGGER follows_AI_TRG; 
+
+DROP SEQUENCE follows_SEQ; 
+
 -- Auto Increment를 위한 Sequence 추가 SQL - follows.follow_id
 CREATE SEQUENCE follows_SEQ
 START WITH 1

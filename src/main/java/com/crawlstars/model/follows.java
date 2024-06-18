@@ -22,4 +22,12 @@ public class follows {
 	private String followee;
 	@NonNull
 	private String flowered_at;
+	
+	public String getFollower() {
+        return follower;
+    }
+	
+	public String getFollowee() {
+        return followee;
+    }
 }

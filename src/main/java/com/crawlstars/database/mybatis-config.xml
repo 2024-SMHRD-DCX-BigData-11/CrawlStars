@@ -28,7 +28,7 @@
     <mapper resource="com/crawlstars/database/usersMapper.xml"/>
     <mapper resource="com/crawlstars/database/playlistsMapper.xml"/>
     <mapper resource="com/crawlstars/database/playlist_songsMapper.xml"/>
-
+	<mapper resource="com/crawlstars/database/followsMapper.xml"/>
 	
     
   </mappers>
