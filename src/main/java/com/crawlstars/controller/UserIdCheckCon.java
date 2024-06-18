@@ -29,7 +29,6 @@ public class UserIdCheckCon extends HttpServlet {
 		User user = getCurrentUsersProfileRequest.execute();
 		String sp_id = user.getId();
 		users CheckId = new usersDAO().CheckId(sp_id);
-		System.out.println(CheckId.toString());
 		if(CheckId!=null) {
 			response.sendRedirect("Mainpage.jsp");
 		}else {
