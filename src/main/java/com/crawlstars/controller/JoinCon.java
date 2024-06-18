@@ -78,7 +78,7 @@ public class JoinCon extends HttpServlet {
 
         System.out.println(user_img);
         users users = new users(SP_name, nick, gender, birthdate , user_img , user_type);
-        
+        session.setAttribute("user", users);
         System.out.println("X");
         int cnt = new usersDAO().join(users);
         System.out.println("O");
@@ -125,8 +125,10 @@ public class JoinCon extends HttpServlet {
         	            	}
         	            	
         	            }
+        	            response.sendRedirect("MainPage.jsp");
         	        } catch (SpotifyWebApiException | ParseException e) {
         	            e.printStackTrace();
+        	            response.sendRedirect("FirstLogin.jsp");
         	        }
         	    } else {
         	        

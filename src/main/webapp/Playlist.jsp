@@ -492,7 +492,7 @@ Button:hover {
         text-align: center;
         border-radius: 10px;
     }
-#SongAddPDiv ,#SongAddInPToggle{
+#SongAddPDiv ,#SongAddPO{
 	position: absolute;
         width: 250px;
         background-color: rgb(18, 18, 18);
@@ -757,7 +757,7 @@ Button:hover {
 		 var y = event.clientY;
 		 var newDiv = document.createElement('div');
 		 newDiv.id = 'SongAddPDiv';
-		 newDiv.innerHTML = "<div onclick='SongAddInPToggle(event,\""+songUri+"\",\""+Songid+"\")'><span>플레이리스트에 추가하기</span></div><div onclick='SongAddInQ(\""+songUri+"\")'><span>재생목록에 추가하기</span></div>";
+		 newDiv.innerHTML = "<div onclick='SongAddPO(event,\""+songUri+"\",\""+Songid+"\")'><span>플레이리스트에 추가하기</span></div><div onclick='SongAddInQ(\""+songUri+"\")'><span>재생목록에 추가하기</span></div>";
 		 newDiv.style.left = x + 'px';
 		 newDiv.style.top = y + 'px';
 		 document.body.appendChild(newDiv);
@@ -829,7 +829,7 @@ Button:hover {
 		         } 
 		    }; */
 		};
-	const SongAddInPToggle = (event, songUri, Songid)=>{
+	const SongAddPO = (event, songUri, Songid)=>{
 		var Url="https://api.spotify.com/v1/me/playlists"
 		fetch(Url,{
 			method: 'GET',
@@ -844,9 +844,9 @@ Button:hover {
 				   return response.json();
 				 })
 				 .then(data => {
-		var SongAddInPToggleDiv = document.getElementById('SongAddInPToggle')
-		if (SongAddInPToggleDiv){
-			document.body.removeChild(SongAddInPToggleDiv)
+		var Div = document.getElementById('')
+		if (Div){
+			document.body.removeChild(Div)
 		}else{
 			var x = event.clientX;
 			 var y = event.clientY;
@@ -1047,7 +1047,7 @@ Button:hover {
 		const url = 'https://api.spotify.com/v1/users/'+"<%=user.getId()%>"+'/playlists';
 		var name;
 		if(document.getElementById('CInputPL').value==null){
-			name = "내 플레이리스트"
+			name = "My Playlist"
 	        document.body.removeChild(CInputPLDiv);
 		}else{
 			name = document.getElementById('CInputPL').value
@@ -1084,7 +1084,34 @@ Button:hover {
 						MyPlaylist.append(temp);
 						var CInputPLDiv = document.getElementById('CInputPLDiv');
 						document.body.removeChild(CInputPLDiv);
-		  //만든 데이터를 db에 전송
+		  //만든 데이터를 db에 전송data.id
+						var xhr = new XMLHttpRequest();
+					    var url = 'CreatePLCon';  // 서블릿 URL
+					    var params = 'PL_ID=' + encodeURIComponent(data.id) + '&PL_TITLE=' + encodeURIComponent(data.name);
+					    
+					    xhr.open('POST', url, true);
+					    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+					    xhr.onreadystatechange = function() {
+					        if (xhr.readyState == XMLHttpRequest.DONE) {
+					            if (xhr.status == 200) {
+					                var response = xhr.responseText;
+					                if (response.trim() === 'True') {
+					                    console.log('PL added successfully.');
+					                    // Handle success case here
+					                } else {
+					                    console.log('Failed to add PL');
+					                    // Handle failure case here
+					                }
+					            } else {
+					                console.error('Error:', xhr.status, xhr.statusText);
+					                // Handle other HTTP status codes
+					            }
+					        }
+					    };
+
+					    xhr.send(params);
+					
 		})
 		.catch(error => {
 		  console.error('Error:', error);
@@ -1173,7 +1200,7 @@ Button:hover {
 				        '</div></div>'+
 				    	'<div class="song-album" onclick="SearchP(\''+data.name+'\')"><span>'+data.name+'</span></div>'+
 				    	'<div class="song-addtime"><span>'+data.release_date+'</span></div>'+
-				    	'<div class="song-time"><span>'+msToTime(data.tracks.items[i].duration_ms)+'</span><button onclick="SongAddP(event,\''+data.tracks.items[i].uri+'\')">+</button></div>';
+				    	'<div class="song-time"><span>'+msToTime(data.tracks.items[i].duration_ms)+'</span><button onclick="SongAddP(event,\''+data.tracks.items[i].uri+'\',\''+data.tracks.items[i].id+'\')">+</button></div>';
 				        temp.querySelector('img').addEventListener('click', function() {
 				            ChangeSonginQ(i+1); // 이미 생성된 변수 i를 사용하여 함수 호출
 				        });   

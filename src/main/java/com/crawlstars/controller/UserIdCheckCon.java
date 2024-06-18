@@ -30,6 +30,7 @@ public class UserIdCheckCon extends HttpServlet {
 		String sp_id = user.getId();
 		users CheckId = new usersDAO().CheckId(sp_id);
 		if(CheckId!=null) {
+			session.setAttribute("user", CheckId);
 			response.sendRedirect("Mainpage.jsp");
 		}else {
 			response.sendRedirect("FirstLogin.jsp");

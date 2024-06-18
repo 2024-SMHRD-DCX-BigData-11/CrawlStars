@@ -28,6 +28,18 @@
   	<description></description>
   	<servlet-class>com.crawlstars.controller.GetPLCon</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>CreatePLCon</servlet-name>
+  	<display-name>CreatePLCon</display-name>
+  	<description></description>
+  	<servlet-class>com.crawlstars.controller.CreatePLCon</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>AddReplyCon</servlet-name>
+  	<display-name>AddReplyCon</display-name>
+  	<description></description>
+  	<servlet-class>com.crawlstars.controller.AddReplyCon</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>NickCheckCon</servlet-name>
   	<url-pattern>/NickCheckCon</url-pattern>
@@ -43,5 +55,13 @@
   <servlet-mapping>
   	<servlet-name>GetPLCon</servlet-name>
   	<url-pattern>/GetPLCon</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>CreatePLCon</servlet-name>
+  	<url-pattern>/CreatePLCon</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AddReplyCon</servlet-name>
+  	<url-pattern>/AddReplyCon</url-pattern>
   </servlet-mapping>
 </web-app>
