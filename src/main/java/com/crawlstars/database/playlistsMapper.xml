@@ -6,6 +6,8 @@
 	<insert id="insert" parameterType="com.crawlstars.model.playlists">
      	insert into playlists values(#{pl_id}, #{pl_title}, #{sp_id}, 'O', #{pl_image}, sysdate, '')     	
     </insert>
-
+	<select id="getpl" parameterType="String" resultType="com.crawlstars.model.playlists">
+     	    	
+    </select>
 	
 </mapper>

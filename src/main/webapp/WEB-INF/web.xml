@@ -22,6 +22,12 @@
   	<description></description>
   	<servlet-class>com.crawlstars.controller.insertSonglist</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>GetPLCon</servlet-name>
+  	<display-name>GetPLCon</display-name>
+  	<description></description>
+  	<servlet-class>com.crawlstars.controller.GetPLCon</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>NickCheckCon</servlet-name>
   	<url-pattern>/NickCheckCon</url-pattern>
@@ -33,5 +39,9 @@
   <servlet-mapping>
   	<servlet-name>insertSonglist</servlet-name>
   	<url-pattern>/insertSonglist</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>GetPLCon</servlet-name>
+  	<url-pattern>/GetPLCon</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -65,9 +65,6 @@ public class callback extends HttpServlet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		// 나중에 user-ID DB유무에 따라서 sendRedirect로 보내줌 
-		out.println("<a href='Mainpage.jsp'>메인페이지</a><br>");
-		out.println("<a href='FirstLogin.jsp'>처음로그인</a><br>");
 		out.print("</body>");
 
 		out.print("</html>");

@@ -29,7 +29,7 @@ public class insertSonglist extends HttpServlet {
 		HttpSession session = request.getSession();
 		SpotifyApi spotifyApi = (SpotifyApi) session.getAttribute("spotifyApi");
 		String pl_id = request.getParameter("PL_ID");
-		String track_id = request.getParameter("PL_ID");
+		String track_id = request.getParameter("track_id");
 		PrintWriter out =  response.getWriter();
 		GetTrackRequest getTrackRequest = spotifyApi.getTrack(track_id).build();
 		try {

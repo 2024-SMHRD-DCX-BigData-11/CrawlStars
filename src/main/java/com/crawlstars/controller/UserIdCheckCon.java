@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.hc.core5.http.ParseException;
 
+import com.crawlstars.model.users;
 import com.crawlstars.model.usersDAO;
 
 import se.michaelthelin.spotify.SpotifyApi;
@@ -27,8 +28,9 @@ public class UserIdCheckCon extends HttpServlet {
        try {
 		User user = getCurrentUsersProfileRequest.execute();
 		String sp_id = user.getId();
-		boolean CheckId = new usersDAO().CheckId(sp_id);
-		if(CheckId) {
+		users CheckId = new usersDAO().CheckId(sp_id);
+		System.out.println(CheckId.toString());
+		if(CheckId!=null) {
 			response.sendRedirect("Mainpage.jsp");
 		}else {
 			response.sendRedirect("FirstLogin.jsp");

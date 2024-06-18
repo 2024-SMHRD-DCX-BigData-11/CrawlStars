@@ -815,7 +815,7 @@ Button:hover {
 			 newDiv.id = 'SongAddPDiv';
 			 if(data.total!=0){
 			 for(i=0;i<data.total;i++){
-			 newDiv.innerHTML = newDiv.innerHTML + "<div onclick='SongAddInP(\""+songUri+"\",\""+data.items[i].id+"\")'>"
+			 newDiv.innerHTML = newDiv.innerHTML + "<div onclick='SongAddInP(\""+songUri+"\",\""+data.items[i].id+"\",\""+Songid+"\")'>"
 			 +"<span>"+data.items[i].name+"</span>"
 			 }
 			 }else{
@@ -852,7 +852,7 @@ Button:hover {
 		})
 		
 		
-	const SongAddInP = (songUri, playlistId)=>{
+	const SongAddInP = (songUri, playlistId, Songid)=>{
 		var apiUrl = "https://api.spotify.com/v1/playlists/"+playlistId+"/tracks";
 		const postData = {
 			    uris: [songUri], // 예시로 사용할 트랙 URI
@@ -874,7 +874,7 @@ Button:hover {
 		})
 		.then(data => {
 		    console.log('Successfully added track:', data);
-		    addSongToPlaylist(,playlistId)
+		    addSongToPlaylist(Songid,playlistId)
 		})
 		.catch(error => {
 		    console.error('Error adding track:', error);

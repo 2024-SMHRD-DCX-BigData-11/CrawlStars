@@ -17,4 +17,11 @@ public class playlistsDAO {
 		return cnt;
 	}
 
+	public playlists getpl(String pl_id) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		playlists playlist = session.selectOne("com.crawlstars.database.playlistsMapper.getpl", pl_id);
+		session.close();
+		return playlist;
+	}
+
 }

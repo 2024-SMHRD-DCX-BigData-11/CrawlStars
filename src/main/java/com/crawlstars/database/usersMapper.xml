@@ -13,11 +13,8 @@
 			end result
 		from users where nick=#{nick}
 	</select>
-	<select id="idCheck" parameterType="String" resultType="boolean">
-		select case when count(*)>0 then 1
-			else 0
-			end result
-		from users where sp_id=#{sp_id}
+	<select id="idCheck" parameterType="String" resultType="users">
+		select * from users where sp_id=#{sp_id}
 	</select>
 	
 </mapper>
