@@ -79,10 +79,12 @@ float:left;
 
 .stub_box{ /*플레이리스트 div태그를 감싸주는 태그.*/
 	margin-top : 20px;
+	margin-left : 10px;
+	margin-right : 10px;
     padding-top: 20px;
     padding-left:40px;
     padding-bottom:20px;
-    width: 100%;
+    width: 98%;
 	float: center;
 	background-color: rgb(18, 18, 18);
 	
@@ -118,7 +120,10 @@ float:left;
         background-color: #181818;
 
     }
+</style>
 
+
+<style>
 /* 게시물 업로드 팝업 */
 .popup-container {
     display: none;
@@ -139,9 +144,10 @@ float:left;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    max-width: 700px;
+    max-width: 800px;
     text-align: center;
     color: #fff;
+    z-index: 1;
 }
 
 .close-btn {
@@ -155,14 +161,24 @@ float:left;
  text-align: left;
 }
 .post_input{
-	width:300px;
+	width:400px;
 	float: right;
+	background-color: #BCC6CC;
+	border: none;
+		
 }
+#name_input{
+
+	background-color: #BCC6CC;
+	border: none;
+}
+
 #input_content{
 width: 400px;
-height: 200px;
+height: 150px;
 resize: none;
-
+	background-color: #BCC6CC;
+	border: none;
 }
 .post_button{
 	background-color: #181818;
@@ -172,12 +188,63 @@ resize: none;
 .post_button:hover{
 	background-color: #ED1C24;
 }
-#postimg{
-	width: 100px;
-	height: 100px;
+#preview img{
+	width: 150px;
+	height: 150px;
 	float: left;
 }
+.post_musiclist{
+	background-color:#BCC6CC; 
+}
+
 </style>
+<style>
+/*마이포스트 게시물 팝업창*/
+.post-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    
+}
+
+.postup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #181818;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    text-align: center;
+    color: #fff;
+}
+
+#posted_img{
+	width: 150px;
+	height: 150px;
+	vertical-align: left;
+}
+</style>
+<style>
+/* 마이포스트 버튼토글 */
+
+#setting{
+	padding : 20px;
+    width: 40%;
+    position: fixed;
+    display: none;
+    background-color: #181818;
+    top: 109px;
+    right: 250px;
+}
+</style>
+
 <!-- 음악플레이어를 위한 css -->
 <style>
 
@@ -418,6 +485,7 @@ Button:hover {
 	margin-right: 5px;
 }
 </style>
+
 </head>
 <body>
 
@@ -467,15 +535,13 @@ Playlist playlist =  getPlaylistRequest.execute();
 New Post
 </label>
  </button>
-
- 
-<button style="height: 30px;"><!-- My Post -->
+<button onclick="openSetting()" style="height: 30px;"><!-- My Post -->
 <label>
 My Post
 </label>
 </button>
-</div>
 
+</div>
 
 
 <br>
@@ -590,6 +656,13 @@ My Post
 
 </div>
 
+<!-- 마이포스트 토글창 -->
+  <div id="setting">
+        <a type="button" id="showPost">
+        	 <div>NEW 리스트</div>   
+        </a>
+        </div>
+
 <!-- 새로운 포스트 작성 팝업창 -->
 <div id="popupContainer" class="popup-container">
 <form action="" method="post">
@@ -597,31 +670,38 @@ My Post
 	<span id="closePopup" class="close-btn">×</span>
 	<div id = "post_content">
 				<table id="post_upload">
-					<tr><td>새로운 게시물 작성</td></tr>
-					<tr><td>앨범 이미지</td></tr>
-					<!--<tr><td>
-					<img id="postimg" alt="" src="images/플리픽도안2.png"> 
-					</td></tr>-->
 					<tr>
-						<td colspan="2">
-							<input id="filename" type="file" style="float: left;">
-						</td>
+					<td colspan="2"> <img alt="" src="images/플리픽 로고1.png" style="height: 25px; margin-right: 10px;">새로운 게시물 작성</td>
 					</tr>
 					<tr>
-						<td>곡명<input type="text" class="post_input"> </td>					
-						</tr>
-					<tr>
-
-						<td>아티스트 <input type="text" class ="post_input"> </td>
+					<td>플레이리스트 제목</td>
 					</tr>
-					<tr>
-						<td colspan="2">설명</td>
+					<tr><td><input type="text" id="name_input"></td> </tr>
+					<tr><td>첨부 이미지</td>
+						<td>내용</td>
 					</tr>
-					<tr>
-					<td>
-					<textarea id="input_content" ></textarea>
+					<tr><td>
+					<div id="preview"></div>
 					</td>
+					<td><textarea id="input_content"  style="float:left"></textarea></td>
 					</tr>
+					<tr>
+						<td>
+							<input id="imgfile" type="file" accept="img/*" style="float: left;">
+						</td>
+						<td>해시태그 추가</td>
+					</tr>
+					<tr>
+					<td></td>
+					<td><input type="text" class="post_input"></td>
+					</tr>
+					<tr>
+					<td colspan="2">재생 목록</td>
+					
+					</tr>
+					<tr><td colspan="2" class="post_musiclist"> &ensp;</td></tr>
+					<tr><td colspan="2"	class="post_musiclist"> &ensp;</td></tr>
+					<tr><td colspan="2" class="post_musiclist"> &ensp;</td></tr>
 					<tr>
 						<td colspan="2">
 							<input type="reset" value="초기화" class="post_button">
@@ -634,6 +714,80 @@ My Post
  </form>
 </div>
 
+
+<!-- 마이포스트 작성된글 -->
+<div id="postContainer" class="post-container">
+<form action="" method="post">
+	<div class="postup">
+	<span id="closePost" class="close-btn">×</span>
+	<div id = "post_content">
+				<table id="post_upload">
+					<tr>
+					<td colspan="2"> 
+					<img alt="" src="images/플리픽 로고1.png" style="height: 25px; margin-right: 10px;">
+					<div style="display: inline-block; width: 400px; margin-left: 15px;">제목</div></td>
+					</tr>
+					<tr>
+					<td><div>
+					<img alt="" src="images/플리픽도안2.png" id="posted_img">
+					</div></td>
+					<td><div style="width: 400px;">
+					내용
+					</div></td>
+					</tr>
+					<tr>
+					<td><div>
+					#해시태그
+					</div> </td>
+					</tr>
+					<tr>
+					<td colspan="2">재생 목록</td>
+					
+					</tr>
+					<tr><td colspan="2" class="post_musiclist"> &ensp;</td></tr>
+					<tr><td colspan="2"	class="post_musiclist"> &ensp;</td></tr>
+					<tr><td colspan="2" class="post_musiclist"> &ensp;</td></tr>
+				</table>
+	</div>
+ </div>
+ </form>
+</div>
+
+<script>
+// 마이 포스트 토글창 
+function openSetting(){
+    if(document.getElementById('setting').style.display==='block'){
+        document.getElementById('setting').style.display='none';
+    }else{
+        document.getElementById('setting').style.display='block';
+    }
+}
+
+
+</script>
+
+<script>
+// 게시물 작성 팝업 이미지 미리보기
+        document.getElementById('imgfile').addEventListener('change',function(event) {
+            var files = event.target.files;
+            if(files && files[0]){
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+
+                    var imgelement = document.createElement('img');
+                    imgelement.src = e.target.result;
+                    imgelement.alt = "Upload Image";
+
+                    var previewContainer = document.getElementById('preview');
+                    previewContainer.innerHTML = '';
+                    previewContainer.appendChild(imgelement);
+                };
+
+                reader.readAsDataURL(files[0]);
+            }
+        });      
+</script>
 
 <script>
    // 게시물 작성 팝업 JS
@@ -649,7 +803,20 @@ My Post
     
 </script>
 
+<script>
+   // 게시물 조회 팝업 JS
+ // 레이어 팝업 열기
+    document.getElementById('showPost').addEventListener('click', function() {
+        document.getElementById('postContainer').style.display = 'block';
+    });
 
+    // 레이어 팝업 닫기
+    document.getElementById('closePost').addEventListener('click', function() {
+        document.getElementById('postContainer').style.display = 'none';
+    });
+    
+    
+</script>
 
 
 
