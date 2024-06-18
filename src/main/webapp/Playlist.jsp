@@ -529,6 +529,7 @@ Button:hover {
 	AuthorizationCodeRefreshRequest authorizationCodeRefreshRequest = spotifyApi.authorizationCodeRefresh()
 		    .build();
 	AuthorizationCodeCredentials authorizationCodeCredentials = authorizationCodeRefreshRequest.execute();
+	spotifyApi.setAccessToken(authorizationCodeCredentials.getAccessToken());
 	session.setAttribute("spotifyApi", spotifyApi);
 
 
@@ -789,7 +790,45 @@ Button:hover {
 
 		    xhr.send(params);
 		}
+	  const getPL =  (pl_id) => {
+		    var xhr = new XMLHttpRequest();
+		    console.log('데이터',pl_id)
+		    var url = 'GetPLCon?PL_ID='+encodeURIComponent(pl_id);  // 서블릿 URL
+		    
+		    
 
+		    // 클로저 활용
+		    let responseData = 2;  // 외부에서 접근할 데이터 변수
+		    return new Promise((resolve, reject) => {
+		    xhr.onreadystatechange =   function() {
+		        if (xhr.readyState == XMLHttpRequest.DONE) {
+		            if (xhr.status == 200) {
+		                var response = xhr.responseText;
+		                responseData = JSON.parse(response);
+		                resolve(responseData);
+		               	console.log("비동기",responseData)              // 여기서 다른 작업 수행 가능
+		            } else {
+		                console.error('Error:', xhr.status, xhr.statusText);
+		                console.log('에러')
+		                // Handle other HTTP status codes
+		            }
+		        }
+		    };
+		    xhr.open('GET', url, true);
+		    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		    xhr.send();
+		    })
+		    
+
+		    // 클로저를 통해 외부에서 접근 가능한 데이터 반환
+		    
+		   /*  return {
+		        getData: function() {
+		        	
+		           responseData
+		         } 
+		    }; */
+		};
 	const SongAddInPToggle = (event, songUri, Songid)=>{
 		var Url="https://api.spotify.com/v1/me/playlists"
 		fetch(Url,{
@@ -900,10 +939,9 @@ Button:hover {
 	    return minutes + ':' + seconds;
 	}
 	const PlaylistDetail = document.getElementsByClassName("PlaylistDetail")[0]
-	const DetailP = (id) =>{
+	const DetailP =  (id) =>{
 		var url = "https://api.spotify.com/v1/playlists/"+id
-		console.log(url);
-		fetch(url, {
+		 fetch(url, {
 			   method: 'GET',
 			   headers: {
 			     'Authorization': `Bearer <%=spotifyApi.getAccessToken()%>`
@@ -916,10 +954,13 @@ Button:hover {
 			   return response.json();
 			 })
 			 .then(data => {
-			   console.log(data); // 응답 데이터를 콘솔에 출력하거나 필요한 처리를 수행합니다.
 			   PlaylistDetail.replaceChildren();
-			   if(data.tracks.total != 0){
-				    console.log(data)
+			   console.log('데이터1',data.id)
+			   
+			   var dbPLdata =  getPL(data.id).then(result => console.log('넘어온 데이터 ', result))
+			   
+			   
+			   if(data.tracks.total	 != 0){
 				    	var plInfoImg = data.images[0].url
 				    }else{
 				    	var plInfoImg = "images/플리픽도안2.png"
