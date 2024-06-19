@@ -107,7 +107,7 @@ float:left;
 .search-input {
         border-radius: 20px;
         padding: 10px;
-        
+        color:white;
         border-width:2px;
         border-color: grey;
         width: 400px;
@@ -167,8 +167,18 @@ float:left;
 	border: none;
 		
 }
-#name_input{
+.post_musicsearch{
+	width:400px;
+	float: right;
+	background-color: #BCC6CC;
+	border: none;
+	background-image: url('images/SearchQ.png');
+	background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 20px 20px;
+}
 
+.leftinput{
 	background-color: #BCC6CC;
 	border: none;
 }
@@ -218,16 +228,17 @@ resize: none;
     transform: translate(-50%, -50%);
     background-color: #181818;
     padding: 20px;
+    padding-top : 40px;
     border-radius: 5px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    max-width: 800px;
+    max-width: 1500px;
     text-align: center;
     color: #fff;
 }
 
 #posted_img{
-	width: 150px;
-	height: 150px;
+	width: 300px;
+	height: 300px;
 	vertical-align: left;
 }
 </style>
@@ -657,12 +668,13 @@ My Post
 </div>
 
 <!-- 마이포스트 토글창 -->
+ 
   <div id="setting">
         <a type="button" id="showPost">
         	 <div>NEW 리스트</div>   
         </a>
         </div>
-
+	
 <!-- 새로운 포스트 작성 팝업창 -->
 <div id="popupContainer" class="popup-container">
 <form action="" method="post">
@@ -676,7 +688,7 @@ My Post
 					<tr>
 					<td>플레이리스트 제목</td>
 					</tr>
-					<tr><td><input type="text" id="name_input"></td> </tr>
+					<tr><td><input type="text" class="leftinput"></td> </tr>
 					<tr><td>첨부 이미지</td>
 						<td>내용</td>
 					</tr>
@@ -696,8 +708,8 @@ My Post
 					<td><input type="text" class="post_input"></td>
 					</tr>
 					<tr>
-					<td colspan="2">재생 목록</td>
-					
+					<td>재생 목록 추가</td>
+					<td><input type="text" placeholder="검색어를 입력하세요..." class="post_musicsearch"></td>
 					</tr>
 					<tr><td colspan="2" class="post_musiclist"> &ensp;</td></tr>
 					<tr><td colspan="2"	class="post_musiclist"> &ensp;</td></tr>
@@ -721,33 +733,19 @@ My Post
 	<div class="postup">
 	<span id="closePost" class="close-btn">×</span>
 	<div id = "post_content">
-				<table id="post_upload">
-					<tr>
-					<td colspan="2"> 
-					<img alt="" src="images/플리픽 로고1.png" style="height: 25px; margin-right: 10px;">
-					<div style="display: inline-block; width: 400px; margin-left: 15px;">제목</div></td>
-					</tr>
-					<tr>
-					<td><div>
+					<img alt="" src="images/플리픽 로고1.png" style="width:250px; margin-left: 30px">
+					<div style="display: inline-block; width: 400px; margin-left: 15px;">제목</div>
+					<div style="display: flex">
+					<div>
 					<img alt="" src="images/플리픽도안2.png" id="posted_img">
-					</div></td>
-					<td><div style="width: 400px;">
-					내용
-					</div></td>
-					</tr>
-					<tr>
-					<td><div>
+					</div>
+					<div>
+					<div style="width: 500px; height: 200px; padding-top: 30px; ">내용</div>
+					<div>
 					#해시태그
-					</div> </td>
-					</tr>
-					<tr>
-					<td colspan="2">재생 목록</td>
-					
-					</tr>
-					<tr><td colspan="2" class="post_musiclist"> &ensp;</td></tr>
-					<tr><td colspan="2"	class="post_musiclist"> &ensp;</td></tr>
-					<tr><td colspan="2" class="post_musiclist"> &ensp;</td></tr>
-				</table>
+					</div> 
+					</div>
+					</div>
 	</div>
  </div>
  </form>
@@ -762,7 +760,6 @@ function openSetting(){
         document.getElementById('setting').style.display='block';
     }
 }
-
 
 </script>
 
