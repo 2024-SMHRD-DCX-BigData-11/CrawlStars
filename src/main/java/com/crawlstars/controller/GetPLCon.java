@@ -25,10 +25,9 @@ public class GetPLCon extends HttpServlet {
         HttpSession session = request.getSession();
         SpotifyApi spotifyApi = (SpotifyApi) session.getAttribute("spotifyApi");
         playlists playlist = new playlistsDAO().getpl(pl_id);
-        System.out.println(playlist.toString());
         // Gson 객체 생성
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
+        System.out.println(playlist.toString());
         // playlists 객체를 JSON으로 변환
         String jsonPlaylist = gson.toJson(playlist);
 

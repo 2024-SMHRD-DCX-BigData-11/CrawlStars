@@ -535,6 +535,10 @@ Button:hover {
 
 	
 	%>
+		<%
+	GetCurrentUsersProfileRequest getcurrentusersprofile= spotifyApi.getCurrentUsersProfile().build();
+	User user= getcurrentusersprofile.execute();
+	%>
 	<!-- header -->
 	<header>
 		<!-- 나중에 적절한 이미지로 교체 -->
@@ -956,125 +960,140 @@ Button:hover {
 			 .then(data => {
 			   PlaylistDetail.replaceChildren();
 			   console.log('데이터1',data.id)
-			   var plypickPl="";
-			   var dbPLdata =  getPL(data.id).then(result => 
-			   console.log('넘어온 데이터 ', result)
-			   if(result.pl_id==data.id){
-				  plypickPl= '<div class="pl-detail-name"><h1>'+data.name+'</h1><button>Like</button><div>'+
-			    	'<div class="pl-detail-owner"><span>'+data.owner.display_name+'</span><button>Like</button></div>'
-			   }else{
-				 plypickPl='<div class="pl-detail-name"><h1>'+data.name+'</h1><div>'+
-			    	'<div class="pl-detail-owner"><span>'+data.owner.display_name+'</span></div>'
-			   }
-			   )
-			   
-			   
+			   var h = 1;
 			   if(data.tracks.total	 != 0){
-				    	var plInfoImg = data.images[0].url
-				    }else{
-				    	var plInfoImg = "images/플리픽도안2.png"
-				    }
-				    	var temp = document.createElement("div");
-				    	temp.className = "pl-info"
-				    	temp.innerHTML = "<div>"+
-				    	'<img class="plInfoImg" src="'+plInfoImg+'"></div>'+
-				    	'<div class="pl-detail-info"><div class="pl-detail-type"><span>플레이리스트</span></div>'+
-				    	plypickPl+
-				    	'</div>';
-				    	PlaylistDetail.append(temp);
-				    	temp = document.createElement("hr");
-				    	PlaylistDetail.append(temp);
-				    	temp = document.createElement("div");
-				    	temp.className = "Song-info"
-				    	temp.innerHTML = 
-				    	'<div class="song-num">'+
-				    	'<span>#</span></div>'+
-				    	'<div class="song-name"><span>제목</span></div>'+
-				    	'<div class="song-album"><span>앨범</span></div>'+
-				    	'<div class="song-addtime"><span>추가한날짜</span></div>'+
-				    	'<div class="song-time"><span>time</span></div>';
-				    	PlaylistDetail.append(temp);
-				    	temp = document.createElement("hr");
-				    	PlaylistDetail.append(temp);
-				        for(let i = 0; i < data.tracks.total; i++){
-				        	var songsinger=data.tracks.items[i].track.artists[0].name
-				        	for(let j =1; j<data.tracks.items[i].track.artists.length;j++){
-				        		songsinger=songsinger+","+data.tracks.items[i].track.artists[j].name
-				        	}
-				        temp = document.createElement("div");
-				        temp.className = "Song-info"
-				        temp.innerHTML = 
-				    	'<div class="song-num">'+
-				    	'<span>'+(i+1)+'</span></div>'+
-				    	'<div class="song-name">'+
-				    	'<div class="first-first">' +
-				        '<img class="nextAlbum" src="' + data.tracks.items[i].track.album.images[2].url + 
-				        '">' +
-				        '</div>' +
-				        '<div class="first-second">' +
-				            '<span onclick="SearchP(\''+data.tracks.items[i].track.name+'\')">' + data.tracks.items[i].track.name + '</span><br>' +
-				            '<span onclick="SearchP(\''+songsinger+'\')">' + songsinger + '</span>' +
-				        '</div></div>'+
-				    	'<div class="song-album" onclick="DetailA(\''+data.tracks.items[i].track.album.id+'\')"><span>'+data.tracks.items[i].track.album.name+'</span></div>'+
-				    	'<div class="song-addtime"><span>'+data.tracks.items[i].added_at.substr(0,10)+'</span></div>'+
-				    	'<div class="song-time"><span>'+msToTime(data.tracks.items[i].track.duration_ms)+'</span><button onclick="SongAddP(event,\''+data.tracks.items[i].track.uri+'\',\''+data.tracks.items[i].track.id+'\')">+</button></div>';
-				        temp.querySelector('img').addEventListener('click', function() {
-				            ChangeSonginQ(i+1); // 이미 생성된 변수 i를 사용하여 함수 호출
-				        });
-				        
-				        PlaylistDetail.append(temp); 
-				    }
-				        if(result.pl_id==data.id){
-				        	var xhr = new XMLHttpRequest();
-						    var url = 'GetPLCon?PL_ID='+encodeURIComponent(result.pl_id);  // 서블릿 URL
-				        temp = document.createElement("hr");
-				    	PlaylistDetail.append(temp);
-				    	temp = document.createElement("div");
-				    	temp.className="Pl-reply"
-				    	temp.innerHTML = 
-				    		'<div class="pl-reply-num"><span>#</span></div>'+
-				    		'<div class="pl-reply-owner"><span>이름</span></div>'+
-				    		'<div class="pl-reply-content"></div>'+
-				    		'<div class="pl-reply-hashtag"><span>hashtag<span></div>'
-				    	PlaylistDetail.append(temp);
-				    	temp = document.createElement("hr");
-				    	PlaylistDetail.append(temp);
-						    xhr.onreadystatechange =   function() {
-						        if (xhr.readyState == XMLHttpRequest.DONE) {
-						            if (xhr.status == 200) {
-						                var response = xhr.responseText;
-						                responseData = JSON.parse(response);
-						                resolve(responseData);
-						               	console.log("비동기",responseData)              // 여기서 다른 작업 수행 가능
-						            } else {
-						                console.error('Error:', xhr.status, xhr.statusText);
-						                console.log('에러')
-						                // Handle other HTTP status codes
-						            }
-						        }
-						    };
-						    xhr.open('GET', url, true);
-						    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-						    xhr.send();
-
-				        	
-				        	
-				        	
-				    	//리플내용달기
-				    	temp = document.createElement("div");
-				    	temp.id="Pl-reply-input"
-				    	temp.innerHTML=
-				    		'<input id="pl-reply-input" type="text"><button onclick="InsertPlreply(\''+data.id+'\')">제출</button>'
-				    	PlaylistDetail.append(temp);}
-			 })
+			    	var plInfoImg = data.images[0].url
+			    }else{
+			    	var plInfoImg = "images/플리픽도안2.png"
+			    }
+			   var temp = document.createElement("div");
+		    	temp.className = "pl-info"
+		    	temp.innerHTML = "<div>"+
+		    	'<img class="plInfoImg" src="'+plInfoImg+'"></div>'+
+		    	'<div class="pl-detail-info"><div class="pl-detail-type"><span>플레이리스트</span></div>'+
+		    	'<div class="pl-detail-name"><h1>'+data.name+'</h1><div>'+
+		    	'<div class="pl-detail-owner"><span>'+data.owner.display_name+'</span></div>'+
+		    	'</div>';
+		    	PlaylistDetail.append(temp);
+		    	temp = document.createElement("hr");
+		    	PlaylistDetail.append(temp);
+		    	temp = document.createElement("div");
+		    	temp.className = "Song-info"
+		    	temp.innerHTML = 
+		    	'<div class="song-num">'+
+		    	'<span>#</span></div>'+
+		    	'<div class="song-name"><span>제목</span></div>'+
+		    	'<div class="song-album"><span>앨범</span></div>'+
+		    	'<div class="song-addtime"><span>추가한날짜</span></div>'+
+		    	'<div class="song-time"><span>time</span></div>';
+		    	PlaylistDetail.append(temp);
+		    	temp = document.createElement("hr");
+		    	PlaylistDetail.append(temp);
+		        for(let i = 0; i < data.tracks.total; i++){
+		        	var songsinger=data.tracks.items[i].track.artists[0].name
+		        	for(let j =1; j<data.tracks.items[i].track.artists.length;j++){
+		        		songsinger=songsinger+","+data.tracks.items[i].track.artists[j].name
+		        	}
+		        temp = document.createElement("div");
+		        temp.className = "Song-info"
+		        temp.innerHTML = 
+		    	'<div class="song-num">'+
+		    	'<span>'+(i+1)+'</span></div>'+
+		    	'<div class="song-name">'+
+		    	'<div class="first-first">' +
+		        '<img class="nextAlbum" src="' + data.tracks.items[i].track.album.images[2].url + 
+		        '">' +
+		        '</div>' +
+		        '<div class="first-second">' +
+		            '<span onclick="SearchP(\''+data.tracks.items[i].track.name+'\')">' + data.tracks.items[i].track.name + '</span><br>' +
+		            '<span onclick="SearchP(\''+songsinger+'\')">' + songsinger + '</span>' +
+		        '</div></div>'+
+		    	'<div class="song-album" onclick="DetailA(\''+data.tracks.items[i].track.album.id+'\')"><span>'+data.tracks.items[i].track.album.name+'</span></div>'+
+		    	'<div class="song-addtime"><span>'+data.tracks.items[i].added_at.substr(0,10)+'</span></div>'+
+		    	'<div class="song-time"><span>'+msToTime(data.tracks.items[i].track.duration_ms)+'</span><button onclick="SongAddP(event,\''+data.tracks.items[i].track.uri+'\',\''+data.tracks.items[i].track.id+'\')">+</button></div>';
+		        temp.querySelector('img').addEventListener('click', function() {
+		            ChangeSonginQ(i+1); // 이미 생성된 변수 i를 사용하여 함수 호출
+		        });
+		        PlaylistDetail.append(temp); 
+			   var dbPLdata =  getPL(data.id).then(result => {
+			   console.log('넘어온 데이터 ', result);
+			   PlaylistDetail.replaceChildren();
+				   var temp = document.createElement("div");
+			    	temp.className = "pl-info"
+			    	temp.innerHTML = "<div>"+
+			    	'<img class="plInfoImg" src="'+plInfoImg+'"></div>'+
+			    	'<div class="pl-detail-info"><div class="pl-detail-type"><span>플레이리스트</span></div>'+
+			    	'<div class="pl-detail-name"><h1>'+data.name+'</h1><button>Like</button><div>'+
+			    	'<div class="pl-detail-owner"><span>'+result.sp_id+'</span><button>Like</button></div>'+
+			    	'</div>';
+			    	PlaylistDetail.append(temp);
+			    	temp = document.createElement("hr");
+			    	PlaylistDetail.append(temp);
+			    	temp = document.createElement("div");
+			    	temp.className = "Song-info"
+			    	temp.innerHTML = 
+			    	'<div class="song-num">'+
+			    	'<span>#</span></div>'+
+			    	'<div class="song-name"><span>제목</span></div>'+
+			    	'<div class="song-album"><span>앨범</span></div>'+
+			    	'<div class="song-addtime"><span>추가한날짜</span></div>'+
+			    	'<div class="song-time"><span>time</span></div>';
+			    	PlaylistDetail.append(temp);
+			    	temp = document.createElement("hr");
+			    	PlaylistDetail.append(temp);
+			        for(let i = 0; i < data.tracks.total; i++){
+			        	var songsinger=data.tracks.items[i].track.artists[0].name
+			        	for(let j =1; j<data.tracks.items[i].track.artists.length;j++){
+			        		songsinger=songsinger+","+data.tracks.items[i].track.artists[j].name
+			        	}
+			        temp = document.createElement("div");
+			        temp.className = "Song-info"
+			        temp.innerHTML = 
+			    	'<div class="song-num">'+
+			    	'<span>'+(i+1)+'</span></div>'+
+			    	'<div class="song-name">'+
+			    	'<div class="first-first">' +
+			        '<img class="nextAlbum" src="' + data.tracks.items[i].track.album.images[2].url + 
+			        '">' +
+			        '</div>' +
+			        '<div class="first-second">' +
+			            '<span onclick="SearchP(\''+data.tracks.items[i].track.name+'\')">' + data.tracks.items[i].track.name + '</span><br>' +
+			            '<span onclick="SearchP(\''+songsinger+'\')">' + songsinger + '</span>' +
+			        '</div></div>'+
+			    	'<div class="song-album" onclick="DetailA(\''+data.tracks.items[i].track.album.id+'\')"><span>'+data.tracks.items[i].track.album.name+'</span></div>'+
+			    	'<div class="song-addtime"><span>'+data.tracks.items[i].added_at.substr(0,10)+'</span></div>'+
+			    	'<div class="song-time"><span>'+msToTime(data.tracks.items[i].track.duration_ms)+'</span><button onclick="SongAddP(event,\''+data.tracks.items[i].track.uri+'\',\''+data.tracks.items[i].track.id+'\')">+</button></div>';
+			        temp.querySelector('img').addEventListener('click', function() {
+			            ChangeSonginQ(i+1); // 이미 생성된 변수 i를 사용하여 함수 호출
+			        })};
+			        PlaylistDetail.append(temp); 
+			        temp = document.createElement("hr");
+			    	PlaylistDetail.append(temp);
+			    	temp = document.createElement("div");
+			    	temp.className="Pl-reply"
+			    	temp.innerHTML = 
+			    		'<div class="pl-reply-num"><span>#</span></div>'+
+			    		'<div class="pl-reply-owner"><span>이름</span></div>'+
+			    		'<div class="pl-reply-content"></div>'+
+			    		'<div class="pl-reply-hashtag"><span>hashtag<span></div>'
+			    	PlaylistDetail.append(temp);
+			    	temp = document.createElement("hr");
+			    	PlaylistDetail.append(temp);	
+			    	//리플내용달기
+			    	temp = document.createElement("div");
+			    	temp.id="Pl-reply-input"
+			    	temp.innerHTML=
+			    		'<input id="pl-reply-input" type="text"><button onclick="InsertPlreply(\''+data.id+'\')">제출</button>'
+			    	PlaylistDetail.append(temp);
+			    	h = 0;
+			    })
+			    }
+			    })
 			 .catch(error => {
 			   console.error('There was a problem with your fetch operation:', error);
 			 });
 	}
-	<%
-	GetCurrentUsersProfileRequest getcurrentusersprofile= spotifyApi.getCurrentUsersProfile().build();
-	User user= getcurrentusersprofile.execute();
-	%>
+
 	 const CreateP=()=>{
 		const url = 'https://api.spotify.com/v1/users/'+"<%=user.getId()%>"+'/playlists';
 		var name;

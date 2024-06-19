@@ -23,4 +23,5 @@ private String PL_REPLY_CONTENT;
 private String REPLIED_AT;
 @NonNull
 private String SP_ID;
+private String hashtag;
 }
