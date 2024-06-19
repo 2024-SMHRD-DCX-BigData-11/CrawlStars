@@ -567,6 +567,9 @@ Button:hover {
 	float: right;
 }
 
+#SC_FLlist_content_BlockCancel_Button{
+	float: right;
+}
 
 
 </style>
@@ -867,7 +870,6 @@ User user = getCurrentUsersProfileRequest.execute(); %>
 <%
 String follower = user.getId();
 List<follows> followees = new followsDAO().getFollowees(follower);
-
 %>
 
 	<ul class="SC_FLlist_content">
@@ -909,15 +911,16 @@ List<follows> followers = new followsDAO().getFollowers(followee);
 <div class="SC_BlockList" id="SC_BlockList" style="display: none;">
 <%
 String myuser = user.getId();
-List<blocks> blocks = new blocksDAO().getBlockuers(myuser);
+List<blocks> blocks = new blocksDAO().getBlockusers(myuser);
 %>
-
 	<ul class="SC_FLlist_content">
 	<% if(blocks != null){
 		for(int i=0; i<blocks.size(); i++){ %>
 		<li><img src="./ProfileImg/defaultmp.png" width="40px" style="border-radius:50%;">
 		<%-- <img src="<%=user.getImages() %>" width="40px"> --%>
 		<span id="SC_FLlist_content_FLName"><%=new blocksDAO().getNickByBlockuserId(myuser) %></span>
+		<button id="SC_FLlist_content_BlockCancel_Button" onclick="blockCancel('<%=myuser %>', '<%=blocks.get(i).getBlock_sp_id() %>')">
+		<img src="./images/X버튼.png" width="15px" height="15px"></button>
 		</li>
 		
  	<% }
@@ -983,8 +986,33 @@ function followCancel(follower, followee){
             console.error('팔로우 취소 실패', error);
         }
     });
-	alert("팔로우를 취소했습니다.");
+	alert("팔로우를 취소하였습니다.");
 	location.reload();
+	
+}
+
+function blockCancel(blockuser, myuser){
+	$.ajax({
+        url: 'BlockCancelController',
+        
+        data: {
+        	blockuser: blockuser
+        	myuser: myuser,
+        },
+        type: 'POST',
+        
+        success: function(response) {
+            // 성공적으로 팔로우가 취소되었을 때의 처리
+            console.log('블락 취소 성공', response);
+        },
+        error: function(error) {
+            // 팔로우 취소 실패 시 처리
+            console.error('블락 취소 실패', error);
+        }
+    });
+	alert("블락을 취소하였습니다.");
+	location.reload();
+	
 	
 }
 

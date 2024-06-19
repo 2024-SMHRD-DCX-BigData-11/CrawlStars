@@ -17,9 +17,9 @@ public class blocksDAO {
 		return cnt;
 	}
 	
-	public List<blocks> getBlockuers(String myuser){
+	public List<blocks> getBlockusers(String myuser){
 		SqlSession session = sqlSessionFactory.openSession(true);
-		List<blocks> blocks = session.selectList("com.crawlstars.database.blocksMapper.getBlockuers", myuser);
+		List<blocks> blocks = session.selectList("com.crawlstars.database.blocksMapper.getBlockusers", myuser);
 		session.close();
 		return blocks;
     }
