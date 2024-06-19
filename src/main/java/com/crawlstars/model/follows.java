@@ -30,4 +30,12 @@ public class follows {
 	public String getFollowee() {
         return followee;
     }
+
+	public follows(@NonNull String follower, @NonNull String followee) {
+		super();
+		this.follower = follower;
+		this.followee = followee;
+	}
+	
+	
 }

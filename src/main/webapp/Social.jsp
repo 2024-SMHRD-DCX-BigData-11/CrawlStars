@@ -467,7 +467,7 @@ Button:hover {
         border-radius: 10px;
     }
 #SongAddPDiv ,#SongAddInPToggle{
-	position: absolute;
+		position: absolute;
         width: 250px;
         background-color: rgb(18, 18, 18);
         border: 1px solid #333;
@@ -525,6 +525,16 @@ Button:hover {
 	height: 50px;
 	font-size: 15px;
 	float: left;
+}
+
+.SC_FLlist_content{
+	width: 250px;
+	list-style:none;
+	padding-left:0px;
+	line-height: 1.8;
+  	margin: 0;
+  	padding-inline-start: 1em;
+  	float: left;
 }
 
 .SC_FolloweeList{
@@ -836,13 +846,21 @@ User user = getCurrentUsersProfileRequest.execute(); %>
 <%
 String follower = user.getId();
 List<follows> followees = new followsDAO().getFollowees(follower);
+
 %>
+	<ul class="SC_FLlist_content">
 	<% if(followees != null){
 		for(int i=0; i<followees.size(); i++){ %>
-		<div><img src="./ProfileImg/defaultmp.png" width="40px">
-		<span><%= followees.get(i).getFollowee() %></span></div>
+		<li><img src="./ProfileImg/defaultmp.png" width="40px">
+		<%-- <img src="<%=user.getImages() %>" width="40px"> --%>
+		<span><%=followees.get(i).getFollowee() %></span>
+		<button onclick="followCancel('<%=follower %>', '<%=followees.get(i).getFollowee() %>')">
+		<img src="./images/X버튼.png" width="15px" height="15px"></button>
+		</li>
+		
  	<% }
 	} %>
+	</ul>
 </div>
 
 <!-- 팔로워 리스트 -->
@@ -851,12 +869,17 @@ List<follows> followees = new followsDAO().getFollowees(follower);
 String followee = user.getId();
 List<follows> followers = new followsDAO().getFollowers(followee);
 %>
+	<ul>
 	<% if(followers != null){
 		for(int i=0; i<followers.size(); i++){ %>
-		<div><img src="./ProfileImg/defaultmp.png" width="40px">
-		<span><%= followers.get(i).getFollower() %></span></div>
+		<li><img src="./ProfileImg/defaultmp.png" width="40px">
+		<%-- <img src="<%=user.getImages() %>" width="40px"> --%>
+		<span><%= followers.get(i).getFollower() %></span>
+		</li>
+		
  	<% }
 	} %>
+	</ul>
 </div>
 
 <!-- 블락 리스트 -->
@@ -865,10 +888,11 @@ List<follows> followers = new followsDAO().getFollowers(followee);
 String blockuser = user.getId();
 %>
 <div><span>여기에 블락유저</span></div>
-</div>
 
 </div>
 
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
 // JavaScript를 사용하여 사이드바를 토글하는 함수
 document.getElementById("menuButton").addEventListener("click", function() {
@@ -902,6 +926,28 @@ function SC_showBlockList() {
     document.getElementById("SC_FolloweeList").style.display = "none";
     document.getElementById("SC_FollowerList").style.display = "none";
     document.getElementById("SC_BlockList").style.display = "";
+}
+
+function followCancel(follower, followee){
+	$.ajax({
+		
+        url: 'followsController/deleteFollower',
+        
+        data: {
+            follower: follower,
+            followee: followee
+        },
+        type: 'POST',
+        
+        success: function(response) {
+            // 성공적으로 팔로우가 취소되었을 때의 처리
+            console.log('팔로우 취소 성공');
+        },
+        error: function(error) {
+            // 팔로우 취소 실패 시 처리
+            console.error('팔로우 취소 실패', error);
+        }
+    });
 }
 
 </script>

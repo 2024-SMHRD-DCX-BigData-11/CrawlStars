@@ -29,5 +29,13 @@ public class followsDAO {
 		session.close();
 		return followees;
     }
+	
+	public int deleteFollower(String follower, String followee) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		follows follows = new follows(follower, followee);
+		int FLdlt = session.delete("com.crawlstars.database.followsMapper.followCancel");
+		session.close();
+		return FLdlt;
+	}
 
 }

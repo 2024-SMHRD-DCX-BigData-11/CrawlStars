@@ -18,4 +18,8 @@
 	<select id="follower_cnt">
 		select count(*) as cnt from follows where followee=#{followee}
 	</select>
+	
+	<delete id="followCancel" parameterType="String">
+		delete from follows where follower=#{follower} and followee=#{followee}
+	</delete>
 </mapper>

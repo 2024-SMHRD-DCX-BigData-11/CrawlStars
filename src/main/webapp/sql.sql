@@ -793,6 +793,7 @@ select * from follows where followee='31t2evngqbv5f4oqowjfzlil6gji';
 select count(*) as cnt from follows where followee='31t2evngqbv5f4oqowjfzlil6gji';
 select followee from follows where follower='31t2evngqbv5f4oqowjfzlil6gji';
 select count(*) as cnt from follows where follower='31t2evngqbv5f4oqowjfzlil6gji';
+delete from follows where follower='31t2evngqbv5f4oqowjfzlil6gji' and followee='test4';
 
 DROP TRIGGER follows_AI_TRG; 
 
