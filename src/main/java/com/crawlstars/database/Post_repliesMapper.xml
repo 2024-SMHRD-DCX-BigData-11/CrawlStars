@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.crawlstars.database.PostsMapper">
+<mapper namespace="com.crawlstars.database.Post_repliesMapper">
 	<select id="getPost" resultType="com.crawlstars.model.Posts">
 	select a.post_id,a.post_title,a.pl_id,a.pl_title,a.sp_id,a.post_body,a.post_img,a.created_at,b.nick as updated_at
 	from Posts a, users b

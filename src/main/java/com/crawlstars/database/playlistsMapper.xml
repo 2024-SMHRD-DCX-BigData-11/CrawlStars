@@ -7,7 +7,7 @@
      	insert into playlists values(#{pl_id}, #{pl_title}, #{sp_id}, 'O', #{pl_image}, sysdate, '')     	
     </insert>
 	<select id="getpl" parameterType="String" resultType="com.crawlstars.model.playlists">
-     	select a.PL_ID, a.pl_title, b.nick as sp_id, a.status, a.pl_image, a.created_at, a.updated_at
+     	select a.PL_ID, a.pl_title, b.nick as sp_id, a.status, a.pl_image, a.created_at, a.sp_id as updated_at
 		from playlists a, users b
 		where a.sp_id = b.sp_id   	
     </select>

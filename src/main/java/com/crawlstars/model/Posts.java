@@ -15,7 +15,7 @@ import lombok.ToString;
 @ToString
 @RequiredArgsConstructor
 public class Posts {
-private int post_id;
+private String post_id;
 @NonNull
 private String post_title;
 private String pl_id;

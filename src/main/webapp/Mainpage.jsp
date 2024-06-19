@@ -241,6 +241,8 @@ resize: none;
     max-width: 1500px;
     text-align: center;
     color: #fff;
+    height: 50vh;
+    overflow-x:	auto;
 }
 
 #posted_img{
@@ -571,8 +573,10 @@ My Post
 
 <div class="playlist">
 <% List<playlists> playlists = new playlistsDAO().getpl(); 
+System.out.print(playlists.toString());
 	for(int i=0;i<playlists.size();i++){
-
+		if(!playlists.get(i).getUpdated_at().equals(user.getId())){
+		
 %>
 <div class="playlistmusic">
 <table onclick="redirectToPlaylist('<%= playlists.get(i).getPl_id() %>');">
@@ -592,15 +596,17 @@ My Post
 	<tr>
 </table>
 </div>
-<%} %>
+<%}} %>
 <% 
 	List<Posts> posts = new PostsDAO().getPost();
 
 	System.out.print(posts.toString());
-	for(int i=0;i<posts.size();i++){			
+	for(int i=0;i<posts.size();i++){	
+		if(!posts.get(i).getSp_id().equals(user.getId())){
+
 %>
 <div class="playlistmusic">
-<table>
+<table onclick="getPost(<%=posts.get(i).getPost_id()%>)">
 	<tr>
 		<td><img onerror=this.src="images/플리픽도안2.png" src="<%= posts.get(i).getPost_img() %>" width="250px" height="250px"></td>
 	</tr>
@@ -611,14 +617,14 @@ My Post
 	<td align="center"><button id="likePl">♥</button></td>
 	<tr>
 	<tr>
-		<td align="center"><%= posts.get(i).getSp_id() %></td>
+		<td align="center"><%= posts.get(i).getUpdated_at() %></td>
 	</tr>
 	<tr>
 	<td align="center"><button id="likeUser">♥</button></td>
 	<tr>
 </table>
 </div>
-<%}%>
+<%}}%>
 </div>
 
 <!-- 마이포스트 토글창 -->
@@ -628,13 +634,13 @@ My Post
 	if(posts.get(i).getSp_id().equals(user.getId())){
 		
   %>
-        <a type="button" id="showPost">
+        <a type="button" id="showPost" onclick="getPost(<%=posts.get(i).getPost_id()%>)">
         	 <div><%=posts.get(i).getPost_title()%></div>   
         </a>
-        </div>
 <%	}}
 	  
 	  %>
+        </div>
 	
 <!-- 새로운 포스트 작성 팝업창 -->
 <div id="popupContainer" class="popup-container">
@@ -690,26 +696,49 @@ My Post
 
 <!-- 마이포스트 작성된글 -->
 <div id="postContainer" class="post-container">
-<form action="" method="post">
 	<div class="postup">
 	<span id="closePost" class="close-btn">×</span>
 	<div id = "post_content">
 					<img alt="" src="images/플리픽 로고1.png" style="width:250px; margin-left: 30px">
-					<div style="display: inline-block; width: 400px; margin-left: 15px;">제목</div>
+					<div style="display: inline-block; width: 400px; margin-left: 15px;"id="pl_title">제목</div>
 					<div style="display: flex">
 					<div>
-					<img alt="" src="images/플리픽도안2.png" id="posted_img">
+					<img onerror=this.src="images/플리픽도안2.png" src="images/플리픽도안2.png" id="posted_img">
 					</div>
 					<div>
-					<div style="width: 500px; height: 200px; padding-top: 30px; ">내용</div>
-					<div>
+					<div style="width: 500px; height: 200px; padding-top: 30px; "id="pl_body">내용</div>
+					<div id="pl_owner">
+					주인
+					</div>
+					<div id="pl_hashtag">
 					#해시태그	
+					</div>
+					<div id="pl_update_date">
+					등록일
 					</div> 
 					</div>
 					</div>
 	</div>
+	<div id = "post_PL">
+		<div><img src="images/플리픽도안2.png" id="posted_img"></div>
+		<div>
+			<div><span>제목</span></div>
+			<div><span>이름</span></div>
+		</div>
+	</div>
+	<div id ="post_replies">
+	<div class="post_reply">
+		<div>#</div>
+		<div>내용</div>
+		<div>이름</div>
+		<div>해시태그</div>
+		<div>등록일</div>
+	</div>
+	</div>
+	<div id ="post_replies_input">
+	<input type="text">
+	</div>
  </div>
- </form>
 </div>
 
 <script>
@@ -751,7 +780,6 @@ function openSetting(){
    // 게시물 작성 팝업 JS
  // 레이어 팝업 열기
     document.getElementById('showPopup').addEventListener('click', function() {
-    	url = 
         document.getElementById('popupContainer').style.display = 'block';
     });
 
@@ -759,15 +787,38 @@ function openSetting(){
     document.getElementById('closePopup').addEventListener('click', function() {
         document.getElementById('popupContainer').style.display = 'none';
     });
-    
+const getPost = (post_id) =>{
+	var pl_title= document.getElementById('pl_title')
+	var posted_img= document.getElementById('posted_img')
+	var pl_body= document.getElementById('pl_body')
+	var pl_owner= document.getElementById('pl_owner')
+    	var url = "getMypost?Post_id="+post_id;
+    	fetch(url,{
+    		method: 'GET',
+			headers:{
+				'Content-Type': 'application/json; charset=utf-8'
+			}
+    	}).then(response=>{
+			 if (!response.ok) {
+			        throw new Error('Network response was not ok');
+			    }
+			 return response.json();
+			})
+			.then(data => {
+    		pl_title.innerText=data.post_title;
+    		posted_img.src=data.post_img;
+    		pl_body.innerText=data.post_body;
+    		pl_owner.innerText=data.post_id;
+    		document.getElementById('postContainer').style.display = 'block';
+    		})
+    	.catch(error => {
+		  console.error('Error:', error);
+		});}
 </script>
 
 <script>
    // 게시물 조회 팝업 JS
  // 레이어 팝업 열기
-    document.getElementById('showPost').addEventListener('click', function() {
-        document.getElementById('postContainer').style.display = 'block';
-    });
 
     // 레이어 팝업 닫기
     document.getElementById('closePost').addEventListener('click', function() {
@@ -870,7 +921,7 @@ function redirectToPlaylist(playlistId) {
     window.location.href = url;
 }
 </script>
-
+<script src="https://sdk.scdn.co/spotify-player.js"></script>
 <script>
 	const msToTime = (msd)=>{
 		// 전달된 밀리초(ms)를 분과 초로 나누기

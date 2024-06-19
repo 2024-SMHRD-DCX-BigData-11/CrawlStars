@@ -34,6 +34,8 @@
 	<mapper resource="com/crawlstars/database/Like_plsMapper.xml"/>
 	<mapper resource="com/crawlstars/database/PostsMapper.xml"/>
 	<mapper resource="com/crawlstars/database/blocksMapper.xml"/>
+	<mapper resource="com/crawlstars/database/Post_reply_hashtagMapper.xml"/>
+	<mapper resource="com/crawlstars/database/Post_repliesMapper.xml"/>
 	
     
   </mappers>

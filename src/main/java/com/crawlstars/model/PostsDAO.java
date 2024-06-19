@@ -1,4 +1,4 @@
-package com.crawlstars.model;
+package com.crawlstars.model;	
 
 import java.util.List;
 
@@ -14,6 +14,13 @@ public class PostsDAO {
 		SqlSession session = sqlSessionFactory.openSession(true);
 		
 		List<Posts> result = session.selectList("com.crawlstars.database.PostsMapper.getPost");
+		session.close();
+		return result;
+	}
+
+	public Posts getmyPost(String post_id) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		Posts result = session.selectOne("com.crawlstars.database.PostsMapper.getmyPost",post_id);
 		session.close();
 		return result;
 	}
