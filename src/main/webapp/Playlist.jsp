@@ -1,3 +1,7 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
+<%@page import="java.util.List"%>
+<%@page import="com.crawlstars.model.Like_plsDAO"%>
+<%@page import="com.crawlstars.model.Like_pls"%>
 <%@page
 	import="se.michaelthelin.spotify.model_objects.specification.User"%>
 <%@page
@@ -341,7 +345,7 @@ footer {
 	text-align: left;
 }
 
-#MyPlaylist .first {
+#MyPlaylist .first, #Likedlist .first{
 	float: none;
 	background-color: rgb(18, 18, 18);
 	width: 100%;
@@ -349,7 +353,7 @@ footer {
 	text-align: center;
 }
 
-#MyPlaylist .first-first {
+#MyPlaylist .first-first, #Likedlist .first-first{
 	float: left;
 	background-color: rgb(18, 18, 18);
 	width: 30%;
@@ -357,7 +361,7 @@ footer {
 	text-align: center;
 }
 
-#MyPlaylist .first-second {
+#MyPlaylist .first-second, #Likedlist .first-second {
 	float: right;
 	background-color: rgb(18, 18, 18);
 	width: 70%;
@@ -365,7 +369,7 @@ footer {
 	text-align: left;
 }
 
-#MyPlaylist div:hover {
+#MyPlaylist div:hover, #Likedlist div:hover {
 	background-color: #555;
 }
 
@@ -585,7 +589,6 @@ Button:hover {
 		String plImg = "images/플리픽도안2.png";
 		if(playlistSimplifiedPaging.getItems()[i].getImages()!=null){
 			 plImg = playlistSimplifiedPaging.getItems()[i].getImages()[0].getUrl();}
-		
 		%>
 					<div class="first">
 						<div class="first-first">
@@ -604,6 +607,27 @@ Button:hover {
 				</div>
 				
 			<span>좋아요한 플레이리스트</span>
+			<div Id="Likedlist">
+	<%List<Like_pls> like_pl = new Like_plsDAO().GetLikePL(user.getId()); 
+if(like_pl!=null){
+	for(int i=0;i<like_pl.size();i++){
+		%>
+		<div class="first">
+						<div class="first-first">
+							<img class="nextAlbum" src="images/플리픽도안2.png"
+								onclick="DetailP('<%=like_pl.get(i).getLiked_at() %>')">
+						</div>
+						<div class="first-second">
+							<span><%=like_pl.get(i).getPl_id() %></span><br>
+							<span><%=like_pl.get(i).getSp_id() %></span>
+						</div>
+					</div>
+	<%}}
+	%>		
+			
+			</div>
+			
+			
 			</div>
 
 		</div>
@@ -794,45 +818,6 @@ Button:hover {
 
 		    xhr.send(params);
 		}
-	  const getPL =  (pl_id) => {
-		    var xhr = new XMLHttpRequest();
-		    console.log('데이터',pl_id)
-		    var url = 'GetPLCon?PL_ID='+encodeURIComponent(pl_id);  // 서블릿 URL
-		    
-		    
-
-		    // 클로저 활용
-		    let responseData = 2;  // 외부에서 접근할 데이터 변수
-		    return new Promise((resolve, reject) => {
-		    xhr.onreadystatechange =   function() {
-		        if (xhr.readyState == XMLHttpRequest.DONE) {
-		            if (xhr.status == 200) {
-		                var response = xhr.responseText;
-		                responseData = JSON.parse(response);
-		                resolve(responseData);
-		               	console.log("비동기",responseData)              // 여기서 다른 작업 수행 가능
-		            } else {
-		                console.error('Error:', xhr.status, xhr.statusText);
-		                console.log('에러')
-		                // Handle other HTTP status codes
-		            }
-		        }
-		    };
-		    xhr.open('GET', url, true);
-		    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		    xhr.send();
-		    })
-		    
-
-		    // 클로저를 통해 외부에서 접근 가능한 데이터 반환
-		    
-		   /*  return {
-		        getData: function() {
-		        	
-		           responseData
-		         } 
-		    }; */
-		};
 	const SongAddPO = (event, songUri, Songid)=>{
 		var Url="https://api.spotify.com/v1/me/playlists"
 		fetch(Url,{
@@ -1014,86 +999,20 @@ Button:hover {
 		        temp.querySelector('img').addEventListener('click', function() {
 		            ChangeSonginQ(i+1); // 이미 생성된 변수 i를 사용하여 함수 호출
 		        });
-		        PlaylistDetail.append(temp); 
-			   var dbPLdata =  getPL(data.id).then(result => {
-			   console.log('넘어온 데이터 ', result);
-			   PlaylistDetail.replaceChildren();
-				   var temp = document.createElement("div");
-			    	temp.className = "pl-info"
-			    	temp.innerHTML = "<div>"+
-			    	'<img class="plInfoImg" src="'+plInfoImg+'"></div>'+
-			    	'<div class="pl-detail-info"><div class="pl-detail-type"><span>플레이리스트</span></div>'+
-			    	'<div class="pl-detail-name"><h1>'+data.name+'</h1><button>Like</button><div>'+
-			    	'<div class="pl-detail-owner"><span>'+result.sp_id+'</span><button>Like</button></div>'+
-			    	'</div>';
-			    	PlaylistDetail.append(temp);
-			    	temp = document.createElement("hr");
-			    	PlaylistDetail.append(temp);
-			    	temp = document.createElement("div");
-			    	temp.className = "Song-info"
-			    	temp.innerHTML = 
-			    	'<div class="song-num">'+
-			    	'<span>#</span></div>'+
-			    	'<div class="song-name"><span>제목</span></div>'+
-			    	'<div class="song-album"><span>앨범</span></div>'+
-			    	'<div class="song-addtime"><span>추가한날짜</span></div>'+
-			    	'<div class="song-time"><span>time</span></div>';
-			    	PlaylistDetail.append(temp);
-			    	temp = document.createElement("hr");
-			    	PlaylistDetail.append(temp);
-			        for(let i = 0; i < data.tracks.total; i++){
-			        	var songsinger=data.tracks.items[i].track.artists[0].name
-			        	for(let j =1; j<data.tracks.items[i].track.artists.length;j++){
-			        		songsinger=songsinger+","+data.tracks.items[i].track.artists[j].name
-			        	}
-			        temp = document.createElement("div");
-			        temp.className = "Song-info"
-			        temp.innerHTML = 
-			    	'<div class="song-num">'+
-			    	'<span>'+(i+1)+'</span></div>'+
-			    	'<div class="song-name">'+
-			    	'<div class="first-first">' +
-			        '<img class="nextAlbum" src="' + data.tracks.items[i].track.album.images[2].url + 
-			        '">' +
-			        '</div>' +
-			        '<div class="first-second">' +
-			            '<span onclick="SearchP(\''+data.tracks.items[i].track.name+'\')">' + data.tracks.items[i].track.name + '</span><br>' +
-			            '<span onclick="SearchP(\''+songsinger+'\')">' + songsinger + '</span>' +
-			        '</div></div>'+
-			    	'<div class="song-album" onclick="DetailA(\''+data.tracks.items[i].track.album.id+'\')"><span>'+data.tracks.items[i].track.album.name+'</span></div>'+
-			    	'<div class="song-addtime"><span>'+data.tracks.items[i].added_at.substr(0,10)+'</span></div>'+
-			    	'<div class="song-time"><span>'+msToTime(data.tracks.items[i].track.duration_ms)+'</span><button onclick="SongAddP(event,\''+data.tracks.items[i].track.uri+'\',\''+data.tracks.items[i].track.id+'\')">+</button></div>';
-			        temp.querySelector('img').addEventListener('click', function() {
-			            ChangeSonginQ(i+1); // 이미 생성된 변수 i를 사용하여 함수 호출
-			        })};
-			        PlaylistDetail.append(temp); 
-			        temp = document.createElement("hr");
-			    	PlaylistDetail.append(temp);
-			    	temp = document.createElement("div");
-			    	temp.className="Pl-reply"
-			    	temp.innerHTML = 
-			    		'<div class="pl-reply-num"><span>#</span></div>'+
-			    		'<div class="pl-reply-owner"><span>이름</span></div>'+
-			    		'<div class="pl-reply-content"></div>'+
-			    		'<div class="pl-reply-hashtag"><span>hashtag<span></div>'
-			    	PlaylistDetail.append(temp);
-			    	temp = document.createElement("hr");
-			    	PlaylistDetail.append(temp);	
-			    	//리플내용달기
-			    	temp = document.createElement("div");
-			    	temp.id="Pl-reply-input"
-			    	temp.innerHTML=
-			    		'<input id="pl-reply-input" type="text"><button onclick="InsertPlreply(\''+data.id+'\')">제출</button>'
-			    	PlaylistDetail.append(temp);
-			    	h = 0;
-			    })
+		        PlaylistDetail.append(temp); 					 
 			    }
+							 temp = document.createElement("div");
+						    	temp.id="Pl-reply-input"
+						    	temp.innerHTML=
+						    		'<input id="pl-reply-input" type="text"><button onclick="InsertPlreply(\''+data.id+'\')">제출</button>'
+						    	PlaylistDetail.append(temp);	    	
+			    	//리플내용달기			    	
 			    })
 			 .catch(error => {
 			   console.error('There was a problem with your fetch operation:', error);
 			 });
-	}
-
+	}	
+	
 	 const CreateP=()=>{
 		const url = 'https://api.spotify.com/v1/users/'+"<%=user.getId()%>"+'/playlists';
 		var name;

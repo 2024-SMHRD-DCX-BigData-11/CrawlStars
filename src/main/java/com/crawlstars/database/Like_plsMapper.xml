@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.crawlstars.database.Like_plsMapper">
+    <select id="getPlReply" parameterType="String" resultType="com.crawlstars.model.Like_pls">
+    	select a.like_ID ,c.nick as sp_id, b.pl_title as pl_id, a.pl_id as liked_at, b.pl_image as pl_img
+		from like_pls a, playlists b, users c
+		where a.pl_id=b.pl_id and b.sp_id=c.sp_id and a.sp_id = #{sp_id}
+    </select>
+    
+	</mapper>

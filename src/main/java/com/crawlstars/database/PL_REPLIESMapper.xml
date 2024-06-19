@@ -9,7 +9,7 @@
     <select id="getPlReply" parameterType="String" resultType="com.crawlstars.model.PL_REPLIES">
     	SELECT a.pl_reply_content, a.pl_reply_id, a.replied_at, c.nick as SP_ID, b.hashtag
 		FROM pl_replies a, pl_reply_hashtags b, users c
-		WHERE a.pl_reply_id = b.pl_reply_id
+		WHERE a.pl_reply_id = b.pl_reply_id(+)
 		AND a.sp_id = c.sp_id and a.pl_id= #{PL_ID}
     </select>
     <select id="getLastReply" resultType="int">

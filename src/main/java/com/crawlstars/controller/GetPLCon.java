@@ -2,6 +2,7 @@ package com.crawlstars.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,10 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.crawlstars.model.PL_REPLIES;
+import com.crawlstars.model.PL_REPLIESDAO;
 import com.crawlstars.model.playlists;
 import com.crawlstars.model.playlistsDAO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 import se.michaelthelin.spotify.SpotifyApi;
 
@@ -25,11 +29,16 @@ public class GetPLCon extends HttpServlet {
         HttpSession session = request.getSession();
         SpotifyApi spotifyApi = (SpotifyApi) session.getAttribute("spotifyApi");
         playlists playlist = new playlistsDAO().getpl(pl_id);
+    	List<PL_REPLIES> result = new PL_REPLIESDAO().getPL(pl_id); 
+    	JsonObject jsonObject = new JsonObject();
+        jsonObject.add("playlist", new Gson().toJsonTree(playlist));
+        jsonObject.add("replies", new Gson().toJsonTree(result));
         // Gson 객체 생성
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         System.out.println(playlist.toString());
         // playlists 객체를 JSON으로 변환
-        String jsonPlaylist = gson.toJson(playlist);
+        String jsonPlaylist = jsonObject.toString();
+
 
         // JSON 응답으로 전송
         response.setContentType("application/json");
