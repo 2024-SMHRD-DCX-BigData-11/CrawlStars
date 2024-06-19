@@ -742,7 +742,7 @@ My Post
 					<div>
 					<div style="width: 500px; height: 200px; padding-top: 30px; ">내용</div>
 					<div>
-					#해시태그
+					#해시태그	
 					</div> 
 					</div>
 					</div>
