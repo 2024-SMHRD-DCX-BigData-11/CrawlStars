@@ -32,6 +32,7 @@
 	<mapper resource="com/crawlstars/database/PL_REPLY_HASHTAGSMapper.xml"/>
 	<mapper resource="com/crawlstars/database/PL_REPLIESMapper.xml"/>
 	<mapper resource="com/crawlstars/database/Like_plsMapper.xml"/>
+	<mapper resource="com/crawlstars/database/PostsMapper.xml"/>
 	
     
   </mappers>

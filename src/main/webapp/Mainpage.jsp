@@ -1,3 +1,10 @@
+<%@page import="com.crawlstars.model.Posts"%>
+<%@page import="com.crawlstars.model.PostsDAO"%>
+<%@page import="com.crawlstars.model.playlistsDAO"%>
+<%@page import="com.crawlstars.model.playlists"%>
+<%@page import="java.util.List"%>
+<%@page import="se.michaelthelin.spotify.model_objects.specification.User"%>
+<%@page import="se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest"%>
 <%@page import="se.michaelthelin.spotify.model_objects.specification.Image"%>
 <%@page import="se.michaelthelin.spotify.model_objects.specification.Playlist"%>
 <%@page import="se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest"%>
@@ -9,7 +16,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Insert title here</title>
+<title>PlyPick</title>
 
 <style>
 /* 스타일링을 위한 CSS */
@@ -489,7 +496,9 @@ Button {
 Button:hover {
 	background-color: #333; /* 마우스 오버 시 약간 어두운 색상으로 변경 */
 }
-
+#likePl:hover, #likeUser:hover{
+	background-color: pink;
+}
 /* 버튼 간 간격 설정 */
 #togglePlay {
 	margin-left: 5px;
@@ -504,6 +513,9 @@ Button:hover {
 SpotifyApi spotifyApi = (SpotifyApi) session.getAttribute("spotifyApi");
 GetPlaylistRequest getPlaylistRequest = spotifyApi.getPlaylist("3cEYpjA9oz9GiPac4AsH4n").build();
 Playlist playlist =  getPlaylistRequest.execute();
+session.setAttribute("spotifyApi", spotifyApi);
+GetCurrentUsersProfileRequest getcurrentusersprofile= spotifyApi.getCurrentUsersProfile().build();
+User user= getcurrentusersprofile.execute();
 %>
 <!-- header -->
 <header>
@@ -556,124 +568,73 @@ My Post
 
 
 <br>
+
 <div class="playlist">
-<div class="playlistmusic">
-<table>
-	<tr>
-		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getName() %></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getDescription() %></td>
-	</tr>
-</table>
-</div>
-<div class="playlistmusic">
-<table>
-	<tr>
-		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getName() %></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getDescription() %></td>
-	</tr>
-</table>
-</div>
-<div class="playlistmusic">
-<table>
-	<tr>
-		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getName() %></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getDescription() %></td>
-	</tr>
-</table>
-</div>
-<div class="playlistmusic">
-<table>
-	<tr>
-		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getName() %></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getDescription() %></td>
-	</tr>
-</table>
-</div>
-<div class="playlistmusic">
-<table>
-	<tr>
-		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getName() %></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getDescription() %></td>
-	</tr>
-</table>
-</div>
-<div class="playlistmusic">
-<table>
-	<tr>
-		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getName() %></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getDescription() %></td>
-	</tr>
-</table>
-</div>
-<div class="playlistmusic">
-<table>
-	<tr>
-		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getName() %></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getDescription() %></td>
-	</tr>
-</table>
-</div>
-<div class="playlistmusic">
-<table>
-	<tr>
-		<td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getName() %></td>
-	</tr>
-	<tr>
-		<td align="center"><%= playlist.getDescription() %></td>
-	</tr>
-</table>
-</div>
+<% List<playlists> playlists = new playlistsDAO().getpl(); 
+	for(int i=0;i<playlists.size();i++){
 
-
+%>
+<div class="playlistmusic">
+<table onclick="redirectToPlaylist('<%= playlists.get(i).getPl_id() %>');">
+	<tr>
+		<td><img onerror=this.src="images/플리픽도안2.png" src="<%= playlists.get(i).getPl_image() %>" width="250px" height="250px"></td>
+	</tr>
+	<tr>
+		<td align="center"><%= playlists.get(i).getPl_title() %></td>
+	</tr>
+	<tr>
+	<td align="center"><button id="likePl">♥</button></td>
+	<tr>
+		<td align="center"><%= playlists.get(i).getSp_id() %></td>
+	</tr>
+	<tr>
+	<td align="center"><button id="likeUser">♥</button></td>
+	<tr>
+</table>
 </div>
+<%} %>
+<% 
+	List<Posts> posts = new PostsDAO().getPost();
 
+	System.out.print(posts.toString());
+	for(int i=0;i<posts.size();i++){			
+%>
+<div class="playlistmusic">
+<table>
+	<tr>
+		<td><img onerror=this.src="images/플리픽도안2.png" src="<%= posts.get(i).getPost_img() %>" width="250px" height="250px"></td>
+	</tr>
+	<tr>
+		<td align="center"><%= posts.get(i).getPost_title() %></td>
+	</tr>
+	<tr>
+	<td align="center"><button id="likePl">♥</button></td>
+	<tr>
+	<tr>
+		<td align="center"><%= posts.get(i).getSp_id() %></td>
+	</tr>
+	<tr>
+	<td align="center"><button id="likeUser">♥</button></td>
+	<tr>
+</table>
+</div>
+<%}%>
 </div>
 
 <!-- 마이포스트 토글창 -->
  
   <div id="setting">
+  <%for(int i=0;i<posts.size();i++){
+	if(posts.get(i).getSp_id().equals(user.getId())){
+		
+  %>
         <a type="button" id="showPost">
-        	 <div>NEW 리스트</div>   
+        	 <div><%=posts.get(i).getPost_title()%></div>   
         </a>
         </div>
+<%	}}
+	  
+	  %>
 	
 <!-- 새로운 포스트 작성 팝업창 -->
 <div id="popupContainer" class="popup-container">
@@ -790,6 +751,7 @@ function openSetting(){
    // 게시물 작성 팝업 JS
  // 레이어 팝업 열기
     document.getElementById('showPopup').addEventListener('click', function() {
+    	url = 
         document.getElementById('popupContainer').style.display = 'block';
     });
 
@@ -879,7 +841,6 @@ function openSetting(){
 
 	</footer>
 
-<script src="./jquery-3.7.1.min.js"></script>
 
 <script>
 // JavaScript를 사용하여 사이드바를 토글하는 함수
@@ -903,7 +864,12 @@ document.getElementById("menuButton").addEventListener("click", function() {
 
 
 </script>
-	<script src="https://sdk.scdn.co/spotify-player.js"></script>
+<script>
+function redirectToPlaylist(playlistId) {
+    var url = 'Playlist.jsp?PL_ID=' + playlistId;
+    window.location.href = url;
+}
+</script>
 
 <script>
 	const msToTime = (msd)=>{

@@ -9,7 +9,7 @@
 	<select id="getpl" parameterType="String" resultType="com.crawlstars.model.playlists">
      	select a.PL_ID, a.pl_title, b.nick as sp_id, a.status, a.pl_image, a.created_at, a.updated_at
 		from playlists a, users b
-		where a.sp_id = b.sp_id and pl_id=#{pl_id}    	
+		where a.sp_id = b.sp_id   	
     </select>
 	
 </mapper>

@@ -43,7 +43,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Plypick</title>
 
 <style>
 /* 스타일링을 위한 CSS */
@@ -535,11 +535,6 @@ Button:hover {
 	AuthorizationCodeCredentials authorizationCodeCredentials = authorizationCodeRefreshRequest.execute();
 	spotifyApi.setAccessToken(authorizationCodeCredentials.getAccessToken());
 	session.setAttribute("spotifyApi", spotifyApi);
-
-
-	
-	%>
-		<%
 	GetCurrentUsersProfileRequest getcurrentusersprofile= spotifyApi.getCurrentUsersProfile().build();
 	User user= getcurrentusersprofile.execute();
 	%>
@@ -614,8 +609,9 @@ if(like_pl!=null){
 		%>
 		<div class="first">
 						<div class="first-first">
-							<img class="nextAlbum" src="images/플리픽도안2.png"
-								onclick="DetailP('<%=like_pl.get(i).getLiked_at() %>')">
+							<img class="nextAlbum" src="<%= like_pl.get(i).getPl_img() %>"
+								onclick="DetailP('<%=like_pl.get(i).getLiked_at() %>')"
+								onerror=this.src="images/플리픽도안2.png">
 						</div>
 						<div class="first-second">
 							<span><%=like_pl.get(i).getPl_id() %></span><br>
@@ -1097,6 +1093,28 @@ if(like_pl!=null){
 	}
 	const ForwardPage =()=>{
 		history.go(1);		
+	}
+	function getParam(sname) {
+
+	    var params = location.search.substr(location.search.indexOf("?") + 1);
+
+	    var sval = "";
+
+	    params = params.split("&");
+
+	    for (var i = 0; i < params.length; i++) {
+
+	        temp = params[i].split("=");
+
+	        if ([temp[0]] == sname) { sval = temp[1]; }
+
+	    }
+
+	    return sval;
+
+	}
+	if(getParam("PL_ID")!=null){
+		DetailP(getParam("PL_ID"));
 	}
 	const DetailA = (id) =>{
 		var url = "https://api.spotify.com/v1/albums/"+id

@@ -28,18 +28,15 @@ public class GetPLCon extends HttpServlet {
         System.out.println(pl_id);
         HttpSession session = request.getSession();
         SpotifyApi spotifyApi = (SpotifyApi) session.getAttribute("spotifyApi");
-        playlists playlist = new playlistsDAO().getpl(pl_id);
     	List<PL_REPLIES> result = new PL_REPLIESDAO().getPL(pl_id); 
     	JsonObject jsonObject = new JsonObject();
-        jsonObject.add("playlist", new Gson().toJsonTree(playlist));
         jsonObject.add("replies", new Gson().toJsonTree(result));
         // Gson 객체 생성
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        System.out.println(playlist.toString());
         // playlists 객체를 JSON으로 변환
         String jsonPlaylist = jsonObject.toString();
 
-
+// 사용불가... ㅠㅠ
         // JSON 응답으로 전송
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");

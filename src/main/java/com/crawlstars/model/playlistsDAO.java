@@ -1,5 +1,7 @@
 package com.crawlstars.model;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -17,9 +19,9 @@ public class playlistsDAO {
 		return cnt;
 	}
 
-	public playlists getpl(String pl_id) {
+	public List<playlists> getpl() {
 		SqlSession session = sqlSessionFactory.openSession(true);
-		playlists playlist = session.selectOne("com.crawlstars.database.playlistsMapper.getpl", pl_id);
+		List<playlists> playlist = session.selectList("com.crawlstars.database.playlistsMapper.getpl");
 		session.close();
 		return playlist;
 	}

@@ -58,6 +58,12 @@
   	<description></description>
   	<servlet-class>com.crawlstars.controller.getMyPage</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>getMypost</servlet-name>
+  	<display-name>getMypost</display-name>
+  	<description></description>
+  	<servlet-class>com.crawlstars.controller.getMypost</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>NickCheckCon</servlet-name>
   	<url-pattern>/NickCheckCon</url-pattern>
@@ -93,5 +99,9 @@
   <servlet-mapping>
   	<servlet-name>getMyPage</servlet-name>
   	<url-pattern>/getMyPage</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>getMypost</servlet-name>
+  	<url-pattern>/getMypost</url-pattern>
   </servlet-mapping>
 </web-app>
