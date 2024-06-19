@@ -19,6 +19,14 @@
 		select count(*) as cnt from follows where followee=#{followee}
 	</select>
 	
+	<select id="getNickByfolloweeId" parameterType="String" resultType="java.lang.String">
+    SELECT u.nick AS followee_nick FROM follows f JOIN users u ON f.followee = u.sp_id WHERE f.follower= #{follower}
+	</select>
+	
+	<select id="getNickByfollowerId" parameterType="String" resultType="java.lang.String">
+    SELECT u.nick AS follower_nick FROM follows f JOIN users u ON f.follower = u.sp_id WHERE f.followee = #{followee}
+	</select>
+	
 	<delete id="followCancel" parameterType="String">
 		delete from follows where follower=#{follower} and followee=#{followee}
 	</delete>

@@ -873,7 +873,7 @@ List<follows> followees = new followsDAO().getFollowees(follower);
 		for(int i=0; i<followees.size(); i++){ %>
 		<li><img src="./ProfileImg/defaultmp.png" width="40px" style="border-radius:50%;">
 		<%-- <img src="<%=user.getImages() %>" width="40px"> --%>
-		<span id="SC_FLlist_content_FLName"><%=followees.get(i).getFollowee() %></span>
+		<span id="SC_FLlist_content_FLName"><%=new followsDAO().getNickByfolloweeId(follower) %></span>
 		<button id="SC_FLlist_content_FollowCancel_Button" onclick="followCancel('<%=follower %>', '<%=followees.get(i).getFollowee() %>')">
 		<img src="./images/X버튼.png" width="15px" height="15px"></button>
 		</li>
@@ -889,12 +889,13 @@ List<follows> followees = new followsDAO().getFollowees(follower);
 String followee = user.getId();
 List<follows> followers = new followsDAO().getFollowers(followee);
 %>
+
 	<ul class="SC_FLlist_content">
 	<% if(followers != null){
 		for(int i=0; i<followers.size(); i++){ %>
 		<li><img src="./ProfileImg/defaultmp.png" width="40px" style="border-radius:50%;">
 		<%-- <img src="<%=user.getImages() %>" width="40px"> --%>
-		<span id="SC_FLlist_content_FLName"><%= followers.get(i).getFollower() %></span>
+		<span id="SC_FLlist_content_FLName"><%=new followsDAO().getNickByfollowerId(followee) %></span>
 		</li>
 		
  	<% }
