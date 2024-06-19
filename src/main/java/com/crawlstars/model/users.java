@@ -30,16 +30,19 @@ public class users {
 	private String user_img;
 	@NonNull
 	private String uesr_type;
-	public users(@NonNull String sP_name, @NonNull String nick, @NonNull String gender, @NonNull String birthdate,
+	
+	public users(@NonNull String sP_id, @NonNull String nick, @NonNull String gender, @NonNull String birthdate,
 			@NonNull String user_img, @NonNull String uesr_type) {
 		super();
-		SP_id = SP_id;
+		SP_id = sP_id;
 		this.nick = nick;
 		this.gender = gender;
 		this.birthdate = birthdate;
 		this.user_img = user_img;
 		this.uesr_type = uesr_type;
 	}
+	
+	
 	
 	
 }

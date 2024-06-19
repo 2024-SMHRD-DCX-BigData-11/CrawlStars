@@ -384,6 +384,7 @@ ALTER TABLE post_replies
 -- block_users Table Create SQL
 -- 테이블 생성 SQL - block_users
 insert into block_users values(block_users_SEQ.NEXTVAL, '31t2evngqbv5f4oqowjfzlil6gji', 'test5', sysdate);
+delete from block_users where sp_id='31t2evngqbv5f4oqowjfzlil6gji';
 select * from BLOCK_USERS;
 CREATE TABLE block_users
 (
@@ -793,7 +794,7 @@ select * from follows where followee='31t2evngqbv5f4oqowjfzlil6gji';
 select count(*) as cnt from follows where followee='31t2evngqbv5f4oqowjfzlil6gji';
 select followee from follows where follower='31t2evngqbv5f4oqowjfzlil6gji';
 select count(*) as cnt from follows where follower='31t2evngqbv5f4oqowjfzlil6gji';
-delete from follows where follower='31t2evngqbv5f4oqowjfzlil6gji' and followee='test4';
+delete from follows where followee='31t2evngqbv5f4oqowjfzlil6gji';
 
 DROP TRIGGER follows_AI_TRG; 
 

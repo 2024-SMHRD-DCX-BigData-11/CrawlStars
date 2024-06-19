@@ -155,7 +155,7 @@ User user = getCurrentUsersProfileRequest.execute(); %>
 		<h1 class="JoinTitle">회원가입</h1>
 		<tr>
 			<td><span class="JoinLabel">사용자 이름</span></td>
-			<td><input class="JoinInputData" name="SP_name" value="<%=user.getId() %>" style="border-color:black;" readonly></td>
+			<td><input class="JoinInputData" name="SP_id" value="<%=user.getId() %>" style="border-color:black;" readonly></td>
 		</tr>
 		<tr>
 			<td><span class="JoinLabel">닉네임</span></td>

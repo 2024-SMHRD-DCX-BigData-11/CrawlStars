@@ -30,12 +30,16 @@ public class followsDAO {
 		return followees;
     }
 	
-	public int deleteFollower(String follower, String followee) {
-		SqlSession session = sqlSessionFactory.openSession(true);
-		follows follows = new follows(follower, followee);
-		int FLdlt = session.delete("com.crawlstars.database.followsMapper.followCancel");
-		session.close();
-		return FLdlt;
-	}
+	public boolean deleteFollower(String follower, String followee) {
+        SqlSession session = sqlSessionFactory.openSession(true);
+        try {
+            int FLdlt = session.delete("com.crawlstars.database.followsMapper.followCancel", new follows(follower, followee));
+            System.out.println(follower);
+    		System.out.println(followee);
+            return FLdlt > 0;
+        } finally {
+            session.close();
+        }
+    }
 
 }

@@ -1,3 +1,4 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="se.michaelthelin.spotify.model_objects.specification.User"%>
 <%@page import="se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest"%>
 <%@page import="com.crawlstars.model.follows"%>
@@ -523,18 +524,23 @@ Button:hover {
 .SC_userList_button{
 	width: 120px;
 	height: 50px;
-	font-size: 15px;
 	float: left;
 }
 
 .SC_FLlist_content{
-	width: 250px;
+	width: 300px;
 	list-style:none;
 	padding-left:0px;
-	line-height: 1.8;
+	line-height: 1.8
   	margin: 0;
   	padding-inline-start: 1em;
   	float: left;
+  	
+}
+
+.SC_FLlist_content li{
+	font-size: 15px;
+	margin-bottom: 10px;	
 }
 
 .SC_FolloweeList{
@@ -548,6 +554,18 @@ Button:hover {
 .SC_BlockList{
 	padding: 20px;
 }
+
+#SC_FLlist_content_FLName{
+	position:absolute;
+	float: left;
+	margin-left: 20px;
+}
+
+#SC_FLlist_content_FollowCancel_Button{
+	float: right;
+}
+
+
 
 </style>
 <!-- 음악플레이어를 위한 css -->
@@ -843,18 +861,20 @@ User user = getCurrentUsersProfileRequest.execute(); %>
 
 <!-- 팔로잉 리스트 -->
 <div class="SC_FolloweeList" id="SC_FolloweeList">
+
 <%
 String follower = user.getId();
 List<follows> followees = new followsDAO().getFollowees(follower);
 
 %>
+
 	<ul class="SC_FLlist_content">
 	<% if(followees != null){
 		for(int i=0; i<followees.size(); i++){ %>
-		<li><img src="./ProfileImg/defaultmp.png" width="40px">
+		<li><img src="./ProfileImg/defaultmp.png" width="40px" style="border-radius:50%;">
 		<%-- <img src="<%=user.getImages() %>" width="40px"> --%>
-		<span><%=followees.get(i).getFollowee() %></span>
-		<button onclick="followCancel('<%=follower %>', '<%=followees.get(i).getFollowee() %>')">
+		<span id="SC_FLlist_content_FLName"><%=followees.get(i).getFollowee() %></span>
+		<button id="SC_FLlist_content_FollowCancel_Button" onclick="followCancel('<%=follower %>', '<%=followees.get(i).getFollowee() %>')">
 		<img src="./images/X버튼.png" width="15px" height="15px"></button>
 		</li>
 		
@@ -869,12 +889,12 @@ List<follows> followees = new followsDAO().getFollowees(follower);
 String followee = user.getId();
 List<follows> followers = new followsDAO().getFollowers(followee);
 %>
-	<ul>
+	<ul class="SC_FLlist_content">
 	<% if(followers != null){
 		for(int i=0; i<followers.size(); i++){ %>
-		<li><img src="./ProfileImg/defaultmp.png" width="40px">
+		<li><img src="./ProfileImg/defaultmp.png" width="40px" style="border-radius:50%;">
 		<%-- <img src="<%=user.getImages() %>" width="40px"> --%>
-		<span><%= followers.get(i).getFollower() %></span>
+		<span id="SC_FLlist_content_FLName"><%= followers.get(i).getFollower() %></span>
 		</li>
 		
  	<% }
@@ -929,9 +949,9 @@ function SC_showBlockList() {
 }
 
 function followCancel(follower, followee){
+	
 	$.ajax({
-		
-        url: 'followsController/deleteFollower',
+        url: 'FollowsController',
         
         data: {
             follower: follower,
@@ -941,13 +961,16 @@ function followCancel(follower, followee){
         
         success: function(response) {
             // 성공적으로 팔로우가 취소되었을 때의 처리
-            console.log('팔로우 취소 성공');
+            console.log('팔로우 취소 성공', response);
         },
         error: function(error) {
             // 팔로우 취소 실패 시 처리
             console.error('팔로우 취소 실패', error);
         }
     });
+	alert("팔로우를 취소했습니다.");
+	location.reload();
+	
 }
 
 </script>

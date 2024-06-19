@@ -6,17 +6,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class FollowsController
- */
+import com.crawlstars.model.followsDAO;
+
+
 public class FollowsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
+		
+		String follower = request.getParameter("follower");
+		String followee = request.getParameter("followee");
+		
+		followsDAO followsDAO = new followsDAO();
+		System.out.println(follower);
+		System.out.println(followee);
+		boolean deleted = new followsDAO().deleteFollower(follower, followee);
+        
+        if (deleted) {
+            response.getWriter().write("팔로우 취소 성공");
+        } else {
+            response.getWriter().write("팔로우 취소 실패");
+        }
+		
 	}
 
 }

@@ -55,7 +55,7 @@ public class JoinCon extends HttpServlet {
             
             e.printStackTrace();
          }
-        String SP_name = multi.getParameter("SP_name");
+        String SP_id = multi.getParameter("SP_id");
         String nick = multi.getParameter("nick");
         String gender = multi.getParameter("gender");
         
@@ -77,7 +77,7 @@ public class JoinCon extends HttpServlet {
         }
 
         System.out.println(user_img);
-        users users = new users(SP_name, nick, gender, birthdate , user_img , user_type);
+        users users = new users(SP_id, nick, gender, birthdate , user_img , user_type);
         session.setAttribute("user", users);
         System.out.println("X");
         int cnt = new usersDAO().join(users);
@@ -98,7 +98,7 @@ public class JoinCon extends HttpServlet {
         	            	String status = "O";
         	        		if(playlistsA.getItems()[i].getImages()!=null){
         	        			pl_image = playlistsA.getItems()[i].getImages()[0].getUrl();}
-        	        		playlists playlists =  new playlists(pl_id,pl_title,SP_name,pl_image);
+        	        		playlists playlists =  new playlists(pl_id,pl_title,SP_id,pl_image);
         	        		int result = new playlistsDAO().Insertuserpl(playlists);
         	            	GetPlaylistRequest getPlaylistRequest = spotifyApi.getPlaylist(pl_id)
         	                .build();
@@ -125,7 +125,7 @@ public class JoinCon extends HttpServlet {
         	            	}
         	            	
         	            }
-        	            response.sendRedirect("MainPage.jsp");
+        	            response.sendRedirect("Mainpage.jsp");
         	        } catch (SpotifyWebApiException | ParseException e) {
         	            e.printStackTrace();
         	            response.sendRedirect("FirstLogin.jsp");
@@ -134,7 +134,7 @@ public class JoinCon extends HttpServlet {
         	        
         	    }
         	} else {
-        		
+        		response.sendRedirect("Mainpage.jsp");
         	}
         }else {
         	System.out.println("정보입력 실패");
