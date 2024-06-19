@@ -956,8 +956,17 @@ Button:hover {
 			 .then(data => {
 			   PlaylistDetail.replaceChildren();
 			   console.log('데이터1',data.id)
-			   
-			   var dbPLdata =  getPL(data.id).then(result => console.log('넘어온 데이터 ', result))
+			   var plypickPl="";
+			   var dbPLdata =  getPL(data.id).then(result => 
+			   console.log('넘어온 데이터 ', result)
+			   if(result.pl_id==data.id){
+				  plypickPl= '<div class="pl-detail-name"><h1>'+data.name+'</h1><button>Like</button><div>'+
+			    	'<div class="pl-detail-owner"><span>'+data.owner.display_name+'</span><button>Like</button></div>'
+			   }else{
+				 plypickPl='<div class="pl-detail-name"><h1>'+data.name+'</h1><div>'+
+			    	'<div class="pl-detail-owner"><span>'+data.owner.display_name+'</span></div>'
+			   }
+			   )
 			   
 			   
 			   if(data.tracks.total	 != 0){
@@ -970,8 +979,7 @@ Button:hover {
 				    	temp.innerHTML = "<div>"+
 				    	'<img class="plInfoImg" src="'+plInfoImg+'"></div>'+
 				    	'<div class="pl-detail-info"><div class="pl-detail-type"><span>플레이리스트</span></div>'+
-				    	'<div class="pl-detail-name"><h1>'+data.name+'</h1><button>Like</button><div>'+
-				    	'<div class="pl-detail-owner"><span>'+data.owner.display_name+'</span><button>Like</button></div>'+
+				    	plypickPl+
 				    	'</div>';
 				    	PlaylistDetail.append(temp);
 				    	temp = document.createElement("hr");
@@ -1016,6 +1024,9 @@ Button:hover {
 				        
 				        PlaylistDetail.append(temp); 
 				    }
+				        if(result.pl_id==data.id){
+				        	var xhr = new XMLHttpRequest();
+						    var url = 'GetPLCon?PL_ID='+encodeURIComponent(result.pl_id);  // 서블릿 URL
 				        temp = document.createElement("hr");
 				    	PlaylistDetail.append(temp);
 				    	temp = document.createElement("div");
@@ -1028,12 +1039,33 @@ Button:hover {
 				    	PlaylistDetail.append(temp);
 				    	temp = document.createElement("hr");
 				    	PlaylistDetail.append(temp);
+						    xhr.onreadystatechange =   function() {
+						        if (xhr.readyState == XMLHttpRequest.DONE) {
+						            if (xhr.status == 200) {
+						                var response = xhr.responseText;
+						                responseData = JSON.parse(response);
+						                resolve(responseData);
+						               	console.log("비동기",responseData)              // 여기서 다른 작업 수행 가능
+						            } else {
+						                console.error('Error:', xhr.status, xhr.statusText);
+						                console.log('에러')
+						                // Handle other HTTP status codes
+						            }
+						        }
+						    };
+						    xhr.open('GET', url, true);
+						    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+						    xhr.send();
+
+				        	
+				        	
+				        	
 				    	//리플내용달기
 				    	temp = document.createElement("div");
 				    	temp.id="Pl-reply-input"
 				    	temp.innerHTML=
 				    		'<input id="pl-reply-input" type="text"><button onclick="InsertPlreply(\''+data.id+'\')">제출</button>'
-				    	PlaylistDetail.append(temp);
+				    	PlaylistDetail.append(temp);}
 			 })
 			 .catch(error => {
 			   console.error('There was a problem with your fetch operation:', error);
@@ -1293,7 +1325,6 @@ Button:hover {
 	        if (xhr.readyState == XMLHttpRequest.DONE) {
 	            if (xhr.status == 200) {
 	                var response = xhr.responseText;
-	                consol.log(response);
 	                if (response.trim() === 'True') {
 	                    console.log('PL_reply added successfully.');
 	                    // Handle success case here
@@ -1311,6 +1342,7 @@ Button:hover {
 	    xhr.send(params);
 	
 }
+	
 	
 	</script>
 	<script src="https://sdk.scdn.co/spotify-player.js"></script>

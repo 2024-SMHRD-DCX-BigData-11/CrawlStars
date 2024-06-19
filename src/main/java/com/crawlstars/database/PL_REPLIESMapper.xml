@@ -9,4 +9,8 @@
     <select id="getPlReply" parameterType="String" resultType="com.crawlstars.model.PL_REPLIES">
     	select * from PL_REPLIES where PL_ID = #{PL_ID}
     </select>
+    <select id="getLastReply" resultType="int">
+    	select MAX(PL_REPLY_ID) from PL_REPLIES
+    </select>
+    
 	</mapper>

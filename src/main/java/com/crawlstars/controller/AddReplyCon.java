@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.crawlstars.model.PL_REPLIES;
 import com.crawlstars.model.PL_REPLIESDAO;
+import com.crawlstars.model.PL_REPLY_HASHTAGS;
 import com.crawlstars.model.PL_REPLY_HASHTAGSDAO;
 import com.crawlstars.model.users;
 
@@ -30,20 +31,20 @@ public class AddReplyCon extends HttpServlet {
 		String pl_id = request.getParameter("PL_ID");
 		String post_id = request.getParameter("post_id");
 		String reply_body = request.getParameter("reply_body");
-		System.out.println("");
 		String[] reply_body_split =  reply_body.split("#");
 		users user = (users)session.getAttribute("user");
 		String SP_name = user.getSP_id();
 		if(pl_id!=null) {
 			PL_REPLIES pl_reply = new PL_REPLIES(pl_id,reply_body_split[0].trim(),SP_name);
+			System.out.println(pl_reply.toString());
 			int result = new PL_REPLIESDAO().insert(pl_reply);
-			List<PL_REPLIES> plreplies = new PL_REPLIESDAO().getPL(pl_id);
-			if(result==1) {
+			if(result!=0) {
 				if(reply_body_split.length>1) {
 					String[] hashtags = new String[reply_body_split.length-1];
-					for(int i=1;i<reply_body_split.length-1;i++) {
-						System.out.println(reply_body_split[i].trim());
-						int result2 = new PL_REPLY_HASHTAGSDAO().insert(reply_body_split[i].trim());
+					for(int i=1;i<reply_body_split.length;i++) {
+						PL_REPLY_HASHTAGS pl_reply_hashtag = new PL_REPLY_HASHTAGS(result, result,reply_body_split[i].trim());
+						System.out.println(pl_reply_hashtag);
+						int result2 = new PL_REPLY_HASHTAGSDAO().insert(pl_reply_hashtag);
 						if(result2==1) {
 							System.out.println("해쉬태그 입력완료");
 						}else {
