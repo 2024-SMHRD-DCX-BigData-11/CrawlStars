@@ -2,6 +2,17 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="com.crawlstars.database.blocksMapper">
-  
- </mapper>
+<mapper namespace="com.crawlstars.database.blocksMapper">
+	<insert id="userBlock" parameterType="blockusers">
+		insert into block_users values(block_users_SEQ.NEXTVAL, #{sp_id}, #{block_sp_id}, sysdate);
+	</insert>
+	
+	<select id="getBlockuers" parameterType="String" resultType="com.crawlstars.model.blocks">
+		select follower from follows where user=#{user}
+	</select>
+	
+	<select id="getNickByBlockuserId" parameterType="String" resultType="java.lang.String">
+    SELECT u.nick AS blockuser_nick FROM blocks b JOIN users u ON b.block_sp_id = u.sp_id WHERE b.sp_id= #{myuser}
+	</select>
+	
+</mapper>

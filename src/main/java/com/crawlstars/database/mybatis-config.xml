@@ -33,6 +33,7 @@
 	<mapper resource="com/crawlstars/database/PL_REPLIESMapper.xml"/>
 	<mapper resource="com/crawlstars/database/Like_plsMapper.xml"/>
 	<mapper resource="com/crawlstars/database/PostsMapper.xml"/>
+	<mapper resource="com/crawlstars/database/blocksMapper.xml"/>
 	
     
   </mappers>

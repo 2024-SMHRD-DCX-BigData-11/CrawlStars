@@ -1,3 +1,5 @@
+<%@page import="com.crawlstars.model.blocksDAO"%>
+<%@page import="com.crawlstars.model.blocks"%>
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="se.michaelthelin.spotify.model_objects.specification.User"%>
 <%@page import="se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest"%>
@@ -906,9 +908,21 @@ List<follows> followers = new followsDAO().getFollowers(followee);
 <!-- 블락 리스트 -->
 <div class="SC_BlockList" id="SC_BlockList" style="display: none;">
 <%
-String blockuser = user.getId();
+String myuser = user.getId();
+List<blocks> blocks = new blocksDAO().getBlockuers(myuser);
 %>
-<div><span>여기에 블락유저</span></div>
+
+	<ul class="SC_FLlist_content">
+	<% if(blocks != null){
+		for(int i=0; i<blocks.size(); i++){ %>
+		<li><img src="./ProfileImg/defaultmp.png" width="40px" style="border-radius:50%;">
+		<%-- <img src="<%=user.getImages() %>" width="40px"> --%>
+		<span id="SC_FLlist_content_FLName"><%=new blocksDAO().getNickByBlockuserId(myuser) %></span>
+		</li>
+		
+ 	<% }
+	} %>
+	</ul>
 
 </div>
 

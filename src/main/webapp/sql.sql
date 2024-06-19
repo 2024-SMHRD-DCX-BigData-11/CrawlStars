@@ -786,15 +786,21 @@ CREATE TABLE follows
      PRIMARY KEY (follow_id)
 );
 insert into FOLLOWS values(follows_SEQ.NEXTVAL, 'test1', '31t2evngqbv5f4oqowjfzlil6gji', sysdate);
-insert into FOLLOWS values(follows_SEQ.NEXTVAL, 'test2', '31t2evngqbv5f4oqowjfzlil6gji', sysdate);
-insert into FOLLOWS values(follows_SEQ.NEXTVAL, '31t2evngqbv5f4oqowjfzlil6gji', 'test1', sysdate);
+insert into FOLLOWS values(follows_SEQ.NEXTVAL, '31kep7sitkx2efl3c44kmq6tcbya', '31t2evngqbv5f4oqowjfzlil6gji', sysdate);
+insert into FOLLOWS values(follows_SEQ.NEXTVAL, '31t2evngqbv5f4oqowjfzlil6gji', '31kep7sitkx2efl3c44kmq6tcbya', sysdate);
 insert into FOLLOWS values(follows_SEQ.NEXTVAL, '31t2evngqbv5f4oqowjfzlil6gji', 'test3', sysdate);
 insert into FOLLOWS values(follows_SEQ.NEXTVAL, '31t2evngqbv5f4oqowjfzlil6gji', 'test4', sysdate);
 select * from follows where followee='31t2evngqbv5f4oqowjfzlil6gji';
 select count(*) as cnt from follows where followee='31t2evngqbv5f4oqowjfzlil6gji';
 select followee from follows where follower='31t2evngqbv5f4oqowjfzlil6gji';
+SELECT u.nick
+FROM follows f
+JOIN users u ON f.followee = u.sp_id
+WHERE f.follower = '31t2evngqbv5f4oqowjfzlil6gji';
 select count(*) as cnt from follows where follower='31t2evngqbv5f4oqowjfzlil6gji';
 delete from follows where followee='31t2evngqbv5f4oqowjfzlil6gji';
+
+SELECT u.nick AS follower_nick FROM follows f JOIN users u ON f.follower = u.sp_id WHERE f.followee = '31t2evngqbv5f4oqowjfzlil6gji';
 
 DROP TRIGGER follows_AI_TRG; 
 
