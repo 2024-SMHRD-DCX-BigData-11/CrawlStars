@@ -9,6 +9,14 @@ import com.crawlstars.database.SqlSessionManager;
 
 public class followsDAO {
 	SqlSessionFactory sqlSessionFactory = SqlSessionManager.getSqlSession();
+	
+	public int followCheck(String follower, String followee) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		int result = session.selectOne("com.crawlstars.database.followsMapper.followCheck", new follows(follower, followee));
+		session.close();
+		return result;
+	}
+	
 	public List<follows> getFollowers(String followee){
 		SqlSession session = sqlSessionFactory.openSession(true);
 		List<follows> followers = session.selectList("com.crawlstars.database.followsMapper.getFollowers", followee);
@@ -62,5 +70,31 @@ public class followsDAO {
             session.close();
         }
     }
+
+	public boolean userFollow(String follower, String followee) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+        try {
+            int userfollow = session.delete("com.crawlstars.database.followsMapper.userFollow", new follows(follower, followee));
+            System.out.println(follower);
+    		System.out.println(followee);
+            return userfollow > 0;
+        } finally {
+            session.close();
+        }
+	}
+
+	public boolean userUnfollow(String follower, String followee) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+        try {System.out.println("출ㄹ력");
+            int userunfollow = session.delete("com.crawlstars.database.followsMapper.userUnfollow", new follows(follower, followee));
+            System.out.println(follower);
+    		System.out.println(followee);
+            return userunfollow > 0;
+        } finally {
+            session.close();
+        }
+	}
+
+	
 
 }

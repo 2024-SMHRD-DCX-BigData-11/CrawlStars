@@ -19,13 +19,25 @@
 		select count(*) as cnt from follows where followee=#{followee}
 	</select>
 	
-	<select id="getNickByfolloweeId" parameterType="String" resultType="java.lang.String">
-    SELECT u.nick AS followee_nick FROM follows f JOIN users u ON f.followee = u.sp_id WHERE f.follower= #{follower}
+	<select id="getNickByfolloweeId" parameterType="String" resultType="String">
+    	SELECT u.nick AS followee_nick FROM follows f JOIN users u ON f.followee = u.sp_id WHERE f.follower= #{follower}
 	</select>
 	
-	<select id="getNickByfollowerId" parameterType="String" resultType="java.lang.String">
-    SELECT u.nick AS follower_nick FROM follows f JOIN users u ON f.follower = u.sp_id WHERE f.followee = #{followee}
+	<select id="getNickByfollowerId" parameterType="String" resultType="String">
+    	SELECT u.nick AS follower_nick FROM follows f JOIN users u ON f.follower = u.sp_id WHERE f.followee = #{followee}
 	</select>
+	
+	<select id="followCheck" parameterType="com.crawlstars.model.follows" resultType="Integer">
+		select count(*) from follows where follower=#{follower} and followee=#{followee}
+	</select>
+	
+	<insert id="userFollow" parameterType="String">
+		insert into FOLLOWS values(follows_SEQ.NEXTVAL, #{follower}, #{followee}, sysdate)
+	</insert>
+	
+	<delete id="userUnfollow" parameterType="String">
+		delete from follows where follower=#{follower} and followee=#{followee}
+	</delete>
 	
 	<delete id="followCancel" parameterType="String">
 		delete from follows where follower=#{follower} and followee=#{followee}

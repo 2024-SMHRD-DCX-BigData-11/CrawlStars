@@ -555,15 +555,22 @@ if(request.getParameter("sp_id")!=null){
            String userNick = new usersDAO().getUserNick(sp_id);
            int FolloweeCnt = new followsDAO().followee_cnt(sp_id);
            int FollowerCnt = new followsDAO().follower_cnt(sp_id);
-           String myUser = user.getSP_id();
-           String pageUser = sp_id ;
            %>	
            		<!-- 사용자 이름 -->
                 <p class="nick_name"><%=userNick %></p>
                 <%if(request.getParameter("sp_id")==null){ %>
                 <button id="showPopup">프로필 수정</button>
                 <%} else{%>
-                <button id="followButton">팔로우</button>
+                <button id="followButton" onclick="pageuserFollows()">
+					<%
+					String follower = user.getSP_id();
+					String followee = sp_id;
+					int FollowCheck = new followsDAO().followCheck(follower, followee);
+					if(FollowCheck == 1){ %>언팔로우
+					<%} else{ %>
+						팔로우
+					<%} %>
+				</button>
                 <%} %>
             </div>
         </div>
@@ -609,8 +616,9 @@ if(request.getParameter("sp_id")!=null){
                 <form>
                 <label for="name" style="font-size:14px;">닉네임</label><br>
                 
-                <input type="text" id="name" name="name" placeholder="Enter your Name">
+                <input type="text" id="inputName" name="name" placeholder="Enter your Name">
                 <button type="button" class="confirm-btn">닉네임확인</button>
+                <span id="resultCheck">중복확인을 해주세요</span>
                 
                 
                 
@@ -620,7 +628,7 @@ if(request.getParameter("sp_id")!=null){
    </div>
  </div>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
     
  // 레이어 팝업 열기
@@ -632,6 +640,7 @@ if(request.getParameter("sp_id")!=null){
     document.getElementById('closePopup').addEventListener('click', function() {
         document.getElementById('popupContainer').style.display = 'none';
     });
+   
     
     
  // 파일 입력 요소의 클릭 이벤트를 트리거하는 함수
@@ -650,6 +659,33 @@ if(request.getParameter("sp_id")!=null){
             reader.readAsDataURL(file);
         }
     }
+    
+    function pageuserFollows(){
+    	var myUser = '<%=user.getSP_id() %>';
+    	var pageUser = '<%=sp_id %>'
+    	$.ajax({
+			url : 'FollowsCon',
+
+			data : {
+				follower : myUser,
+				followee : pageUser
+			},
+			type : 'POST',
+
+			success : function(response) {
+				
+			},
+			error : function(error) {
+				
+			}
+		});
+
+		location.reload();
+
+	}
+    
+    
+    
     
 </script>
     

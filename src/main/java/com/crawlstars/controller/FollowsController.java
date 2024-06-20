@@ -23,12 +23,6 @@ public class FollowsController extends HttpServlet {
 		System.out.println(follower);
 		System.out.println(followee);
 		boolean deleted = new followsDAO().deleteFollower(follower, followee);
-        
-        if (deleted) {
-            response.getWriter().write("팔로우 취소 성공");
-        } else {
-            response.getWriter().write("팔로우 취소 실패");
-        }
 		
 	}
 
