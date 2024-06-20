@@ -7,4 +7,5 @@ private String reply_content;
 private String replied_at;
 private String sp_id;
 private String nick;
+private String hashtag;
 }

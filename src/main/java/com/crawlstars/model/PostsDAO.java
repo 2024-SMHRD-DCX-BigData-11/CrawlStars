@@ -10,10 +10,10 @@ import com.crawlstars.database.SqlSessionManager;
 public class PostsDAO {
 	SqlSessionFactory sqlSessionFactory = SqlSessionManager.getSqlSession();
 
-	public List<Posts> getPost(){
+	public List<Posts> getPost(String sp_id){
 		SqlSession session = sqlSessionFactory.openSession(true);
 		
-		List<Posts> result = session.selectList("com.crawlstars.database.PostsMapper.getPost");
+		List<Posts> result = session.selectList("com.crawlstars.database.PostsMapper.getPost",sp_id);
 		session.close();
 		return result;
 	}

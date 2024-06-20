@@ -3,14 +3,20 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.crawlstars.database.PostsMapper">
-	<select id="getPost" resultType="com.crawlstars.model.Posts">
+	<select id="getPost" parameterType="String" resultType="com.crawlstars.model.Posts">
 	select a.post_id,a.post_title,a.pl_id,a.pl_title,a.sp_id,a.post_body,a.post_img,a.created_at,b.nick as updated_at
 	from Posts a, users b
-	where a.sp_id=b.sp_id	
+	where a.sp_id=b.sp_id and
+    a.sp_id not in (select block_sp_id
+                    from block_users
+                    where sp_id =#{sp_id})
+    and a.post_id not in(select post_id
+                         from block_posts
+                         where sp_id =#{sp_id})	
 	</select>
 	<select id="getmyPost" parameterType="String" resultType="com.crawlstars.model.Posts">
-	select b.nick as post_id,a.post_title,a.pl_id,a.pl_title,a.sp_id,a.post_body,a.post_img,a.created_at, updated_at
-	from Posts a, users b
-	where a.sp_id=b.sp_id and a.post_id=#{post_id}
+	select b.nick as post_id,a.post_title,a.pl_id,a.pl_title,a.sp_id,a.post_body,a.post_img,a.created_at, a.updated_at, c.sp_id as pl_owner, c.pl_image as pl_img
+	from Posts a, users b, playlists c
+	where a.sp_id=b.sp_id and a.pl_id=c.pl_id(+) and a.post_id=#{post_id}
 	</select>
 </mapper>

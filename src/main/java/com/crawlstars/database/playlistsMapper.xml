@@ -7,9 +7,15 @@
      	insert into playlists values(#{pl_id}, #{pl_title}, #{sp_id}, 'O', #{pl_image}, sysdate, '')     	
     </insert>
 	<select id="getpl" parameterType="String" resultType="com.crawlstars.model.playlists">
-     	select a.PL_ID, a.pl_title, b.nick as sp_id, a.status, a.pl_image, a.created_at, a.sp_id as updated_at
+		select a.PL_ID, a.pl_title, b.nick as sp_id, a.status, a.pl_image, a.created_at, a.sp_id as updated_at
 		from playlists a, users b
-		where a.sp_id = b.sp_id   	
+		where a.sp_id = b.sp_id and 
+		a.sp_id not in (select block_sp_id
+                    	from block_users
+                    	where sp_id =#{sp_id})
+    and a.pl_id not in(select pl_id
+                         from block_pls
+                         where sp_id =#{pl_id})   	
     </select>
 	
 </mapper>

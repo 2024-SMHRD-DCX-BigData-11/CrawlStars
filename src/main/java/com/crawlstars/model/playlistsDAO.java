@@ -19,9 +19,9 @@ public class playlistsDAO {
 		return cnt;
 	}
 
-	public List<playlists> getpl() {
+	public List<playlists> getpl(String sp_id) {
 		SqlSession session = sqlSessionFactory.openSession(true);
-		List<playlists> playlist = session.selectList("com.crawlstars.database.playlistsMapper.getpl");
+		List<playlists> playlist = session.selectList("com.crawlstars.database.playlistsMapper.getpl",sp_id);
 		session.close();
 		return playlist;
 	}

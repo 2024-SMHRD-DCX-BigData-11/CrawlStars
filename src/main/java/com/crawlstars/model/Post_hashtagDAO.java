@@ -7,13 +7,17 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.crawlstars.database.SqlSessionManager;
 
-public class Post_repliesDAO {
+public class Post_hashtagDAO {
+	
+	
 	SqlSessionFactory sqlSessionFactory = SqlSessionManager.getSqlSession();
 
-	public List<Post_replies> getreply(String post_id) {
+public List<String> GetPosthashtag(String post_id) {
 		SqlSession session = sqlSessionFactory.openSession(true);
-		List<Post_replies> result = session.selectList("com.crawlstars.database.Post_repliesMapper.getPostReply", post_id);
+		List<String> result = session.selectList("com.crawlstars.database.Post_hashtagMapper.getPosthashtag", post_id);
 		session.close();
-		return result;
-	}
+	
+	
+	return result;
+}
 }

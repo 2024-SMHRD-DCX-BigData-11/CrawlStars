@@ -27,5 +27,8 @@ private String post_body;
 private String post_img;
 private String created_at;
 private String updated_at;
+private String pl_owner;
+private String pl_img;
+
 
 }

@@ -125,8 +125,8 @@ float:left;
         padding-left: 20px; 
         background-size: 20px 20px;
         background-color: #181818;
-
     }
+
 </style>
 
 
@@ -250,6 +250,26 @@ resize: none;
 	height: 300px;
 	vertical-align: left;
 }
+#post_pl_img{
+	width: 200px;
+	height: 200px;
+	vertical-align: left;
+}
+#post_PL{
+	width: 100%;
+	display: grid;
+	grid-template-columns: 4fr 6fr;
+	text-align:center;
+}
+#post_pl_info{
+	text-align: left;
+}
+.post_reply{
+	display: grid;
+	grid-template-columns: 20px 5fr 2fr 1.5fr 1.5fr;
+}
+
+
 </style>
 <style>
 /* 마이포스트 버튼토글 */
@@ -572,52 +592,51 @@ My Post
 <br>
 
 <div class="playlist">
-<% List<playlists> playlists = new playlistsDAO().getpl(); 
-System.out.print(playlists.toString());
+<% List<playlists> playlists = new playlistsDAO().getpl(user.getId()); 
 	for(int i=0;i<playlists.size();i++){
 		if(!playlists.get(i).getUpdated_at().equals(user.getId())){
 		
 %>
 <div class="playlistmusic">
-<table onclick="redirectToPlaylist('<%= playlists.get(i).getPl_id() %>');">
+<table >
 	<tr>
-		<td><img onerror=this.src="images/플리픽도안2.png" src="<%= playlists.get(i).getPl_image() %>" width="250px" height="250px"></td>
+		<td><img onclick="redirectToPlaylist('<%= playlists.get(i).getPl_id() %>')" onerror=this.src="images/플리픽도안2.png" src="<%= playlists.get(i).getPl_image() %>" width="250px" height="250px"></td>
 	</tr>
 	<tr>
-		<td align="center"><%= playlists.get(i).getPl_title() %></td>
+		<td align="center" onclick="redirectToPlaylist('<%= playlists.get(i).getPl_id() %>')"><%= playlists.get(i).getPl_title() %></td>
 	</tr>
 	<tr>
 	<td align="center"><button id="likePl">♥</button></td>
 	<tr>
-		<td align="center"><%= playlists.get(i).getSp_id() %></td>
+		<td align="center" onclick="redirectToMyPage('<%=playlists.get(i).getUpdated_at()%>')"><%= playlists.get(i).getSp_id() %></td>
 	</tr>
 	<tr>
 	<td align="center"><button id="likeUser">♥</button></td>
 	<tr>
 </table>
 </div>
+
 <%}} %>
 <% 
-	List<Posts> posts = new PostsDAO().getPost();
+	List<Posts> posts = new PostsDAO().getPost(user.getId());
 
-	System.out.print(posts.toString());
 	for(int i=0;i<posts.size();i++){	
 		if(!posts.get(i).getSp_id().equals(user.getId())){
 
 %>
 <div class="playlistmusic">
-<table onclick="getPost(<%=posts.get(i).getPost_id()%>)">
+<table>
 	<tr>
-		<td><img onerror=this.src="images/플리픽도안2.png" src="<%= posts.get(i).getPost_img() %>" width="250px" height="250px"></td>
+		<td><img onclick="getPost(<%=posts.get(i).getPost_id()%>)" onerror=this.src="images/플리픽도안2.png" src="<%= posts.get(i).getPost_img() %>" width="250px" height="250px"></td>
 	</tr>
 	<tr>
-		<td align="center"><%= posts.get(i).getPost_title() %></td>
+		<td align="center" onclick="getPost(<%=posts.get(i).getPost_id()%>)"><%= posts.get(i).getPost_title() %></td>
 	</tr>
 	<tr>
 	<td align="center"><button id="likePl">♥</button></td>
 	<tr>
 	<tr>
-		<td align="center"><%= posts.get(i).getUpdated_at() %></td>
+		<td align="center" onclick="redirectToMyPage('<%=posts.get(i).getSp_id()%>')"><%= posts.get(i).getUpdated_at() %></td>
 	</tr>
 	<tr>
 	<td align="center"><button id="likeUser">♥</button></td>
@@ -626,6 +645,7 @@ System.out.print(playlists.toString());
 </div>
 <%}}%>
 </div>
+
 
 <!-- 마이포스트 토글창 -->
  
@@ -701,6 +721,7 @@ System.out.print(playlists.toString());
 	<div id = "post_content">
 					<img alt="" src="images/플리픽 로고1.png" style="width:250px; margin-left: 30px">
 					<div style="display: inline-block; width: 400px; margin-left: 15px;"id="pl_title">제목</div>
+					
 					<div style="display: flex">
 					<div>
 					<img onerror=this.src="images/플리픽도안2.png" src="images/플리픽도안2.png" id="posted_img">
@@ -719,22 +740,26 @@ System.out.print(playlists.toString());
 					</div>
 					</div>
 	</div>
+	<hr>
 	<div id = "post_PL">
-		<div><img src="images/플리픽도안2.png" id="posted_img"></div>
-		<div>
-			<div><span>제목</span></div>
-			<div><span>이름</span></div>
+		<div><img src="images/플리픽도안2.png" id="post_pl_img"></div>
+		<div id="post_pl_info">
+			<div id="post_pl_name"><span></span></div>
+			<br><br><br>
+			<div id="post_pl_owner"><span></span></div>
 		</div>
 	</div>
+	<hr>
 	<div id ="post_replies">
 	<div class="post_reply">
-		<div>#</div>
-		<div>내용</div>
-		<div>이름</div>
-		<div>해시태그</div>
-		<div>등록일</div>
+		<div>#</div>   
+		<div>내용</div> 
+		<div>해시태그</div> 
+		<div>이름</div> 
+		<div>등록일</div> 
 	</div>
 	</div>
+	<hr>
 	<div id ="post_replies_input">
 	<input type="text">
 	</div>
@@ -792,6 +817,13 @@ const getPost = (post_id) =>{
 	var posted_img= document.getElementById('posted_img')
 	var pl_body= document.getElementById('pl_body')
 	var pl_owner= document.getElementById('pl_owner')
+	var pl_hashtag= document.getElementById('pl_hashtag')
+	var pl_update_date= document.getElementById('pl_update_date')
+	var post_replies = document.getElementById('post_replies');
+	var post_PL = document.getElementById('post_PL');
+	var post_pl_name = document.getElementById('post_pl_name');
+	var post_pl_owner = document.getElementById('post_pl_owner');
+	var post_pl_img = document.getElementById('post_pl_img');
     	var url = "getMypost?Post_id="+post_id;
     	fetch(url,{
     		method: 'GET',
@@ -805,10 +837,63 @@ const getPost = (post_id) =>{
 			 return response.json();
 			})
 			.then(data => {
-    		pl_title.innerText=data.post_title;
-    		posted_img.src=data.post_img;
-    		pl_body.innerText=data.post_body;
-    		pl_owner.innerText=data.post_id;
+    		pl_title.innerText=data.Post.post_title;
+    		posted_img.src=data.Post.post_img;
+    		pl_body.innerText=data.Post.post_body;
+    		pl_owner.innerText=data.Post.post_id;
+    		pl_hashtag.innerHTML ="";
+    		if(data.post_hashtag!=null){
+    			for(i=0;i<data.post_hashtag.length;i++){
+    				pl_hashtag.innerHTML= pl_hashtag.innerHTML + "<span>#"+data.post_hashtag[i]+"</span>"
+    			}
+    		}
+    		pl_update_date.innerText = data.Post.created_at;
+    		post_replies.innerHTML ="";
+    		var hashtags ="";
+    		if(data.post_replies!=null){
+    			var j=1;
+    			for(i=0;i<data.post_replies.length;i++){
+    				
+    				var temp = document.createElement("div");
+    				temp.className =  "post_reply"
+    				temp.innerHTML= "<div>"+j+"</div><div>"+data.post_replies[i].reply_content
+						+"</div><div>";
+					if(i==0){
+					hashtags = "<div class='post_hashtag'>"+data.post_replies[i].hashtag+"</div>"}else{
+						hashtags="";
+					}
+    				while(true){
+    					if(data.post_replies[i]!=null){
+    					if(data.post_replies[i].hashtag!=null){
+    						if(i!=0){
+    						if(data.post_replies[i].post_reply_id==data.post_replies[i-1].post_reply_id){
+    							hashtags = hashtags+"<div class='post_hashtag'>"+data.post_replies[i].hashtag+"</div>";
+    							i++;
+    						}else{
+    							break;
+    						}}else{
+    							break;
+    						}
+    					}else{
+        					break;
+        				}}else{
+        					break;
+        				}
+    				}
+					console.log(i+":"+hashtags);
+					temp.innerHTML = temp.innerHTML+hashtags+"</div><div>"+data.post_replies[i].sp_id+"</div><div>"+data.post_replies[i].replied_at.substr(0,10)+"</div>"
+					post_replies.append(temp);
+					j++
+    			}
+    		}
+    		if(data.Post.pl_id!=null){
+    			post_PL.style.display='grid';
+    			post_pl_img.src=data.Post.pl_img;
+    			post_pl_name.innerHTML = "<span onclick='redirectToPlaylist(\""+data.Post.pl_id+"\")'>"+data.Post.pl_title+"</span>"
+    			post_pl_owner.innerHTML = "<span onclick='redirectToMyPage(\""+data.Post.pl_owner+"\")'>"+data.Post.pl_owner+"</span>"
+    		}else{
+    			post_PL.style.display='none';
+    		}
     		document.getElementById('postContainer').style.display = 'block';
     		})
     	.catch(error => {
@@ -918,6 +1003,10 @@ document.getElementById("menuButton").addEventListener("click", function() {
 <script>
 function redirectToPlaylist(playlistId) {
     var url = 'Playlist.jsp?PL_ID=' + playlistId;
+    window.location.href = url;
+}
+function redirectToMyPage(sp_id) {
+    var url = 'MyPage.jsp?sp_id=' + sp_id;
     window.location.href = url;
 }
 </script>

@@ -3,14 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.crawlstars.database.Post_repliesMapper">
-	<select id="getPost" resultType="com.crawlstars.model.Posts">
-	select a.post_id,a.post_title,a.pl_id,a.pl_title,a.sp_id,a.post_body,a.post_img,a.created_at,b.nick as updated_at
-	from Posts a, users b
-	where a.sp_id=b.sp_id	
+	<select id="getPostReply" resultType="com.crawlstars.model.Post_replies">
+	SELECT a.reply_content, a.post_reply_id, a.replied_at, c.nick as SP_ID, b.hashtag
+		FROM post_replies a, post_reply_hashtags b, users c
+		WHERE a.post_reply_id = b.post_reply_id(+)
+		AND a.sp_id = c.sp_id and a.post_id= #{post_id}	
 	</select>
-	<select id="getmyPost" parameterType="String" resultType="com.crawlstars.model.Posts">
-	select b.nick as post_id,a.post_title,a.pl_id,a.pl_title,a.sp_id,a.post_body,a.post_img,a.created_at, updated_at
-	from Posts a, users b
-	where a.sp_id=b.sp_id and a.post_id=#{post_id}
-	</select>
+
 </mapper>

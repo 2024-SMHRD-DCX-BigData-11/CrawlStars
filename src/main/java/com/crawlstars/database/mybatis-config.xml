@@ -36,6 +36,7 @@
 	<mapper resource="com/crawlstars/database/blocksMapper.xml"/>
 	<mapper resource="com/crawlstars/database/Post_reply_hashtagMapper.xml"/>
 	<mapper resource="com/crawlstars/database/Post_repliesMapper.xml"/>
+	<mapper resource="com/crawlstars/database/Post_hashtagMapper.xml"/>
 	
     
   </mappers>
