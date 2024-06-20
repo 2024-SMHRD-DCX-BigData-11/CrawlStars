@@ -219,7 +219,9 @@ header {
 .PlaylistSearch{
 float:left;
 }
-
+.playlist{
+text-align:center;
+}
 
 
 #menu {
@@ -712,19 +714,19 @@ if(request.getParameter("sp_id")!=null){
 </ul>
 </nav>
 
+           <%
+           users userNick = new usersDAO().getUserNick(sp_id);
+           int FolloweeCnt = new followsDAO().followee_cnt(sp_id);
+           int FollowerCnt = new followsDAO().follower_cnt(sp_id);
+           %>	
 <!-- 프로필 수정 -->
 <div class="MyPage-Main">
 <div class="profile-container">
         <div class="profile-header">
-            <img src="./ProfileImg/defaultmp.png" alt="프로필 사진" class="profile-picture">
+            <img onerror=this.src="./ProfileImg/defaultmp.png" src="<%=userNick.getUser_img() %>" alt="프로필 사진" class="profile-picture">
            <div class="profile-info">
-           <%
-           String userNick = new usersDAO().getUserNick(sp_id);
-           int FolloweeCnt = new followsDAO().followee_cnt(sp_id);
-           int FollowerCnt = new followsDAO().follower_cnt(sp_id);
-           %>	
            		<!-- 사용자 이름 -->
-                <p class="nick_name"><%=userNick %></p>
+                <p class="nick_name"><%=userNick.getNick() %></p>
                 <%if(request.getParameter("sp_id")==null){ %>
                 <button id="showPopup">프로필 수정</button>
                 <%} else{%>
@@ -763,25 +765,24 @@ if(request.getParameter("sp_id")!=null){
    <div class="popup">
    <span id="closePopup" class="close-btn">×</span>
    <div id = "post_content">
-            
                <h2>프로필 변경</h2>
                <p style="font-size: 13px;">개인 정보는 비공개로 유지하세요. 여기에 추가한 정보는 회원님의 프로필을 볼 수 있는 모든 사람에게 표시됩니다.</p>
                <table id="profile_pic">
                <tr>
                <td>
-               <!-- <img src="./ProfileImg/defaultmp.png" alt="프로필 사진" class="popup-profile-picture"> -->
+              <!-- <img src="./ProfileImg/defaultmp.png" alt="프로필 사진" class="popup-profile-picture"> --> 
                <div id="preview">
                
                </div>
                </td>
               <td>
                <button class="change-photo-btn" onclick="triggerFileInput()">사진 변경</button>
-               <input type="file" id="fileInput" class="hidden" accept="image/*" onchange="handleFileChange(event)">
+               <input name="user_img" type="file" id="fileInput" class="hidden" accept="image/*" onchange="handleFileChange(event)">
                </td>
                </tr>
                </table>
                <br>     
-                <form>
+                <form action="UpdateprofileCon" method="post" enctype="multipart/form-data" >
                 <label for="name" style="font-size:14px;">닉네임</label><br>
                 
                 <input type="text" id="inputName" name="inputname" placeholder="Enter your Name">
@@ -789,7 +790,7 @@ if(request.getParameter("sp_id")!=null){
                 <span id="resultCheck">중복확인을 해주세요</span>
                 
                
-                <button type="button" class="save-btn" onclick="">저 장</button>
+                <input type="submit" class="save-btn" onclick="">저 장</button>
                 </form>
           
    </div>
@@ -823,7 +824,7 @@ if(request.getParameter("sp_id")!=null){
             reader.onload = function(e) {
                 document.getElementById('profileImage').src = e.target.result;
             }
-            reader.readAsDataURL(file);
+            /* reader.readAsDataURL(file); */
         }
     }
     
@@ -966,7 +967,6 @@ if(request.getParameter("sp_id")!=null){
                 <h2 style="text-align: center;">My following</h2>
                 <div class="section-content">
                      <% List<users> fuser = new usersDAO().getfollowee(sp_id); 
-                     System.out.print(fuser.get(0).toString());
                      if(fuser!=null){
                     	 for(int i =0;i<fuser.size();i++){
                     		
@@ -1016,19 +1016,18 @@ if(request.getParameter("sp_id")!=null){
                 List<Posts> LikePost = new PostsDAO().LikePost(sp_id);
                 if(LikePost!=null){
                 	for(int i=0;i<LikePost.size();i++){
-                		LikePost.get(index)
                 	
                 %>
                 <div class="playlist">
                   <table >
                      <tr>
-                        <td><img onclick="redirectToPlaylist('<%=LikePost.get(i). %>')" onerror=this.src="images/플리픽도안2.png" src="<%= like_pl.get(i).getPl_img() %>" width="250px" height="250px"alt="My Music"></td>
+                        <td><img onclick="getPost('<%=LikePost.get(i).getPost_id()%>')" onerror=this.src="images/플리픽도안2.png" src="<%= LikePost.get(i).getPost_img() %>" width="250px" height="250px"alt="My Music"></td>
                      </tr>
                      <tr>
-                        <td><%= like_pl.get(i).getPl_id() %></td>
+                        <td><%= LikePost.get(i).getPost_title() %></td>
                      </tr>
                      <tr>
-                        <td><%= like_pl.get(i).getSp_id() %></td>
+                        <td><%= LikePost.get(i).getUpdated_at() %></td>
                      </tr>
                      </table>
                </div>
@@ -1037,7 +1036,7 @@ if(request.getParameter("sp_id")!=null){
                 <%}} %>
                 </div>
             </div>
-        </div>
+        </div>t
     </div>
 <div id="postContainer" class="post-container">
 	<div class="postup">

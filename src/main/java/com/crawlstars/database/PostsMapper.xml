@@ -36,11 +36,12 @@
 	</select>
 
 	<select id="LikePost" parameterType="String" resultType="com.crawlstars.model.Posts">
-	select *
-from posts
-where post_id in ( select post_id
+	select a.post_id,a.post_title,a.pl_id,a.pl_title,a.sp_id,a.post_body,a.post_img,a.created_at,b.nick as updated_at
+	from Posts a, users b
+	where a.sp_id=b.sp_id and
+	 post_id in ( select post_id
                     from post_likes
-                    where sp_id = #{sp_id});
+                    where sp_id = #{sp_id})
 	</select>
 	
 </mapper>

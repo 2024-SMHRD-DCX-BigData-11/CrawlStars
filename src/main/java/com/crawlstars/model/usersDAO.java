@@ -32,9 +32,9 @@ public class usersDAO {
 		return result;
 	}
 	
-	public String getUserNick(String sp_id) {
+	public users getUserNick(String sp_id) {
 		SqlSession session = sqlSessionFactory.openSession(true);
-		String result = session.selectOne("com.crawlstars.database.usersMapper.getUserNick", sp_id);
+		users result = session.selectOne("com.crawlstars.database.usersMapper.getUserNick", sp_id);
 		session.close();
 		return result;
 	}

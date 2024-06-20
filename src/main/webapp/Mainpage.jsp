@@ -555,7 +555,7 @@ User user= getcurrentusersprofile.execute();
 	<img alt="" src="images/메뉴버튼.png"  width="30" height="30"/>
 	</a>
 	<a href="Mainpage.jsp" class="headericon">
-	<img alt="" src="images/플리픽 로고1.png" onclick="" height="30"/>
+	<img alt="" src="images/플리픽 로고1.png" onclick="images/플리픽 로고1.png" height="30"/>
 	</a>
 	</div>
 		

@@ -18,17 +18,17 @@
 		select * from users where sp_id=#{sp_id}
 	</select>
 	
-	<select id="getUserNick" parameterType="String" resultType="String">
-		select nick from users where sp_id=#{sp_id}
+	<select id="getUserNick" parameterType="String" resultType="users">
+		select * from users where sp_id=#{sp_id}
 	</select>
 	
-	<update id="updateNick" parameterType="String" >
-		UPDATE users SET nick = #{inputNick} WHERE sp_id=#{sp_id}
+	<update id="updateNick" parameterType="users" >
+		UPDATE users SET nick = #{nick}, user_img = #{user_img} WHERE sp_id=#{SP_id}
 	</update>
 	<select id="Fuser" parameterType="String" resultType="users">
 	select *
 from users
-where sp_id in( select sp_id
+where sp_id in( select followee
               from follows
              where follower = #{sp_id}
              )
