@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.crawlstars.model.Post_hashtag;
+import com.crawlstars.model.Post_hashtagDAO;
 import com.crawlstars.model.Posts;
 import com.crawlstars.model.PostsDAO;
 import com.crawlstars.model.users;
@@ -49,7 +50,7 @@ public class NewPostCon extends HttpServlet {
 	}
 	String pl_info = multi.getParameter("pl_info");
 	if(pl_info!=null) {
-	String[] pl_split=pl_info.split("?#");
+	String[] pl_split=pl_info.split("!#");
 	String pl_id = pl_split[0];
 	String pl_title = pl_split[1];
 	post.setPl_id(pl_id);
@@ -58,15 +59,25 @@ public class NewPostCon extends HttpServlet {
 		post.setPl_id("");
 		post.setPl_title("");
 	}
+	System.out.println(post.toString());
 	int result = new PostsDAO().newPost(post);
 	if(result==1) {
 		System.out.println("Post 입력 성공");
 		String post_id = new PostsDAO().lastPost(user.getSP_id());
 		String post_hashtags = multi.getParameter("post_hashtag");
+		System.out.println(post_hashtags);
 		if(post_hashtags!=null) {
 			String[] hashtags = post_hashtags.split("#");
-			for(String hashtag:hashtags) {
-				Post_hashtag hashtag1 = new Post_hashtag(post_id,hashtag); 
+			System.out.println(hashtags.toString());
+			for(int i=1;i<hashtags.length;i++) {
+				Post_hashtag hashtag1 = new Post_hashtag(post_id,hashtags[i]);
+				System.out.println(hashtags[i]);
+				int cnt = new Post_hashtagDAO().newHash(hashtag1);
+				if(cnt==1) {
+					System.out.println("해쉬태그입력성공");
+				}else {
+					System.out.println("해쉬태그입력실패");
+				}
 			}
 		}
 	}else {

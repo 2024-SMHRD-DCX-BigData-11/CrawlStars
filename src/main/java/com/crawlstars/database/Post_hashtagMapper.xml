@@ -6,4 +6,7 @@
 	<select id="getPosthashtag" parameterType="String" resultType="String">
 	select hashtag from post_hashtags where post_id=#{post_id}
 	</select>
+	<insert id="insert" parameterType="com.crawlstars.model.Post_hashtag">
+	insert into post_hashtags values (post_hashtags_seq.nextval,#{post_id},#{hashtag})
+	</insert>
 </mapper>

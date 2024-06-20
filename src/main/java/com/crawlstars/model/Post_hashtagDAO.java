@@ -20,4 +20,10 @@ public List<String> GetPosthashtag(String post_id) {
 	
 	return result;
 }
+
+public int newHash(Post_hashtag hashtag) {
+	SqlSession session = sqlSessionFactory.openSession(true);
+	int cnt =session.insert("com.crawlstars.database.Post_hashtagMapper.insert",hashtag);
+	return cnt;
+}
 }

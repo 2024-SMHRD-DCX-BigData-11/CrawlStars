@@ -20,10 +20,10 @@
 	where a.sp_id=b.sp_id and a.pl_id=c.pl_id(+) and a.post_id=#{post_id}
 	</select>
 	<insert id="insert" parameterType="com.crawlstars.model.Posts">
-	insert into posts values(posts_seq.nextval,#{post_title},#{pl_id},#{pl_title},#{sp_id},#{post_body},#{post_img},sysdate,'');
+	insert into posts values(posts_seq.nextval,#{post_title},#{pl_id},#{pl_title},#{sp_id},#{post_body},#{post_img},sysdate,'')
 	
 	</insert>
-	<select id="findone" parameterType="String">
+	<select id="findone" parameterType="String" resultType="String">
 	select max(post_id)
 	from Posts
 	where sp_id=#{sp_id}

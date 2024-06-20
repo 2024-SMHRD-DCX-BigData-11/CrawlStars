@@ -82,6 +82,12 @@
   	<description></description>
   	<servlet-class>com.crawlstars.controller.FollowsCon</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>GetSearchResultCon</servlet-name>
+  	<display-name>GetSearchResultCon</display-name>
+  	<description></description>
+  	<servlet-class>com.crawlstars.controller.GetSearchResultCon</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>NickCheckCon</servlet-name>
   	<url-pattern>/NickCheckCon</url-pattern>
@@ -133,5 +139,9 @@
   <servlet-mapping>
   	<servlet-name>FollowsCon</servlet-name>
   	<url-pattern>/FollowsCon</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>GetSearchResultCon</servlet-name>
+  	<url-pattern>/GetSearchResultCon</url-pattern>
   </servlet-mapping>
 </web-app>

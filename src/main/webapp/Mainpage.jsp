@@ -699,12 +699,12 @@ My Post
 					</tr>
 					<tr>
 					<td>재생 목록 추가</td>
-					<td><input type="text" placeholder="검색어를 입력하세요..." class="post_musicsearch"></td>
+					<td></td>
 					</tr>
 					<tr><td colspan="2" class="post_musiclist">
 					<%for(int i=0;i<playlists.size();i++){
 						%>
-						<input type="radio" name="pl_info" value="<%=playlists.get(i).getPl_id()+"?#"+playlists.get(i).getPl_title() %>"><%=playlists.get(i).getPl_title() %>
+						<input type="radio" name="pl_info" value="<%=playlists.get(i).getPl_id()+"!#"+playlists.get(i).getPl_title() %>"><%=playlists.get(i).getPl_title() %>
 						<%} %>					
 					</td></tr>
 
@@ -951,6 +951,12 @@ const InsertPostreply = (pl_id)=>{
     xhr.send(params);
 
 }
+var stub_box = document.getElementsByClassName('stub_box');
+const SearchDb = (pl_id)=>{
+	stub_box.replaceChildren();
+	var url="GetSearchResultCon"
+}
+
 </script>
 
 <script>
