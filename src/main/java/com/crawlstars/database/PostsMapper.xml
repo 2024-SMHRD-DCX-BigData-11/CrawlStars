@@ -28,5 +28,11 @@
 	from Posts
 	where sp_id=#{sp_id}
 	</select>
+	<select id="RgetPost" parameterType="String" resultType="com.crawlstars.model.Posts">
+	select a.post_id,a.post_title,a.pl_id,a.pl_title,a.sp_id,a.post_body,a.post_img,a.created_at,b.nick as updated_at
+	from Posts a, users b
+	where a.sp_id=b.sp_id and
+    a.post_title like '%'||#{search}||'%'
+	</select>
 	
 </mapper>

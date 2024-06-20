@@ -83,5 +83,6 @@ public class NewPostCon extends HttpServlet {
 	}else {
 		System.out.println("Post 입력 실패");
 	}
+	response.sendRedirect("Mainpage.jsp");
 	}
 }

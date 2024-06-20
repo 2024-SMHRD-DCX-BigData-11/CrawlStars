@@ -17,5 +17,11 @@
                          from block_pls
                          where sp_id =#{pl_id})   	
     </select>
+    <select id="Rgetpl" parameterType="String" resultType="com.crawlstars.model.playlists">
+    	select a.PL_ID, a.pl_title, b.nick as sp_id, a.status, a.pl_image, a.created_at, a.sp_id as updated_at
+		from playlists a, users b
+		where a.sp_id = b.sp_id and 
+		a.pl_title like '%'||#{search}||'%'
+    </select>
 	
 </mapper>

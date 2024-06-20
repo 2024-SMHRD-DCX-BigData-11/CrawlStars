@@ -1209,9 +1209,6 @@ if(like_pl!=null){
 	        if (value) {
 			SearchP(value);
 	        }
-
-	        // 입력창 비우기 (선택사항)
-	        searchInput.value = '';
 	    }
 	});
 	const SearchP = (q)=>{

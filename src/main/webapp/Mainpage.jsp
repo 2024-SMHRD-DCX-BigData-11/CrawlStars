@@ -529,6 +529,11 @@ Button:hover {
 	margin-left: 5px;
 	margin-right: 5px;
 }
+
+#Likedlist{
+ height: 300px;
+ overflow-y: auto;
+}
 </style>
 
 </head>
@@ -575,7 +580,7 @@ User user= getcurrentusersprofile.execute();
 
 <div>
 <div class="PlaylistSearch" align="center"><!-- 검색창 -->
-	<input type="text" placeholder="검색어를 입력하세요..." class="search-input">
+	<input type="text" placeholder="검색어를 입력하세요..." class="search-input" id="searchDb">
 </div>
 
 <button style="margin-left:20px; height: 30px;" id="showPopup"><!-- New Post -->
@@ -833,6 +838,7 @@ const getPost = (post_id) =>{
 	var post_pl_img = document.getElementById('post_pl_img');
 	var post_replies_input = document.getElementById('post_replies_input');
 	var post_replies_inputdiv = document.getElementById('post_replies_inputdiv');
+	var searchDb = document.getElementById('searchDb');
     	var url = "getMypost?Post_id="+post_id;
     	fetch(url,{
     		method: 'GET',
@@ -951,10 +957,67 @@ const InsertPostreply = (pl_id)=>{
     xhr.send(params);
 
 }
-var stub_box = document.getElementsByClassName('stub_box');
-const SearchDb = (pl_id)=>{
-	stub_box.replaceChildren();
-	var url="GetSearchResultCon"
+var playlist_box = document.getElementsByClassName('playlist')[0];
+var searchInput = document.getElementsByClassName("search-input")[0];
+searchInput.addEventListener('keypress', function(event) {
+    // keyCode 혹은 key를 사용하여 Enter 키를 확인합니다.
+    if (event.keyCode === 13 || event.key === 'Enter') {
+        // 입력된 값 가져오기
+        var value = searchInput.value.trim();
+        // 값이 비어 있지 않으면 메소드 실행
+        if (value) {
+		SearchDb(value);
+
+        }
+
+    }
+});
+
+
+const SearchDb = (searchvalue)=>{
+	var url="GetSearchResultCon?search="+searchvalue
+	fetch(url,{
+		method: 'GET',
+		headers:{
+			'Content-Type': 'application/json; charset=utf-8'
+		}
+	}).then(response=>{
+		 if (!response.ok) {
+		        throw new Error('Network response was not ok');
+		    }
+		 return response.json();
+		})
+		.then(data => {
+			console.log(data);
+			playlist_box.replaceChildren();
+			if(data.Post!=null){
+				
+			}
+			if(data.playlist!=null){
+				for(i=0;i<data.playlist.length;i++){
+				temp = document.createElement("div");
+				temp.classList.add('playlistmusic');
+				temp.innerHTML="<table><tbody><tr><td><img onclick='redirectToPlaylist(\""+data.playlist[i].pl_id+"\")' onerror=this.src='images/플리픽도안2.png' src='"+data.playlist[i].pl_image+"'width='250px' height='250px'></td>"+
+				"</tr><tr><td align='center' onclick='redirectToPlaylist(\""+data.playlist[i].pl_id+"\")'>"+data.playlist[i].pl_title+"</td>"+
+				"</tr> <tr><td align='center'><button id='likePl'>♥</button></td><tr><td align='center' onclick='redirectToMyPage(\""+data.playlist[i].updated_at+"\")'>"+data.playlist[i].sp_id+"</td>"+
+				"</tr><tr><td align='center'><button id='likeUser'>♥</button></td><tr></table>"
+				playlist_box.append(temp);
+				}
+			}
+			if(data.Post!=null){
+				for(i=0;i<data.Post.length;i++){
+					temp = document.createElement("div");
+					temp.classList.add('playlistmusic');
+					temp.innerHTML="<table><tbody><tr><td><img onclick='redirectToPlaylist(\""+data.Post[i].Post_id+"\")' onerror=this.src='images/플리픽도안2.png' src='"+data.Post[i].Post_img+"'width='250px' height='250px'></td>"+
+					"</tr><tr><td align='center' onclick='redirectToPlaylist(\""+data.Post[i].Post_id+"\")'>"+data.Post[i].Post_title+"</td>"+
+					"</tr> <tr><td align='center'><button id='likePl'>♥</button></td><tr><td align='center' onclick='redirectToMyPage(\""+data.Post[i].Sp_id+"\")'>"+data.playlist[i].updated_at+"</td>"+
+					"</tr><tr><td align='center'><button id='likeUser'>♥</button></td><tr></table>"
+					playlist_box.append(temp);	
+				}
+				
+			}
+		})
+	
 }
 
 </script>

@@ -19,6 +19,13 @@ public class PostsDAO {
 		session.close();
 		return result;
 	}
+	public List<Posts> ResearchgetPost(String sp_id){
+		SqlSession session = sqlSessionFactory.openSession(true);
+		
+		List<Posts> result = session.selectList("com.crawlstars.database.PostsMapper.RgetPost",sp_id);
+		session.close();
+		return result;
+	}
 
 	public Posts getmyPost(String post_id) {
 		SqlSession session = sqlSessionFactory.openSession(true);

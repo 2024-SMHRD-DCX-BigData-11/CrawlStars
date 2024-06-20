@@ -25,5 +25,11 @@ public class playlistsDAO {
 		session.close();
 		return playlist;
 	}
+	public List<playlists> Researchgetpl(String search) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		List<playlists> playlist = session.selectList("com.crawlstars.database.playlistsMapper.Rgetpl",search);
+		session.close();
+		return playlist;
+	}
 
 }
