@@ -1043,7 +1043,7 @@ if(like_pl!=null){
 		  var temp = document.createElement("div");
 				    	temp.className = "first"
 				    	temp.innerHTML = '<div class="first-first">'+
-							'<img class="nextAlbum" src="images/플리픽도안2.png" onclick="DetailP(\''+data.id+'\')">'+
+						'<img class="nextAlbum" src="images/플리픽도안2.png" onclick="DetailP(\''+data.id+'\')">'+
 						'</div><div class="first-second"><span>'+data.name+'</span><br>'+
 						'<span>'+'<%=user.getDisplayName() %>'+'</span></div>'
 					

@@ -59,7 +59,6 @@ public class NewPostCon extends HttpServlet {
 		post.setPl_id("");
 		post.setPl_title("");
 	}
-	System.out.println(post.toString());
 	int result = new PostsDAO().newPost(post);
 	if(result==1) {
 		System.out.println("Post 입력 성공");
@@ -70,7 +69,7 @@ public class NewPostCon extends HttpServlet {
 			String[] hashtags = post_hashtags.split("#");
 			System.out.println(hashtags.toString());
 			for(int i=1;i<hashtags.length;i++) {
-				Post_hashtag hashtag1 = new Post_hashtag(post_id,hashtags[i]);
+				Post_hashtag hashtag1 = new Post_hashtag(post_id,hashtags[i].trim());
 				System.out.println(hashtags[i]);
 				int cnt = new Post_hashtagDAO().newHash(hashtag1);
 				if(cnt==1) {

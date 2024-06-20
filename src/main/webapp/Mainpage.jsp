@@ -614,7 +614,7 @@ My Post
 		<td align="center" onclick="redirectToPlaylist('<%= playlists.get(i).getPl_id() %>')"><%= playlists.get(i).getPl_title() %></td>
 	</tr>
 	<tr>
-	<td align="center"><button id="likePl">♥</button></td>
+	<td align="center"><button id="likePl" onclick="getPLLike('<%=playlists.get(i).getPl_id()%>')">♥</button></td>
 	<tr>
 		<td align="center" onclick="redirectToMyPage('<%=playlists.get(i).getUpdated_at()%>')"><%= playlists.get(i).getSp_id() %></td>
 	</tr>
@@ -641,13 +641,13 @@ My Post
 		<td align="center" onclick="getPost(<%=posts.get(i).getPost_id()%>)"><%= posts.get(i).getPost_title() %></td>
 	</tr>
 	<tr>
-	<td align="center"><button id="likePl">♥</button></td>
+	<td align="center"><button id="likePl" onclick="getPostLike('<%=posts.get(i).getPost_id()%>')">♥</button></td>
 	<tr>
 	<tr>
 		<td align="center" onclick="redirectToMyPage('<%=posts.get(i).getSp_id()%>')"><%= posts.get(i).getUpdated_at() %></td>
 	</tr>
 	<tr>
-	<td align="center"><button id="likeUser">♥</button></td>
+	<td align="center"><button id="likeUser" onclick="">♥</button></td>
 	<tr>
 </table>
 </div>
@@ -1008,9 +1008,9 @@ const SearchDb = (searchvalue)=>{
 				for(i=0;i<data.Post.length;i++){
 					temp = document.createElement("div");
 					temp.classList.add('playlistmusic');
-					temp.innerHTML="<table><tbody><tr><td><img onclick='redirectToPlaylist(\""+data.Post[i].Post_id+"\")' onerror=this.src='images/플리픽도안2.png' src='"+data.Post[i].Post_img+"'width='250px' height='250px'></td>"+
-					"</tr><tr><td align='center' onclick='redirectToPlaylist(\""+data.Post[i].Post_id+"\")'>"+data.Post[i].Post_title+"</td>"+
-					"</tr> <tr><td align='center'><button id='likePl'>♥</button></td><tr><td align='center' onclick='redirectToMyPage(\""+data.Post[i].Sp_id+"\")'>"+data.playlist[i].updated_at+"</td>"+
+					temp.innerHTML="<table><tbody><tr><td><img onclick='getPost(\""+data.Post[i].Post_id+"\")' onerror=this.src='images/플리픽도안2.png' src='"+data.Post[i].Post_img+"'width='250px' height='250px'></td>"+
+					"</tr><tr><td align='center' onclick='getPost(\""+data.Post[i].Post_id+"\")'>"+data.Post[i].Post_title+"</td>"+
+					"</tr> <tr><td align='center'><button id='likePl' onclick='getPostLike(\""+data.Post[i].Post_id+"\")'>♥</button></td><tr><td align='center' onclick='redirectToMyPage(\""+data.Post[i].Sp_id+"\")'>"+data.playlist[i].updated_at+"</td>"+
 					"</tr><tr><td align='center'><button id='likeUser'>♥</button></td><tr></table>"
 					playlist_box.append(temp);	
 				}
@@ -1019,7 +1019,38 @@ const SearchDb = (searchvalue)=>{
 		})
 	
 }
-
+const getPLLike =(pl_id) =>{
+	var url = "PLlikeCon?pl_id=" + pl_id;
+	fetch(url,{
+		method: 'Post',
+		headers:{
+			'Content-Type': 'application/json; charset=utf-8'
+		}
+	}).then(response=>{
+		 if (!response.ok) {
+		        throw new Error('Network response was not ok');
+		    }return response.json();
+		})
+		.then(data => {
+			console.log('Success:', data);
+	})
+}
+const getPostLike = (post_id)=>{
+	var url = "PostlikeCon?pl_id=" + post_id;
+	fetch(url,{
+		method: 'Post',
+		headers:{
+			'Content-Type': 'application/json; charset=utf-8'
+		}
+	}).then(response=>{
+		 if (!response.ok) {
+		        throw new Error('Network response was not ok');
+		    }return response.json();
+		})
+		.then(data => {
+			console.log('Success:', data);
+	})
+}
 </script>
 
 <script>

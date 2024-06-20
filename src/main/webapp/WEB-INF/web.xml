@@ -88,6 +88,18 @@
   	<description></description>
   	<servlet-class>com.crawlstars.controller.GetSearchResultCon</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>PLlikeCon</servlet-name>
+  	<display-name>PLlikeCon</display-name>
+  	<description></description>
+  	<servlet-class>com.crawlstars.controller.PLlikeCon</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>PostlikeCon</servlet-name>
+  	<display-name>PostlikeCon</display-name>
+  	<description></description>
+  	<servlet-class>com.crawlstars.controller.PostlikeCon</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>NickCheckCon</servlet-name>
   	<url-pattern>/NickCheckCon</url-pattern>
@@ -143,5 +155,13 @@
   <servlet-mapping>
   	<servlet-name>GetSearchResultCon</servlet-name>
   	<url-pattern>/GetSearchResultCon</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>PLlikeCon</servlet-name>
+  	<url-pattern>/PLlikeCon</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>PostlikeCon</servlet-name>
+  	<url-pattern>/PostlikeCon</url-pattern>
   </servlet-mapping>
 </web-app>

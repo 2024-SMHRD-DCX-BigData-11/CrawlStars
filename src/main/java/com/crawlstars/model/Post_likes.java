@@ -14,12 +14,12 @@ import lombok.ToString;
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class Like_pls {
+public class Post_likes {
+
 	private int like_id;
 	@NonNull
 	private String sp_id;
 	@NonNull
-	private String pl_id;
-	private String liked_at;
-	private String pl_img;
+	private String post_id;
+	private String created_at;
 }

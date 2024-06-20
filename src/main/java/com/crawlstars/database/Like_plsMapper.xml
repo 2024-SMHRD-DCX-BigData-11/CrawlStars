@@ -8,5 +8,10 @@
 		from like_pls a, playlists b, users c
 		where a.pl_id=b.pl_id and b.sp_id=c.sp_id and a.sp_id = #{sp_id}
     </select>
-    
+    <insert id="insert" parameterType="com.crawlstars.model.Like_pls">
+    	insert into like_pls values (LIKE_PLS_SEQ.nextval,#{sp_id},#{pl_id},sysdate)
+    </insert>
+    <delete id="delete" parameterType="com.crawlstars.model.Like_pls">
+    	delete from like_pls where sp_id = #{sp_id} and pl_id = #{pl_id}    
+    </delete>
 	</mapper>
