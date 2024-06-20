@@ -30,16 +30,16 @@ public class followsDAO {
 		return followees;
     }
 	
-	public String getNickByfolloweeId(String follower) {
+	public List<String> getNickByfolloweeId(String follower) {
         SqlSession session = sqlSessionFactory.openSession(true);
-        String follower_nick = session.selectOne("com.crawlstars.database.followsMapper.getNickByfolloweeId", follower);
+        List<String> follower_nick = session.selectList("com.crawlstars.database.followsMapper.getNickByfolloweeId", follower);
         session.close();
         return follower_nick;
 	}
 	
-	public String getNickByfollowerId(String followee) {
+	public List<String> getNickByfollowerId(String followee) {
         SqlSession session = sqlSessionFactory.openSession(true);
-        String followee_nick = session.selectOne("com.crawlstars.database.followsMapper.getNickByfollowerId", followee);
+        List<String> followee_nick = session.selectList("com.crawlstars.database.followsMapper.getNickByfollowerId", followee);
         session.close();
         return followee_nick;
 	}

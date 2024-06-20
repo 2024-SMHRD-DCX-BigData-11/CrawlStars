@@ -24,19 +24,19 @@ public class blocksDAO {
 		return blocks;
     }
 	
-	public String getNickByBlockuserId(String myuser) {
+	public List<String> getNickByBlockuserId(String myuser) {
         SqlSession session = sqlSessionFactory.openSession(true);
-        String blockuser_nick = session.selectOne("com.crawlstars.database.blocksMapper.getNickByBlockuserId", myuser);
+        List<String> blockuser_nick = session.selectList("com.crawlstars.database.blocksMapper.getNickByBlockuserId", myuser);
         session.close();
         return blockuser_nick;
 	}
 	
-	public boolean deleteBlockuser(String blockuser, String myuser) {
+	public boolean deleteBlockuser(String sp_id, String block_sp_id) {
         SqlSession session = sqlSessionFactory.openSession(true);
         try {
-            int BLdlt = session.delete("com.crawlstars.database.followsMapper.followCancel", new follows(blockuser, myuser));
-            System.out.println(blockuser);
-    		System.out.println(myuser);
+            int BLdlt = session.delete("com.crawlstars.database.blocksMapper.blockCancel", new blocks(sp_id, block_sp_id));
+            System.out.println(sp_id);
+    		System.out.println(block_sp_id);
             return BLdlt > 0;
         } finally {
             session.close();

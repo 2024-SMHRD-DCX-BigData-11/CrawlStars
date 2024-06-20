@@ -22,4 +22,11 @@ public class blocks {
 	private String block_sp_id;
 	@NonNull
 	private String blocked_at;
+	
+	public blocks(@NonNull String sp_id, @NonNull String block_sp_id) {
+		super();
+		this.sp_id = sp_id;
+		this.block_sp_id = block_sp_id;
+	}
+	
 }

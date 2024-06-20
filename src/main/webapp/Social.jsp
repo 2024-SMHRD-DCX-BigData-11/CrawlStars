@@ -1,17 +1,22 @@
 <%@page import="com.crawlstars.model.blocksDAO"%>
 <%@page import="com.crawlstars.model.blocks"%>
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
-<%@page import="se.michaelthelin.spotify.model_objects.specification.User"%>
-<%@page import="se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest"%>
+<%@page
+	import="se.michaelthelin.spotify.model_objects.specification.User"%>
+<%@page
+	import="se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest"%>
 <%@page import="com.crawlstars.model.follows"%>
 <%@page import="com.crawlstars.model.followsDAO"%>
 <%@page import="java.util.List"%>
-<%@page import="se.michaelthelin.spotify.model_objects.specification.Image"%>
-<%@page import="se.michaelthelin.spotify.model_objects.specification.Playlist"%>
-<%@page import="se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest"%>
+<%@page
+	import="se.michaelthelin.spotify.model_objects.specification.Image"%>
+<%@page
+	import="se.michaelthelin.spotify.model_objects.specification.Playlist"%>
+<%@page
+	import="se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest"%>
 <%@page import="se.michaelthelin.spotify.SpotifyApi"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,10 +63,12 @@ header {
 	margin-bottom: 10px;
 	text-align: center;
 }
-.PlaylistDetail{
-overflow-y: auto;
-height: 600px;
+
+.PlaylistDetail {
+	overflow-y: auto;
+	height: 600px;
 }
+
 .PlaylistSearch button {
 	margin-bottom: 5px;
 }
@@ -249,7 +256,7 @@ footer {
 	-webkit-transition: .2s;
 	transition: opacity .2s;
 	margin: 0px;
-	padding:0px;
+	padding: 0px;
 }
 
 #volumeSlider:hover {
@@ -413,7 +420,7 @@ footer {
 
 #MyPlaylist {
 	margin-top: 25px;
-	margin-bottom:25px;
+	margin-bottom: 25px;
 }
 
 Button {
@@ -449,39 +456,45 @@ Button:hover {
 .pl-detail-info {
 	margin-left: 10px;
 }
-.pl-detail-info h1{
-	display:inline-block;
+
+.pl-detail-info h1 {
+	display: inline-block;
 }
-.pl-detail-info button:hover{
+
+.pl-detail-info button:hover {
 	background-color: violet;
 }
-.Song-info div:hover{
+
+.Song-info div:hover {
 	background-color: #333;
 }
 /*클릭했을때 뜨기*/
 #CInputPLDiv {
-        position: absolute;
-        width: 250px;
-        height: 28px;
-        background-color: rgb(18, 18, 18);
-        border: 1px solid #333;
-        cursor: pointer;
-        text-align: center;
-        border-radius: 10px;
-    }
-#SongAddPDiv ,#SongAddInPToggle{
-		position: absolute;
-        width: 250px;
-        background-color: rgb(18, 18, 18);
-        border: 1px solid #333;
-        cursor: pointer;
-        text-align: center;
-		color:white;
+	position: absolute;
+	width: 250px;
+	height: 28px;
+	background-color: rgb(18, 18, 18);
+	border: 1px solid #333;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 10px;
 }
-#SongAddPDiv div:hover{
+
+#SongAddPDiv, #SongAddInPToggle {
+	position: absolute;
+	width: 250px;
+	background-color: rgb(18, 18, 18);
+	border: 1px solid #333;
+	cursor: pointer;
+	text-align: center;
+	color: white;
+}
+
+#SongAddPDiv div:hover {
 	background-color: #333;
 }
-#CInputPL{
+
+#CInputPL {
 	background-image: none;
 	padding: 0px;
 	outline: none;
@@ -493,24 +506,25 @@ Button:hover {
 	margin: 0px;
 	color: white;
 }
-.Pl-reply{
-	display:grid;
+
+.Pl-reply {
+	display: grid;
 	grid-template-columns: 20px 1fr 2fr 1fr 1fr;
 }
 
-.Ch_userList{
+.Ch_userList {
 	width: 25%;
 	float: left;
 	color: white;
 }
 
-.Ch_chatRoom{
+.Ch_chatRoom {
 	width: 50%;
 	float: left;
 	color: white;
 }
 
-.SC_userList{
+.SC_userList {
 	width: 25%;
 	float: right;
 	color: white;
@@ -519,63 +533,58 @@ Button:hover {
 	background-color: rgb(18, 18, 18);
 }
 
-.SC_userList_buttonbox{
+.SC_userList_buttonbox {
 	width: 100%;
 }
 
-.SC_userList_button{
+.SC_userList_button {
 	width: 120px;
 	height: 50px;
 	float: left;
 }
 
-.SC_FLlist_content{
+.SC_FLlist_content {
 	width: 300px;
-	list-style:none;
-	padding-left:0px;
-	line-height: 1.8
-  	margin: 0;
-  	padding-inline-start: 1em;
-  	float: left;
-  	
+	list-style: none;
+	padding-left: 0px;
+	line-height: 1.8 margin: 0;
+	padding-inline-start: 1em;
+	float: left;
 }
 
-.SC_FLlist_content li{
+.SC_FLlist_content li {
 	font-size: 15px;
-	margin-bottom: 10px;	
+	margin-bottom: 10px;
 }
 
-.SC_FolloweeList{
+.SC_FolloweeList {
 	padding: 20px;
 }
 
-.SC_FollowerList{
+.SC_FollowerList {
 	padding: 20px;
 }
 
-.SC_BlockList{
+.SC_BlockList {
 	padding: 20px;
 }
 
-#SC_FLlist_content_FLName{
-	position:absolute;
+#SC_FLlist_content_FLName {
+	position: absolute;
 	float: left;
 	margin-left: 20px;
 }
 
-#SC_FLlist_content_FollowCancel_Button{
+#SC_FLlist_content_FollowCancel_Button {
 	float: right;
 }
 
-#SC_FLlist_content_BlockCancel_Button{
+#SC_FLlist_content_BlockCancel_Button {
 	float: right;
 }
-
-
 </style>
 <!-- 음악플레이어를 위한 css -->
 <style>
-
 #wrapper {
 	width: 100%;
 	height: 100%;
@@ -816,16 +825,16 @@ Button:hover {
 </head>
 <body>
 
-<% 
-SpotifyApi spotifyApi = (SpotifyApi) session.getAttribute("spotifyApi");
+	<%
+	SpotifyApi spotifyApi = (SpotifyApi) session.getAttribute("spotifyApi");
 
-GetPlaylistRequest getPlaylistRequest = spotifyApi.getPlaylist("3cEYpjA9oz9GiPac4AsH4n").build();
-Playlist playlist =  getPlaylistRequest.execute();
+	GetPlaylistRequest getPlaylistRequest = spotifyApi.getPlaylist("3cEYpjA9oz9GiPac4AsH4n").build();
+	Playlist playlist = getPlaylistRequest.execute();
 
-GetCurrentUsersProfileRequest getCurrentUsersProfileRequest = spotifyApi.getCurrentUsersProfile()
-.build();
-User user = getCurrentUsersProfileRequest.execute(); %>
-<!-- header -->
+	GetCurrentUsersProfileRequest getCurrentUsersProfileRequest = spotifyApi.getCurrentUsersProfile().build();
+	User user = getCurrentUsersProfileRequest.execute();
+	%>
+	<!-- header -->
 	<!-- header -->
 	<header>
 		<!-- 나중에 적절한 이미지로 교체 -->
@@ -849,174 +858,200 @@ User user = getCurrentUsersProfileRequest.execute(); %>
 		</ul>
 	</nav>
 
-<div class="Ch_userList">
-<span>여기에 채팅방목록</span>
-</div>
+	<div class="Ch_userList">
+		<span>여기에 채팅방목록</span>
+	</div>
 
-<div class="Ch_chatRoom">
-<span>여기에 채팅</span>
-</div>
+	<div class="Ch_chatRoom">
+		<span>여기에 채팅</span>
+	</div>
 
-<div class="SC_userList">
-<div class="SC_userList_buttonbox">
-<button class="SC_userList_button" onclick="SC_showFolloweeList()"><span>팔로잉</span></button>
-<button class="SC_userList_button" onclick="SC_showFollowerList()"><span>팔로워</span></button>
-<button class="SC_userList_button" onclick="SC_showBlockList()"><span>블락</span></button>
-</div>
+	<div class="SC_userList">
+		<div class="SC_userList_buttonbox">
+			<button class="SC_userList_button" onclick="SC_showFolloweeList()">
+				<span>팔로잉</span>
+			</button>
+			<button class="SC_userList_button" onclick="SC_showFollowerList()">
+				<span>팔로워</span>
+			</button>
+			<button class="SC_userList_button" onclick="SC_showBlockList()">
+				<span>블락</span>
+			</button>
+		</div>
 
-<!-- 팔로잉 리스트 -->
-<div class="SC_FolloweeList" id="SC_FolloweeList">
+		<!-- 팔로잉 리스트 -->
+		<div class="SC_FolloweeList" id="SC_FolloweeList">
 
-<%
-String follower = user.getId();
-List<follows> followees = new followsDAO().getFollowees(follower);
-%>
+			<%
+			String follower = user.getId();
+			List<follows> followees = new followsDAO().getFollowees(follower);
+			%>
 
-	<ul class="SC_FLlist_content">
-	<% if(followees != null){
-		for(int i=0; i<followees.size(); i++){ %>
-		<li><img src="./ProfileImg/defaultmp.png" width="40px" style="border-radius:50%;">
-		<%-- <img src="<%=user.getImages() %>" width="40px"> --%>
-		<span id="SC_FLlist_content_FLName"><%=new followsDAO().getNickByfolloweeId(follower) %></span>
-		<button id="SC_FLlist_content_FollowCancel_Button" onclick="followCancel('<%=follower %>', '<%=followees.get(i).getFollowee() %>')">
-		<img src="./images/X버튼.png" width="15px" height="15px"></button>
-		</li>
+			<ul class="SC_FLlist_content">
+				<%
+				if (followees != null) {
+					for (int i = 0; i < followees.size(); i++) {
+				%>
+				<li><img src="./ProfileImg/defaultmp.png" width="40px"
+					style="border-radius: 50%;"> <%-- <img src="<%=user.getImages() %>" width="40px"> --%>
+					<span id="SC_FLlist_content_FLName" onclick="redirectToUsersPage('<%=followees.get(i).getFollowee()%>')"><%=new followsDAO().getNickByfolloweeId(follower).get(i)%></span>
+					<button id="SC_FLlist_content_FollowCancel_Button"
+						onclick="followCancel('<%=follower%>', '<%=followees.get(i).getFollowee()%>')">
+						<img src="./images/X버튼.png" width="15px" height="15px">
+					</button></li>
+
+				<%
+				}
+				}
+				%>
+			</ul>
+		</div>
+
+		<!-- 팔로워 리스트 -->
+		<div class="SC_FollowerList" id="SC_FollowerList"
+			style="display: none;">
+			<%
+			String followee = user.getId();
+			List<follows> followers = new followsDAO().getFollowers(followee);
+			%>
+
+			<ul class="SC_FLlist_content">
+				<%
+				if (followers != null) {
+					for (int i = 0; i < followers.size(); i++) {
+				%>
+				<li><img src="./ProfileImg/defaultmp.png" width="40px"
+					style="border-radius: 50%;"> <%-- <img src="<%=user.getImages() %>" width="40px"> --%>
+					<span id="SC_FLlist_content_FLName" onclick="redirectToUsersPage('<%=followers.get(i).getFollower()%>')"><%=new followsDAO().getNickByfollowerId(followee).get(i)%></span>
+				</li>
+
+				<%
+				}
+				}
+				%>
+			</ul>
+		</div>
+
+		<!-- 블락 리스트 -->
+		<div class="SC_BlockList" id="SC_BlockList" style="display: none;">
+			<%
+			String myuser = user.getId();
+			List<blocks> blocks = new blocksDAO().getBlockusers(myuser);
+			%>
+			<ul class="SC_FLlist_content">
+				<%
+				if (blocks != null) {
+					for (int i = 0; i < blocks.size(); i++) {
+				%>
+				<li><img src="./ProfileImg/defaultmp.png" width="40px"
+					style="border-radius: 50%;"> <%-- <img src="<%=user.getImages() %>" width="40px"> --%>
+					<span id="SC_FLlist_content_FLName"><%=new blocksDAO().getNickByBlockuserId(myuser).get(i)%></span>
+					<button id="SC_FLlist_content_BlockCancel_Button"
+						onclick="blockCancel('<%=myuser%>', '<%=blocks.get(i).getBlock_sp_id()%>')">
+						<img src="./images/X버튼.png" width="15px" height="15px">
+					</button></li>
+
+				<%
+				}
+				}
+				%>
+			</ul>
+
+		</div>
+
+	</div>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<script>
+		// JavaScript를 사용하여 사이드바를 토글하는 함수
+		document.getElementById("menuButton").addEventListener("click",
+				function() {
+					var menu = document.getElementById("menu");
+					// 사이드바가 보이는 상태에서는 숨기고, 숨겨진 상태에서는 보이게 함
+					if (menu.style.left === "0px") {
+						menu.style.left = "-200px";
+						//document.querySelectorAll(".stub_box")[0].style.marginLeft = "20px"; // 사이드바가 숨겨진 경우 여백 조정
+						//document.querySelectorAll(".stub_box")[1].style.marginLeft = "20px"; // 사이드바가 숨겨진 경우 여백 조정
+
+					} else {
+						menu.style.left = "0px";
+						//document.querySelectorAll(".stub_box")[0].style.marginLeft = "220px"; // 사이드바가 보이는 경우 여백 조정
+						//document.querySelectorAll(".stub_box")[1].style.marginLeft = "220px";
+					}
+				});
+
+		function SC_showFolloweeList() {
+			document.getElementById("SC_FolloweeList").style.display = "";
+			document.getElementById("SC_FollowerList").style.display = "none";
+			document.getElementById("SC_BlockList").style.display = "none";
+		}
+
+		function SC_showFollowerList() {
+			document.getElementById("SC_FolloweeList").style.display = "none";
+			document.getElementById("SC_FollowerList").style.display = "";
+			document.getElementById("SC_BlockList").style.display = "none";
+		}
+
+		function SC_showBlockList() {
+			document.getElementById("SC_FolloweeList").style.display = "none";
+			document.getElementById("SC_FollowerList").style.display = "none";
+			document.getElementById("SC_BlockList").style.display = "";
+		}
+
+		function followCancel(follower, followee) {
+
+			$.ajax({
+				url : 'FollowsController',
+
+				data : {
+					follower : follower,
+					followee : followee
+				},
+				type : 'POST',
+
+				success : function(response) {
+					// 성공적으로 팔로우가 취소되었을 때의 처리
+					console.log('팔로우 취소 성공', response);
+				},
+				error : function(error) {
+					// 팔로우 취소 실패 시 처리
+					console.error('팔로우 취소 실패', error);
+				}
+			});
+			alert("팔로우를 취소하였습니다.");
+			location.reload();
+
+		}
+
+		function blockCancel(myuser, blockuser){
+		 $.ajax({
+		 url: 'BlockCancelController',
 		
- 	<% }
-	} %>
-	</ul>
-</div>
-
-<!-- 팔로워 리스트 -->
-<div class="SC_FollowerList" id="SC_FollowerList" style="display: none;">
-<%
-String followee = user.getId();
-List<follows> followers = new followsDAO().getFollowers(followee);
-%>
-
-	<ul class="SC_FLlist_content">
-	<% if(followers != null){
-		for(int i=0; i<followers.size(); i++){ %>
-		<li><img src="./ProfileImg/defaultmp.png" width="40px" style="border-radius:50%;">
-		<%-- <img src="<%=user.getImages() %>" width="40px"> --%>
-		<span id="SC_FLlist_content_FLName"><%=new followsDAO().getNickByfollowerId(followee) %></span>
-		</li>
+		 data: {
+		 sp_id: myuser,
+		 block_sp_id: block_sp_id
+		 },
+		 type: 'POST',
 		
- 	<% }
-	} %>
-	</ul>
-</div>
-
-<!-- 블락 리스트 -->
-<div class="SC_BlockList" id="SC_BlockList" style="display: none;">
-<%
-String myuser = user.getId();
-List<blocks> blocks = new blocksDAO().getBlockusers(myuser);
-%>
-	<ul class="SC_FLlist_content">
-	<% if(blocks != null){
-		for(int i=0; i<blocks.size(); i++){ %>
-		<li><img src="./ProfileImg/defaultmp.png" width="40px" style="border-radius:50%;">
-		<%-- <img src="<%=user.getImages() %>" width="40px"> --%>
-		<span id="SC_FLlist_content_FLName"><%=new blocksDAO().getNickByBlockuserId(myuser) %></span>
-		<button id="SC_FLlist_content_BlockCancel_Button" onclick="blockCancel('<%=myuser %>', '<%=blocks.get(i).getBlock_sp_id() %>')">
-		<img src="./images/X버튼.png" width="15px" height="15px"></button>
-		</li>
+		 success: function(response) {
+		 // 성공적으로 팔로우가 취소되었을 때의 처리
+		 console.log('블락 취소 성공', response);
+		 },
+		 error: function(error) {
+		 // 팔로우 취소 실패 시 처리
+		 console.error('블락 취소 실패', error);
+		 }
+		 });
+		 alert("블락을 취소하였습니다.");
+		 location.reload();
 		
- 	<% }
-	} %>
-	</ul>
-
-</div>
-
-</div>
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script>
-// JavaScript를 사용하여 사이드바를 토글하는 함수
-document.getElementById("menuButton").addEventListener("click", function() {
-    var menu = document.getElementById("menu");
-    // 사이드바가 보이는 상태에서는 숨기고, 숨겨진 상태에서는 보이게 함
-    if (menu.style.left === "0px") {
-        menu.style.left = "-200px";
-        //document.querySelectorAll(".stub_box")[0].style.marginLeft = "20px"; // 사이드바가 숨겨진 경우 여백 조정
-        //document.querySelectorAll(".stub_box")[1].style.marginLeft = "20px"; // 사이드바가 숨겨진 경우 여백 조정
-        
-   } else {
-        menu.style.left = "0px";
-        //document.querySelectorAll(".stub_box")[0].style.marginLeft = "220px"; // 사이드바가 보이는 경우 여백 조정
-        //document.querySelectorAll(".stub_box")[1].style.marginLeft = "220px";
-    }
-});
-
-function SC_showFolloweeList() {
-    document.getElementById("SC_FolloweeList").style.display = "";
-    document.getElementById("SC_FollowerList").style.display = "none";
-    document.getElementById("SC_BlockList").style.display = "none";
-}
-
-function SC_showFollowerList() {
-    document.getElementById("SC_FolloweeList").style.display = "none";
-    document.getElementById("SC_FollowerList").style.display = "";
-    document.getElementById("SC_BlockList").style.display = "none";
-}
-
-function SC_showBlockList() {
-    document.getElementById("SC_FolloweeList").style.display = "none";
-    document.getElementById("SC_FollowerList").style.display = "none";
-    document.getElementById("SC_BlockList").style.display = "";
-}
-
-function followCancel(follower, followee){
-	
-	$.ajax({
-        url: 'FollowsController',
-        
-        data: {
-            follower: follower,
-            followee: followee
-        },
-        type: 'POST',
-        
-        success: function(response) {
-            // 성공적으로 팔로우가 취소되었을 때의 처리
-            console.log('팔로우 취소 성공', response);
-        },
-        error: function(error) {
-            // 팔로우 취소 실패 시 처리
-            console.error('팔로우 취소 실패', error);
-        }
-    });
-	alert("팔로우를 취소하였습니다.");
-	location.reload();
-	
-}
-
-function blockCancel(blockuser, myuser){
-	$.ajax({
-        url: 'BlockCancelController',
-        
-        data: {
-        	blockuser: blockuser
-        	myuser: myuser,
-        },
-        type: 'POST',
-        
-        success: function(response) {
-            // 성공적으로 팔로우가 취소되었을 때의 처리
-            console.log('블락 취소 성공', response);
-        },
-        error: function(error) {
-            // 팔로우 취소 실패 시 처리
-            console.error('블락 취소 실패', error);
-        }
-    });
-	alert("블락을 취소하였습니다.");
-	location.reload();
-	
-	
-}
-
-</script>
+		
+		 }
+		
+		function redirectToUsersPage(sp_id) {
+		    var url = 'MyPage.jsp?sp_id=' + sp_id;
+		    window.location.href = url;
+		}
+	</script>
 
 </body>
 </html>
