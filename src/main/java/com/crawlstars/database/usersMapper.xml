@@ -13,8 +13,13 @@
 			end result
 		from users where nick=#{nick}
 	</select>
+	
 	<select id="idCheck" parameterType="String" resultType="users">
 		select * from users where sp_id=#{sp_id}
+	</select>
+	
+	<select id="getUserNick" parameterType="String" resultType="String">
+		select nick from users where sp_id=#{sp_id}
 	</select>
 	
 </mapper>

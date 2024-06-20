@@ -384,7 +384,7 @@ ALTER TABLE post_replies
 -- block_users Table Create SQL
 -- 테이블 생성 SQL - block_users
 insert into block_users values(block_users_SEQ.NEXTVAL, '31t2evngqbv5f4oqowjfzlil6gji', 'test5', sysdate);
-delete from block_users where sp_id='31t2evngqbv5f4oqowjfzlil6gji';
+delete from block_users where sp_id='31t2evngqbv5f4oqowjfzlil6gji' AND block_sp_id='test5';
 select * from BLOCK_USERS;
 CREATE TABLE block_users
 (

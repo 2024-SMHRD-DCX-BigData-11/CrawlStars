@@ -76,6 +76,12 @@
   	<description></description>
   	<servlet-class>com.crawlstars.controller.NewPostCon</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>FollowsCon</servlet-name>
+  	<display-name>FollowsCon</display-name>
+  	<description></description>
+  	<servlet-class>com.crawlstars.controller.FollowsCon</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>NickCheckCon</servlet-name>
   	<url-pattern>/NickCheckCon</url-pattern>
@@ -123,5 +129,9 @@
   <servlet-mapping>
   	<servlet-name>NewPostCon</servlet-name>
   	<url-pattern>/NewPostCon</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>FollowsCon</servlet-name>
+  	<url-pattern>/FollowsCon</url-pattern>
   </servlet-mapping>
 </web-app>

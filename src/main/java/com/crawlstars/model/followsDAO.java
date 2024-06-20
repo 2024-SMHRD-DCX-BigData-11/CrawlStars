@@ -16,9 +16,16 @@ public class followsDAO {
 		return followers;
     }
 	
-	public int follower_cnt() {
+	public int follower_cnt(String sp_id) {
 		SqlSession session = sqlSessionFactory.openSession(true);
-		int FLcnt = session.insert("com.crawlstars.database.followsMapper.follower_cnt");
+		int FLcnt = session.selectOne("com.crawlstars.database.followsMapper.follower_cnt", sp_id);
+		session.close();
+		return FLcnt;
+	}
+	
+	public int followee_cnt(String sp_id) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		int FLcnt = session.selectOne("com.crawlstars.database.followsMapper.followee_cnt", sp_id);
 		session.close();
 		return FLcnt;
 	}

@@ -1,3 +1,6 @@
+<%@page import="com.crawlstars.model.usersDAO"%>
+<%@page import="com.crawlstars.model.followsDAO"%>
+<%@page import="com.crawlstars.model.users"%>
 <%@page import="se.michaelthelin.spotify.model_objects.specification.Image"%>
 <%@page import="se.michaelthelin.spotify.model_objects.specification.Playlist"%>
 <%@page import="se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest"%>
@@ -504,10 +507,15 @@ Button:hover {
 </head>
 <body>
 
-<% 
+<%
 SpotifyApi spotifyApi = (SpotifyApi) session.getAttribute("spotifyApi");
 GetPlaylistRequest getPlaylistRequest = spotifyApi.getPlaylist("3cEYpjA9oz9GiPac4AsH4n").build();
 Playlist playlist =  getPlaylistRequest.execute();
+users user = (users)session.getAttribute("user");
+String sp_id = user.getSP_id(); 
+if(request.getParameter("sp_id")!=null){
+	sp_id = request.getParameter("sp_id");
+}
 %>
 <!-- header -->
 <!-- 나중에 적절한 이미지로 교체 -->
@@ -543,18 +551,30 @@ Playlist playlist =  getPlaylistRequest.execute();
         <div class="profile-header">
             <img src="./ProfileImg/defaultmp.png" alt="프로필 사진" class="profile-picture">
            <div class="profile-info">
-                <p class="nick_name">Bella</p>
+           <%
+           String userNick = new usersDAO().getUserNick(sp_id);
+           int FolloweeCnt = new followsDAO().followee_cnt(sp_id);
+           int FollowerCnt = new followsDAO().follower_cnt(sp_id);
+           String myUser = user.getSP_id();
+           String pageUser = sp_id ;
+           %>	
+           		<!-- 사용자 이름 -->
+                <p class="nick_name"><%=userNick %></p>
+                <%if(request.getParameter("sp_id")==null){ %>
                 <button id="showPopup">프로필 수정</button>
+                <%} else{%>
+                <button id="followButton">팔로우</button>
+                <%} %>
             </div>
         </div>
         <div class="profile-stats">
             <div class="stat">
-                <span class="label">팔로우</span>
-                <span class="number">0</span>
+                <span class="label">팔로잉</span>
+                <span class="number"><%=FolloweeCnt %></span>
             </div>
             <div class="stat">
-                <span class="label">팔로잉</span>
-                <span class="number">0</span>
+                <span class="label">팔로워</span>
+                <span class="number"><%=FollowerCnt %></span>
             </div>
             <div class="stat">
                 <span class="label">좋아요</span>
@@ -630,6 +650,7 @@ Playlist playlist =  getPlaylistRequest.execute();
             reader.readAsDataURL(file);
         }
     }
+    
 </script>
     
 <script>
