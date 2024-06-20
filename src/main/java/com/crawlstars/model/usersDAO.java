@@ -1,5 +1,7 @@
 package com.crawlstars.model;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -43,5 +45,10 @@ public class usersDAO {
 		session.close();
 		return result;
 	}
-	
+	public List<users> getfollowee(String sp_id) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		List<users> result = session.selectList("com.crawlstars.database.usersMapper.Fuser",sp_id);
+		session.close();
+		return result;
+	}
 }

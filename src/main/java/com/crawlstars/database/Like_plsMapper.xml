@@ -14,4 +14,16 @@
     <delete id="delete" parameterType="com.crawlstars.model.Like_pls">
     	delete from like_pls where sp_id = #{sp_id} and pl_id = #{pl_id}    
     </delete>
+    <select id="total" parameterType="String" resultType="int">
+    SELECT count(*) as int
+	FROM like_pls a
+    FULL OUTER JOIN post_likes b ON a.sp_id = b.sp_id
+	WHERE b.post_id in ( select post_id
+               from posts
+                where sp_id = #{sp_id})
+	or a.pl_id in(select pl_id
+              from playlists
+              where sp_id= #{sp_id})
+    
+    </select>
 	</mapper>

@@ -578,8 +578,6 @@ Button:hover {
 		    .getListOfCurrentUsersPlaylists().build();
 					if(getListOfCurrentUsersPlaylistsRequest!=null){
 	Paging<PlaylistSimplified> playlistSimplifiedPaging = getListOfCurrentUsersPlaylistsRequest.execute();
-	playlistSimplifiedPaging.getItems()[0].getId(); //나중에 온클릭요소로 넣자
-	playlistSimplifiedPaging.getItems()[0].getUri(); //나중에 온클릭요소로 넣자
 	for(int i =0; i<playlistSimplifiedPaging.getItems().length;i++){
 		String plImg = "images/플리픽도안2.png";
 		if(playlistSimplifiedPaging.getItems()[i].getImages()!=null){

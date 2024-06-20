@@ -31,4 +31,11 @@ public class Like_plsDAO {
 		session.close();
 		return cnt;
 	}
+	public int gettotalLike(String sp_id) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		int result = session.selectOne("com.crawlstars.database.Like_plsMapper.total",sp_id);
+				session.close();
+		return result;
+	}
+	
 }

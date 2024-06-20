@@ -619,7 +619,7 @@ My Post
 		<td align="center" onclick="redirectToMyPage('<%=playlists.get(i).getUpdated_at()%>')"><%= playlists.get(i).getSp_id() %></td>
 	</tr>
 	<tr>
-	<td align="center"><button id="likeUser">♥</button></td>
+	<td align="center"><button id="likeUser" onclick="userLike('<%=playlists.get(i).getUpdated_at()%>')">♥</button></td>
 	<tr>
 </table>
 </div>
@@ -647,7 +647,7 @@ My Post
 		<td align="center" onclick="redirectToMyPage('<%=posts.get(i).getSp_id()%>')"><%= posts.get(i).getUpdated_at() %></td>
 	</tr>
 	<tr>
-	<td align="center"><button id="likeUser" onclick="">♥</button></td>
+	<td align="center"><button id="likeUser" onclick="userLike('<%=posts.get(i).getSp_id()%>')">♥</button></td>
 	<tr>
 </table>
 </div>
@@ -1036,7 +1036,7 @@ const getPLLike =(pl_id) =>{
 	})
 }
 const getPostLike = (post_id)=>{
-	var url = "PostlikeCon?pl_id=" + post_id;
+	var url = "PostlikeCon?post_id=" + post_id;
 	fetch(url,{
 		method: 'Post',
 		headers:{
@@ -1045,12 +1045,27 @@ const getPostLike = (post_id)=>{
 	}).then(response=>{
 		 if (!response.ok) {
 		        throw new Error('Network response was not ok');
-		    }return response.json();
+		    }
 		})
 		.then(data => {
-			console.log('Success:', data);
 	})
 }
+const userLike = (sp_id)=>{
+	var url = "FollowsCon?followee="+ sp_id+"&follower="+ '<%=user.getId()%>'
+	fetch(url,{
+		method: 'Post',
+		headers:{
+			'Content-Type': 'application/json; charset=utf-8'
+		}
+	}).then(response=>{
+		 if (!response.ok) {
+		        throw new Error('Network response was not ok');
+		    }
+		})
+		.then(data => {
+	})
+	}
+
 </script>
 
 <script>

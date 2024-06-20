@@ -31,5 +31,11 @@ public class playlistsDAO {
 		session.close();
 		return playlist;
 	}
+	public List<playlists> getMyPl(String sp_id) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		List<playlists> playlist = session.selectList("com.crawlstars.database.playlistsMapper.userpl",sp_id);
+		session.close();
+		return playlist;
+	}
 
 }

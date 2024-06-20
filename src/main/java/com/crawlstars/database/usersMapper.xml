@@ -25,5 +25,12 @@
 	<update id="updateNick" parameterType="String" >
 		UPDATE users SET nick = #{inputNick} WHERE sp_id=#{sp_id}
 	</update>
-	
+	<select id="Fuser" parameterType="String" resultType="users">
+	select *
+from users
+where sp_id in( select sp_id
+              from follows
+             where follower = #{sp_id}
+             )
+	</select>
 </mapper>

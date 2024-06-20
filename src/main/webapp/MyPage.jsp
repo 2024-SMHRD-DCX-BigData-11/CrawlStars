@@ -1,3 +1,11 @@
+<%@page import="com.crawlstars.model.Posts"%>
+<%@page import="com.crawlstars.model.PostsDAO"%>
+<%@page import="com.crawlstars.model.playlistsDAO"%>
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
+<%@page import="com.crawlstars.model.Like_pls"%>
+<%@page import="java.util.List"%>
+<%@page import="com.crawlstars.model.playlists"%>
+<%@page import="com.crawlstars.model.Like_plsDAO"%>
 <%@page import="com.crawlstars.model.usersDAO"%>
 <%@page import="com.crawlstars.model.followsDAO"%>
 <%@page import="com.crawlstars.model.users"%>
@@ -12,8 +20,165 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Insert title here</title>
+<title>PlyPick</title>
+<style>
+/*마이포스트 게시물 팝업창*/
+.post-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    
+}
 
+.postup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #181818;
+    padding: 20px;
+    padding-top : 40px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    max-width: 1500px;
+    text-align: center;
+    color: #fff;
+    height: 50vh;
+    overflow-x:	auto;
+}
+
+#posted_img{
+	width: 300px;
+	height: 300px;
+	vertical-align: left;
+}
+#post_pl_img{
+	width: 200px;
+	height: 200px;
+	vertical-align: left;
+}
+#post_PL{
+	width: 100%;
+	display: grid;
+	grid-template-columns: 4fr 6fr;
+	text-align:center;
+}
+#post_pl_info{
+	text-align: left;
+}
+.post_reply{
+	display: grid;
+	grid-template-columns: 10px 5fr 2fr 1.5fr 1.5fr;
+}
+
+
+</style>
+<style>
+/* 마이포스트 버튼토글 */
+
+#setting{
+	padding : 20px;
+    width: 40%;
+    position: fixed;
+    display: none;
+    background-color: #181818;
+    top: 109px;
+    right: 250px;
+}
+</style>
+<style>
+/* 게시물 업로드 팝업 */
+
+.popup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #181818;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    text-align: center;
+    color: #fff;
+    z-index: 1;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+#post_content{
+ text-align: left;
+}
+.post_input{
+	width:400px;
+	float: right;
+	background-color: #BCC6CC;
+	border: none;
+		
+}
+.post_musicsearch{
+	width:400px;
+	float: right;
+	background-color: #BCC6CC;
+	border: none;
+	background-image: url('images/SearchQ.png');
+	background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 20px 20px;
+}
+
+.leftinput{
+	background-color: #BCC6CC;
+	border: none;
+}
+
+#input_content{
+width: 400px;
+height: 150px;
+resize: none;
+	background-color: #BCC6CC;
+	border: none;
+}
+.post_button{
+	background-color: #181818;
+	border: none;
+	color: white; 	
+}
+.post_button:hover{
+	background-color: #ED1C24;
+}
+#preview img{
+	width: 150px;
+	height: 150px;
+	float: left;
+}
+.post_musiclist{
+	background-color:#BCC6CC; 
+}
+.post_musiclist{
+height:80px;
+overflow-y: auto;
+}
+</style>
 <style>
 @font-face {
     font-family: 'Pretendard-Regular';
@@ -585,9 +750,10 @@ if(request.getParameter("sp_id")!=null){
                 <span class="label">팔로워</span>
                 <span class="number"><%=FollowerCnt %></span>
             </div>
+            <%int likecnt = new Like_plsDAO().gettotalLike(sp_id); %>
             <div class="stat">
                 <span class="label">좋아요</span>
-                <span class="number">0</span>
+                <span class="number"><%=likecnt%></span>
             </div>
         </div>
 </div>
@@ -742,158 +908,166 @@ if(request.getParameter("sp_id")!=null){
 
 
 
-<!-- playlist Stub -->
-<!-- <div class="playlist"> -->
-<%-- <table border="1px">
-   <tr>
-      <td><img src="<%= playlist.getImages()[0].getUrl() %>" width="300px" height="300px"></td>
-   </tr>
-   <tr>
-      <td><%= playlist.getName() %></td>
-   </tr>
-   <tr>
-      <td><%= playlist.getDescription() %></td>
-   </tr>
-</table>
-</div>
-</div> --%>
+
 <div class="profile-sections">
-            <div class="section">
+            <div class="section" id="MyPlaylist">
                 <h2 style="text-align: center;">My Music</h2>
                 <div class="section-content">
-                    <div class="playlist">
-                  <table border="1px">
+                <%List<playlists> MyPlaylist = new playlistsDAO().getMyPl(sp_id); 
+                if(MyPlaylist!=null){
+                	for(int i=0;i<MyPlaylist.size();i++){
+                	%>
+                	<div class="playlist">
+                  <table>
                      <tr>
-                        <td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"alt="My Music"></td>
+                        <td><img onclick="redirectToPlaylist('<%=MyPlaylist.get(i).getPl_id() %>')" onerror=this.src="images/플리픽도안2.png" src="<%= MyPlaylist.get(i).getPl_image() %>" width="250px" height="250px"alt="My following"></td>
                      </tr>
                      <tr>
-                        <td><%= playlist.getName() %></td>
+                        <td><%= MyPlaylist.get(i).getPl_title() %></td>
                      </tr>
                      <tr>
-                        <td><%= playlist.getDescription() %></td>
-                     </tr>
-                     </table>
-               </div>
-               
-                      <div class="playlist">
-                  <table border="1px">
-                     <tr>
-                        <td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px" alt="My Music"></td>
-                     </tr>
-                     <tr>
-                        <td><%= playlist.getName() %></td>
-                     </tr>
-                     <tr>
-                        <td><%= playlist.getDescription() %></td>
+                        <td><%= MyPlaylist.get(i).getSp_id() %></td>
                      </tr>
                      </table>
                </div>
-               
-                 <div class="playlist">
-                  <table border="1px">
+                	
+                	
+                	<% 
+                	}
+                }
+                List<Posts> posts = new PostsDAO().getPost(sp_id);
+                for(int i=0;i<posts.size();i++){	
+            		if(posts.get(i).getSp_id().equals(sp_id)){
+            			
+            		%>
+            		<div class="playlist">
+                  <table>
                      <tr>
-                        <td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"alt="My Music"></td>
+                        <td><img onclick="getPost('<%=posts.get(i).getPost_id() %>')" onerror=this.src="images/플리픽도안2.png" src="<%= posts.get(i).getPost_img() %>" width="250px" height="250px"alt="My following"></td>
                      </tr>
                      <tr>
-                        <td><%= playlist.getName() %></td>
+                        <td><%= posts.get(i).getPost_title()  %></td>
                      </tr>
                      <tr>
-                        <td><%= playlist.getDescription() %></td>
+                        <td onclick="redirectToMyPage('<%=posts.get(i).getSp_id()%>')"><%= posts.get(i).getUpdated_at() %></td>
                      </tr>
                      </table>
-               </div>
+               </div>	
+            		<% 	
+            		
+            			}
+            		}
+                
+                %>
+
                 </div>
             </div>
             <div class="section">
                 <h2 style="text-align: center;">My following</h2>
                 <div class="section-content">
+                     <% List<users> fuser = new usersDAO().getfollowee(sp_id); 
+                     System.out.print(fuser.get(0).toString());
+                     if(fuser!=null){
+                    	 for(int i =0;i<fuser.size();i++){
+                    		
+                    		%>
+                    		
                      <div class="playlist">
-                  <table border="1px">
+                  <table >
                      <tr>
-                        <td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"alt="My following"></td>
+                        <td><img onclick="redirectToMyPage('<%=fuser.get(i).getSP_id()%>')" onerror=this.src="images/플리픽도안2.png" src="<%= fuser.get(i).getUser_img() %>" width="250px" height="250px"alt="My following"></td>
                      </tr>
                      <tr>
-                        <td><%= playlist.getName() %></td>
-                     </tr>
-                     <tr>
-                        <td><%= playlist.getDescription() %></td>
+                        <td><%= fuser.get(i).getNick() %></td>
                      </tr>
                      </table>
                </div>
-                     <div class="playlist">
-                  <table border="1px">
-                     <tr>
-                        <td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"alt="My following"></td>
-                     </tr>
-                     <tr>
-                        <td><%= playlist.getName() %></td>
-                     </tr>
-                     <tr>
-                        <td><%= playlist.getDescription() %></td>
-                     </tr>
-                     </table>
-               </div>
-                     <div class="playlist">
-                  <table border="1px">
-                     <tr>
-                        <td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"alt="My following"></td>
-                     </tr>
-                     <tr>
-                        <td><%= playlist.getName() %></td>
-                     </tr>
-                     <tr>
-                        <td><%= playlist.getDescription() %></td>
-                     </tr>
-                     </table>
-               </div>
+                    		<%
+                    	 }}
+                    	 %>
+                     
                 </div>
             </div>
             <div class="section">
                 <h2 style="text-align: center;">Like</h2>
                 <div class="section-content">
-                    <div class="playlist">
-                  <table border="1px">
+                    <% List<Like_pls> like_pl = new Like_plsDAO().GetLikePL(sp_id);
+                
+                if(like_pl!=null){
+                	for(int i=0;i<like_pl.size();i++){
+                		%>
+                	<div class="playlist">
+                  <table >
                      <tr>
-                        <td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"alt="Like"></td>
+                        <td><img onclick="redirectToPlaylist('<%=like_pl.get(i).getLiked_at() %>')" onerror=this.src="images/플리픽도안2.png" src="<%= like_pl.get(i).getPl_img() %>" width="250px" height="250px"alt="My Music"></td>
                      </tr>
                      <tr>
-                        <td><%= playlist.getName() %></td>
+                        <td><%= like_pl.get(i).getPl_id() %></td>
                      </tr>
                      <tr>
-                        <td><%= playlist.getDescription() %></td>
-                     </tr>
-                     </table>
-               </div>
-                    <div class="playlist">
-                  <table border="1px">
-                     <tr>
-                        <td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"alt="Like"></td>
-                     </tr>
-                     <tr>
-                        <td><%= playlist.getName() %></td>
-                     </tr>
-                     <tr>
-                        <td><%= playlist.getDescription() %></td>
+                        <td><%= like_pl.get(i).getSp_id() %></td>
                      </tr>
                      </table>
                </div>
-                    <div class="playlist">
-                  <table border="1px">
-                     <tr>
-                        <td><img src="<%= playlist.getImages()[0].getUrl() %>" width="250px" height="250px"alt="Like"></td>
-                     </tr>
-                     <tr>
-                        <td><%= playlist.getName() %></td>
-                     </tr>
-                     <tr>
-                        <td><%= playlist.getDescription() %></td>
-                     </tr>
-                     </table>
-               </div>
+                		
+                		
+                <%	}
+                	}
+                %>
                 </div>
             </div>
         </div>
     </div>
+<div id="postContainer" class="post-container">
+	<div class="postup">
+	<span id="closePost" class="close-btn">×</span>
+	<div id = "post_content">
+					<img alt="" src="images/플리픽 로고1.png" style="width:250px; margin-left: 30px">
+					<div style="display: inline-block; width: 400px; margin-left: 15px;"id="pl_title">제목</div>
+					
+					<div style="display: flex">
+					<div>
+					<img onerror=this.src="images/플리픽도안2.png" src="images/플리픽도안2.png" id="posted_img">
+					</div>
+					<div>
+					<div style="width: 500px; height: 200px; padding-top: 30px; "id="pl_body">내용</div>
+					<div id="pl_owner">
+					주인
+					</div>
+					<div id="pl_hashtag">
+					#해시태그	
+					</div>
+					<div id="pl_update_date">
+					등록일
+					</div> 
+					</div>
+					</div>
+	</div>
+	<hr>
+	<div id = "post_PL">
+		<div><img onerror=this.src="images/플리픽도안2.png" src="images/플리픽도안2.png" id="post_pl_img"></div>
+		<div id="post_pl_info">
+			<div id="post_pl_name"><span></span></div>
+			<br><br><br>
+			<div id="post_pl_owner"><span></span></div>
+		</div>
+	</div>
+	<hr>
+
+	<div class="post_reply">
+		<div>#</div>   
+		<div>내용</div> 
+		<div>해시태그</div> 
+		<div>이름</div> 
+		<div>등록일</div> 
+	</div>
+		<div id ="post_replies">
+	</div>
+	<hr>
+	<div id ="post_replies_inputdiv">
+	</div>
+ </div>
+</div>
 <!-- 재생 목록 -->
    <div id="CurrentTrack_Detail">
       <br> <br>
@@ -1344,5 +1518,119 @@ document.getElementById("menuButton").addEventListener("click", function() {
     }
    
    </script>
+   
+ <script>
+ function redirectToPlaylist(playlistId) {
+	    var url = 'Playlist.jsp?PL_ID=' + playlistId;
+	    window.location.href = url;
+	}
+	function redirectToMyPage(sp_id) {
+	    var url = 'MyPage.jsp?sp_id=' + sp_id;
+	    window.location.href = url;
+	}
+
+	const getPost = (post_id) =>{
+		var pl_title= document.getElementById('pl_title')
+		var posted_img= document.getElementById('posted_img')
+		var pl_body= document.getElementById('pl_body')
+		var pl_owner= document.getElementById('pl_owner')
+		var pl_hashtag= document.getElementById('pl_hashtag')
+		var pl_update_date= document.getElementById('pl_update_date')
+		var post_replies = document.getElementById('post_replies');
+		var post_PL = document.getElementById('post_PL');
+		var post_pl_name = document.getElementById('post_pl_name');
+		var post_pl_owner = document.getElementById('post_pl_owner');
+		var post_pl_img = document.getElementById('post_pl_img');
+		var post_replies_input = document.getElementById('post_replies_input');
+		var post_replies_inputdiv = document.getElementById('post_replies_inputdiv');
+		var searchDb = document.getElementById('searchDb');
+	    	var url = "getMypost?Post_id="+post_id;
+	    	fetch(url,{
+	    		method: 'GET',
+				headers:{
+					'Content-Type': 'application/json; charset=utf-8'
+				}
+	    	}).then(response=>{
+				 if (!response.ok) {
+				        throw new Error('Network response was not ok');
+				    }
+				 return response.json();
+				})
+				.then(data => {
+					console.log(data);
+	    		pl_title.innerText=data.Post.post_title;
+	    		posted_img.src=data.Post.post_img;
+	    		pl_body.innerText=data.Post.post_body;
+	    		pl_owner.innerText=data.Post.post_id;
+	    		pl_hashtag.innerHTML ="";
+	    		if(data.post_hashtag!=null){
+	    			for(i=0;i<data.post_hashtag.length;i++){
+	    				pl_hashtag.innerHTML= pl_hashtag.innerHTML + "<span>#"+data.post_hashtag[i]+"</span>"
+	    			}
+	    		}
+	    		pl_update_date.innerText = data.Post.created_at;
+	    		post_replies.innerHTML ="";
+	    		var hashtags ="";
+	    		if(data.post_replies!=null){
+	    			var j=1;
+	    			console.log(data.post_replies);
+	    			for(i=0;i<data.post_replies.length;i++){
+	    				console.log("시작"+i)
+	    				var temp = document.createElement("div");
+	    				temp.className =  "post_reply"
+	    				temp.innerHTML= "<div>"+j+"</div><div>"+data.post_replies[i].reply_content
+							+"</div>";
+							console.log(data.post_replies[i].reply_content+":"+i);
+						var reply_hashtagTemp = document.createElement("div");
+						reply_hashtagTemp.innerHTML= "<div class='post_hashtag'>#"+data.post_replies[i].hashtag+"</div>"
+	    				while(true){
+	    					if(data.post_replies[i]!=null){
+	    					if(data.post_replies[i].hashtag!=null){
+	    						if(i!=0){
+	    						if(data.post_replies[i].post_reply_id==data.post_replies[i-1].post_reply_id){
+	    							reply_hashtagTemp.innerHTML= reply_hashtagTemp.innerHTML+"<div class='post_hashtag'>#"+data.post_replies[i].hashtag+"</div>";
+	    							if(data.post_replies.length-1>i){
+	    								if(data.post_replies[i].post_reply_id==data.post_replies[i+1].post){
+	    								i++;}else{break;}
+	    							}else{
+	    								break;
+	    							}
+	    							
+	    						}else{
+	    							break;
+	    						}}else{
+	    							if(data.post_replies.length-1>i){
+	    							i++;}else{break;}
+	    						}
+	    					}else{
+	        					break;
+	        				}}else{
+	        					break;
+	        				}
+	    				}
+	    				temp.append(reply_hashtagTemp);    				
+						temp.innerHTML = temp.innerHTML+"<div>"+data.post_replies[i].sp_id+"</div><div>"+data.post_replies[i].replied_at.substr(0,10)+"</div>"
+						post_replies.append(temp);
+						j++
+	    			}
+	    		}
+	    		if(data.Post.pl_id!=null){
+	    			post_PL.style.display='grid';
+	    			post_pl_img.src=data.Post.pl_img;
+	    			post_pl_name.innerHTML = "<span onclick='redirectToPlaylist(\""+data.Post.pl_id+"\")'>"+data.Post.pl_title+"</span>"
+	    			post_pl_owner.innerHTML = "<span onclick='redirectToMyPage(\""+data.Post.pl_owner+"\")'>"+data.Post.pl_owner+"</span>"
+	    		}else{
+	    			post_PL.style.display='none';
+	    		}
+	    		post_replies_inputdiv.innerHTML = "<input id='post_replies_input'><button onclick='InsertPostreply(\""+post_id+"\")'>입력</button>" 		
+	    		document.getElementById('postContainer').style.display = 'block';
+	    		})
+	    	.catch(error => {
+			  console.error('Error:', error);
+			});}
+	document.getElementById('closePost').addEventListener('click', function() {
+        document.getElementById('postContainer').style.display = 'none';
+    });
+ </script>  
 </body>
 </html>
