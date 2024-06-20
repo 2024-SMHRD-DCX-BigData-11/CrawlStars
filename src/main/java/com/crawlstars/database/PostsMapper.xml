@@ -34,5 +34,13 @@
 	where a.sp_id=b.sp_id and
     a.post_title like '%'||#{search}||'%'
 	</select>
+
+	<select id="LikePost" parameterType="String" resultType="com.crawlstars.model.Posts">
+	select *
+from posts
+where post_id in ( select post_id
+                    from post_likes
+                    where sp_id = #{sp_id});
+	</select>
 	
 </mapper>

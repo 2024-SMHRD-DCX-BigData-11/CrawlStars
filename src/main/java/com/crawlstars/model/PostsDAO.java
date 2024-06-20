@@ -47,5 +47,11 @@ public class PostsDAO {
 		session.close();
 		return result;
 	}
+	public List<Posts> LikePost(String sp_id){
+		SqlSession session = sqlSessionFactory.openSession(true);
+		List<Posts> result = session.selectList("com.crawlstars.database.PostsMapper.LikePost",sp_id);
+		session.close();
+		return result;
+	}
 	
 }

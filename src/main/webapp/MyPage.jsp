@@ -1013,7 +1013,28 @@ if(request.getParameter("sp_id")!=null){
                 		
                 <%	}
                 	}
+                List<Posts> LikePost = new PostsDAO().LikePost(sp_id);
+                if(LikePost!=null){
+                	for(int i=0;i<LikePost.size();i++){
+                		LikePost.get(index)
+                	
                 %>
+                <div class="playlist">
+                  <table >
+                     <tr>
+                        <td><img onclick="redirectToPlaylist('<%=LikePost.get(i). %>')" onerror=this.src="images/플리픽도안2.png" src="<%= like_pl.get(i).getPl_img() %>" width="250px" height="250px"alt="My Music"></td>
+                     </tr>
+                     <tr>
+                        <td><%= like_pl.get(i).getPl_id() %></td>
+                     </tr>
+                     <tr>
+                        <td><%= like_pl.get(i).getSp_id() %></td>
+                     </tr>
+                     </table>
+               </div>
+                
+                
+                <%}} %>
                 </div>
             </div>
         </div>
