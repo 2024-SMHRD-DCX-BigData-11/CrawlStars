@@ -213,7 +213,10 @@ resize: none;
 .post_musiclist{
 	background-color:#BCC6CC; 
 }
-
+.post_musiclist{
+height:80px;
+overflow-y: auto;
+}
 </style>
 <style>
 /*마이포스트 게시물 팝업창*/
@@ -664,7 +667,7 @@ My Post
 	
 <!-- 새로운 포스트 작성 팝업창 -->
 <div id="popupContainer" class="popup-container">
-<form action="" method="post">
+<form action="NewPostCon" enctype="multipart/form-data" method="post">
 	<div class="popup">
 	<span id="closePopup" class="close-btn">×</span>
 	<div id = "post_content">
@@ -675,32 +678,36 @@ My Post
 					<tr>
 					<td>플레이리스트 제목</td>
 					</tr>
-					<tr><td><input type="text" class="leftinput"></td> </tr>
+					<tr><td><input type="text" class="leftinput" name="post_title"></td> </tr>
 					<tr><td>첨부 이미지</td>
 						<td>내용</td>
 					</tr>
 					<tr><td>
 					<div id="preview"></div>
 					</td>
-					<td><textarea id="input_content"  style="float:left"></textarea></td>
+					<td><textarea id="input_content"  style="float:left" name="post_body"></textarea></td>
 					</tr>
 					<tr>
 						<td>
-							<input id="imgfile" type="file" accept="img/*" style="float: left;">
+							<input name="post_img" id="imgfile" type="file" accept="img/*" style="float: left;">
 						</td>
 						<td>해시태그 추가</td>
 					</tr>
 					<tr>
 					<td></td>
-					<td><input type="text" class="post_input"></td>
+					<td><input name="post_hashtag" type="text" class="post_input"></td>
 					</tr>
 					<tr>
 					<td>재생 목록 추가</td>
 					<td><input type="text" placeholder="검색어를 입력하세요..." class="post_musicsearch"></td>
 					</tr>
-					<tr><td colspan="2" class="post_musiclist"> &ensp;</td></tr>
-					<tr><td colspan="2"	class="post_musiclist"> &ensp;</td></tr>
-					<tr><td colspan="2" class="post_musiclist"> &ensp;</td></tr>
+					<tr><td colspan="2" class="post_musiclist">
+					<%for(int i=0;i<playlists.size();i++){
+						%>
+						<input type="radio" name="pl_info" value="<%=playlists.get(i).getPl_id()+"?#"+playlists.get(i).getPl_title() %>"><%=playlists.get(i).getPl_title() %>
+						<%} %>					
+					</td></tr>
+
 					<tr>
 						<td colspan="2">
 							<input type="reset" value="초기화" class="post_button">
