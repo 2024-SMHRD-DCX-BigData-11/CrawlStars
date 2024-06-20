@@ -12,7 +12,7 @@
 		WHERE a.pl_reply_id = b.pl_reply_id(+)
 		AND a.sp_id = c.sp_id and a.pl_id= #{PL_ID}
     </select>
-    <select id="getLastReply" resultType="int">
+    <select id="getLastReply"  resultType="int">
     	select MAX(PL_REPLY_ID) from PL_REPLIES
     </select>
     

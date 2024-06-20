@@ -9,5 +9,11 @@
 		WHERE a.post_reply_id = b.post_reply_id(+)
 		AND a.sp_id = c.sp_id and a.post_id= #{post_id}	
 	</select>
-
+	<insert id="insert" parameterType="com.crawlstars.model.Post_replies">
+		insert into post_replies values (post_replies_seq.nextval,#{post_id},#{reply_content},SYSDATE,#{sp_id})
+    </insert>
+    <select id="getLastReply" parameterType="String" resultType="int">
+    	select MAX(post_reply_id) from post_replies where sp_id = #{sP_name}
+    </select>
+    
 </mapper>

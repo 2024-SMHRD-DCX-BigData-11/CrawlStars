@@ -16,4 +16,18 @@ public class Post_repliesDAO {
 		session.close();
 		return result;
 	}
+
+	public int insert(Post_replies post_reply) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		int cnt = session.insert("com.crawlstars.database.Post_repliesMapper.insert",post_reply);
+		session.close();
+		return cnt;
+	}
+
+	public int LastC(String sP_name) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		int result = session.selectOne("com.crawlstars.database.Post_repliesMapper.getLastReply", sP_name);
+		session.close();
+		return result;
+	}
 }

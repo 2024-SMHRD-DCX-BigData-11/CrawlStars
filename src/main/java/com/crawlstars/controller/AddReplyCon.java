@@ -15,6 +15,10 @@ import com.crawlstars.model.PL_REPLIES;
 import com.crawlstars.model.PL_REPLIESDAO;
 import com.crawlstars.model.PL_REPLY_HASHTAGS;
 import com.crawlstars.model.PL_REPLY_HASHTAGSDAO;
+import com.crawlstars.model.Post_replies;
+import com.crawlstars.model.Post_repliesDAO;
+import com.crawlstars.model.Post_reply_hashtags;
+import com.crawlstars.model.Post_reply_hashtagsDAO;
 import com.crawlstars.model.users;
 
 
@@ -28,23 +32,23 @@ public class AddReplyCon extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		PrintWriter out =  response.getWriter();
 		HttpSession session = request.getSession();
-		String pl_id = request.getParameter("PL_ID");
-		String post_id = request.getParameter("post_id");
+		String post_id = request.getParameter("post_ID");
+		System.out.println(post_id);
 		String reply_body = request.getParameter("reply_body");
 		String[] reply_body_split =  reply_body.split("#");
 		users user = (users)session.getAttribute("user");
 		String SP_name = user.getSP_id();
-		if(pl_id!=null) {
-			PL_REPLIES pl_reply = new PL_REPLIES(pl_id,reply_body_split[0].trim(),SP_name);
-			System.out.println(pl_reply.toString());
-			int result = new PL_REPLIESDAO().insert(pl_reply);
+			Post_replies post_reply = new Post_replies(post_id,reply_body_split[0].trim(),SP_name);
+			System.out.println(post_reply.toString());
+			int result = new Post_repliesDAO().insert(post_reply);
+			int LastIn = new Post_repliesDAO().LastC(SP_name);
 			if(result!=0) {
 				if(reply_body_split.length>1) {
 					String[] hashtags = new String[reply_body_split.length-1];
 					for(int i=1;i<reply_body_split.length;i++) {
-						PL_REPLY_HASHTAGS pl_reply_hashtag = new PL_REPLY_HASHTAGS(result, result,reply_body_split[i].trim());
-						System.out.println(pl_reply_hashtag);
-						int result2 = new PL_REPLY_HASHTAGSDAO().insert(pl_reply_hashtag);
+						Post_reply_hashtags post_reply_hashtag = new Post_reply_hashtags(result, LastIn,reply_body_split[i].trim());
+						System.out.println(post_reply_hashtag);
+						int result2 = new Post_reply_hashtagsDAO().insert(post_reply_hashtag);
 						if(result2==1) {
 							System.out.println("해쉬태그 입력완료");
 						}else {
@@ -61,9 +65,7 @@ public class AddReplyCon extends HttpServlet {
 				out.print("False");;
 				System.out.println("pl_reply실패");
 			}
-		}else if(post_id!=null) {
-			
-		}	
+
 	
 	}
 	}

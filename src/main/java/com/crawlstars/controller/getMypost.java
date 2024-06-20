@@ -47,7 +47,6 @@ public class getMypost extends HttpServlet {
 	// JsonObject를 JSON 문자열로 변환
 	String combinedJson = gson.toJson(jsonObject);
 
-	System.out.println(combinedJson);
     PrintWriter out = response.getWriter();
     out.print(combinedJson);
     out.flush();

@@ -266,7 +266,7 @@ resize: none;
 }
 .post_reply{
 	display: grid;
-	grid-template-columns: 20px 5fr 2fr 1.5fr 1.5fr;
+	grid-template-columns: 10px 5fr 2fr 1.5fr 1.5fr;
 }
 
 
@@ -742,7 +742,7 @@ My Post
 	</div>
 	<hr>
 	<div id = "post_PL">
-		<div><img src="images/플리픽도안2.png" id="post_pl_img"></div>
+		<div><img onerror=this.src="images/플리픽도안2.png" src="images/플리픽도안2.png" id="post_pl_img"></div>
 		<div id="post_pl_info">
 			<div id="post_pl_name"><span></span></div>
 			<br><br><br>
@@ -750,7 +750,7 @@ My Post
 		</div>
 	</div>
 	<hr>
-	<div id ="post_replies">
+
 	<div class="post_reply">
 		<div>#</div>   
 		<div>내용</div> 
@@ -758,10 +758,10 @@ My Post
 		<div>이름</div> 
 		<div>등록일</div> 
 	</div>
+		<div id ="post_replies">
 	</div>
 	<hr>
-	<div id ="post_replies_input">
-	<input type="text">
+	<div id ="post_replies_inputdiv">
 	</div>
  </div>
 </div>
@@ -824,6 +824,8 @@ const getPost = (post_id) =>{
 	var post_pl_name = document.getElementById('post_pl_name');
 	var post_pl_owner = document.getElementById('post_pl_owner');
 	var post_pl_img = document.getElementById('post_pl_img');
+	var post_replies_input = document.getElementById('post_replies_input');
+	var post_replies_inputdiv = document.getElementById('post_replies_inputdiv');
     	var url = "getMypost?Post_id="+post_id;
     	fetch(url,{
     		method: 'GET',
@@ -837,6 +839,7 @@ const getPost = (post_id) =>{
 			 return response.json();
 			})
 			.then(data => {
+				console.log(data);
     		pl_title.innerText=data.Post.post_title;
     		posted_img.src=data.Post.post_img;
     		pl_body.innerText=data.Post.post_body;
@@ -852,27 +855,34 @@ const getPost = (post_id) =>{
     		var hashtags ="";
     		if(data.post_replies!=null){
     			var j=1;
+    			console.log(data.post_replies);
     			for(i=0;i<data.post_replies.length;i++){
-    				
+    				console.log("시작"+i)
     				var temp = document.createElement("div");
     				temp.className =  "post_reply"
     				temp.innerHTML= "<div>"+j+"</div><div>"+data.post_replies[i].reply_content
-						+"</div><div>";
-					if(i==0){
-					hashtags = "<div class='post_hashtag'>"+data.post_replies[i].hashtag+"</div>"}else{
-						hashtags="";
-					}
+						+"</div>";
+						console.log(data.post_replies[i].reply_content+":"+i);
+					var reply_hashtagTemp = document.createElement("div");
+					reply_hashtagTemp.innerHTML= "<div class='post_hashtag'>#"+data.post_replies[i].hashtag+"</div>"
     				while(true){
     					if(data.post_replies[i]!=null){
     					if(data.post_replies[i].hashtag!=null){
     						if(i!=0){
     						if(data.post_replies[i].post_reply_id==data.post_replies[i-1].post_reply_id){
-    							hashtags = hashtags+"<div class='post_hashtag'>"+data.post_replies[i].hashtag+"</div>";
-    							i++;
+    							reply_hashtagTemp.innerHTML= reply_hashtagTemp.innerHTML+"<div class='post_hashtag'>#"+data.post_replies[i].hashtag+"</div>";
+    							if(data.post_replies.length-1>i){
+    								if(data.post_replies[i].post_reply_id==data.post_replies[i+1].post){
+    								i++;}else{break;}
+    							}else{
+    								break;
+    							}
+    							
     						}else{
     							break;
     						}}else{
-    							break;
+    							if(data.post_replies.length-1>i){
+    							i++;}else{break;}
     						}
     					}else{
         					break;
@@ -880,8 +890,8 @@ const getPost = (post_id) =>{
         					break;
         				}
     				}
-					console.log(i+":"+hashtags);
-					temp.innerHTML = temp.innerHTML+hashtags+"</div><div>"+data.post_replies[i].sp_id+"</div><div>"+data.post_replies[i].replied_at.substr(0,10)+"</div>"
+    				temp.append(reply_hashtagTemp);    				
+					temp.innerHTML = temp.innerHTML+"<div>"+data.post_replies[i].sp_id+"</div><div>"+data.post_replies[i].replied_at.substr(0,10)+"</div>"
 					post_replies.append(temp);
 					j++
     			}
@@ -894,11 +904,46 @@ const getPost = (post_id) =>{
     		}else{
     			post_PL.style.display='none';
     		}
+    		post_replies_inputdiv.innerHTML = "<input id='post_replies_input'><button onclick='InsertPostreply(\""+post_id+"\")'>입력</button>" 		
     		document.getElementById('postContainer').style.display = 'block';
     		})
     	.catch(error => {
 		  console.error('Error:', error);
 		});}
+		
+
+const InsertPostreply = (pl_id)=>{
+	var xhr = new XMLHttpRequest();
+    var url = 'AddReplyCon';  // 서블릿 URL
+    var input_value = post_replies_input.value;
+    console.log(pl_id);
+    var params = 'post_ID=' + encodeURIComponent(pl_id)+ '&reply_body=' + encodeURIComponent(input_value);
+    
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            if (xhr.status == 200) {
+                var response = xhr.responseText;
+                if (response.trim() === 'True') {
+                    console.log('PL_reply added successfully.');
+                    // Handle success case here
+                    post_replies_input.value='';
+                } else {
+                    console.log('Failed to add PL_reply');
+                    // Handle failure case here
+                }
+            } else {
+                console.error('Error:', xhr.status, xhr.statusText);
+                // Handle other HTTP status codes
+            }
+        }
+    };
+
+    xhr.send(params);
+
+}
 </script>
 
 <script>
