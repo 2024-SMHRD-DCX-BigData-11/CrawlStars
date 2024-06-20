@@ -41,6 +41,12 @@ public class users {
 		this.user_img = user_img;
 		this.uesr_type = uesr_type;
 	}
+
+	public users(@NonNull String sP_id, @NonNull String nick) {
+		super();
+		SP_id = sP_id;
+		this.nick = nick;
+	}
 	
 	
 	

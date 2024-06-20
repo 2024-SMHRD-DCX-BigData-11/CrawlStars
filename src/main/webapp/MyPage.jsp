@@ -86,10 +86,12 @@ float:left;
 }
 
 .profile-container {
-    background-color: #444;
-    border-radius: 10px;
+    background-color: rgb(18, 18, 18);
+    border-radius: 15px;
     padding: 100px;
     text-align: center;
+    margin: 20px;
+    margin-top: 30px;
 }
 
 .profile-header {
@@ -616,13 +618,12 @@ if(request.getParameter("sp_id")!=null){
                 <form>
                 <label for="name" style="font-size:14px;">닉네임</label><br>
                 
-                <input type="text" id="inputName" name="name" placeholder="Enter your Name">
-                <button type="button" class="confirm-btn">닉네임확인</button>
+                <input type="text" id="inputName" name="inputname" placeholder="Enter your Name">
+                <button type="button" class="confirm-btn" onclick="checkNick()">중복확인</button>
                 <span id="resultCheck">중복확인을 해주세요</span>
                 
-                
-                
-                <button type="submit" class="save-btn" >저 장</button>
+               
+                <button type="button" class="save-btn" onclick="">저 장</button>
                 </form>
           
    </div>
@@ -684,6 +685,33 @@ if(request.getParameter("sp_id")!=null){
 
 	}
     
+    function checkNick(){
+		var inputNick = $('#inputName').val();
+		
+		$.ajax({ // {key1: value1, key2: value2, key3: {}}
+			//어디로 요청할건지
+			url : 'NickCheckCon',
+			// 요청 데이터 타입(json)
+			data : {'inputNick' : inputNick},
+			// 요청방식
+			type : 'get',
+			// 요청-응답-성공
+			success : function(data){
+				/* alert(data); */
+				if(data=='true'){
+					$('#resultCheck').text('사용중인 닉네임입니다');
+					$('#resultCheck').css('color','coral');
+				}else if(data=='false'){
+					$('#resultCheck').text('사용할 수 있는 닉네임입니다');
+					$('#resultCheck').css('color','skyblue');
+				}
+			},
+			error : function(){
+				alert('error');
+			}
+			
+		})
+	}
     
     
     

@@ -10,6 +10,13 @@ import com.crawlstars.database.SqlSessionManager;
 public class blocksDAO {
 	SqlSessionFactory sqlSessionFactory = SqlSessionManager.getSqlSession();
 	
+	public int blockCheck(String sp_id, String block_sp_id) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		int result = session.selectOne("com.crawlstars.database.blocksMapper.blockCheck", new blocks(sp_id, block_sp_id));
+		session.close();
+		return result;
+	}
+	
 	public int block(blocks blockusers) {
 		SqlSession session = sqlSessionFactory.openSession(true);
 		int cnt = session.insert("com.crawlstars.database.usersMapper.userBlock", blockusers);

@@ -37,4 +37,11 @@ public class usersDAO {
 		return result;
 	}
 	
+	public int updateNick(users users) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		int result = session.selectOne("com.crawlstars.database.usersMapper.updateNick", users);
+		session.close();
+		return result;
+	}
+	
 }

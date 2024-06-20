@@ -15,6 +15,10 @@
    		SELECT u.nick AS blockuser_nick FROM block_users b JOIN users u ON b.block_sp_id = u.sp_id WHERE b.sp_id = #{myuser} 
 	</select>
 	
+	<select id="blockCheck" parameterType="com.crawlstars.model.blocks" resultType="Integer">
+		select count(*) from block_users where sp_id=#{sp_id} and block_sp_id=#{block_sp_id}
+	</select>
+	
 	<delete id="blockCancel" parameterType="String">
 		delete from block_users where sp_id=#{sp_id} and block_sp_id=#{block_sp_id}
 	</delete>
