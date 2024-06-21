@@ -20,7 +20,7 @@ public class UpdateprofileCon extends HttpServlet {
      request.setCharacterEncoding("UTF-8");  
      String path = request.getServletContext().getRealPath("./ProfileImg");
      HttpSession session = request.getSession();
-     users user =(users)session.getAttribute("user");
+     users user = (users)session.getAttribute("user");
      int maxSize = 10*1024*1024; // 10MB
      String encoding = "UTF-8";
      DefaultFileRenamePolicy rename = new DefaultFileRenamePolicy();
@@ -28,29 +28,36 @@ public class UpdateprofileCon extends HttpServlet {
      
      try {
          multi = new MultipartRequest(request, path, maxSize, encoding, rename);
-         String nick = multi.getParameter("inputname");
-         System.out.println(nick);
-         String user_img= multi.getFilesystemName("user_img");
-         System.out.println(user_img);
-         if(nick!="") {
-        	 
-        	 
-        	 user.setNick(nick);
-         }
-         if(user_img!="") {
-        	 user.setUser_img(user_img);
-         }
-         System.out.println(user.toString());
-         int cnt = new usersDAO().updateNick(user);
-         if(cnt==1) {
-        	 session.setAttribute("user", user);
-         }
-         response.sendRedirect("MyPage.jsp");
          
       } catch (IOException e) {
          
          e.printStackTrace();
       }
+     String nick = multi.getParameter("inputname");    
+     String user_img= multi.getFilesystemName("user_img");
+     System.out.println("유저이미지"+user_img);
+     System.out.println("오류난곳"+user.toString());
+     
+     if(!nick.equals("")) {
+    	 if(nick!="") {
+    		 System.out.println("notNull"+nick);
+    	 user.setNick(nick);}
+     }else {
+    	 System.out.println("nullNick");
+     }
+     if(user_img!=null) {
+    	 if(user_img!="") {
+    	 String file_path = "ProfileImg/"+user_img;
+    	 user.setUser_img(file_path);
+    	 System.out.println("notnull"+file_path);}
+     }else {
+    	 System.out.println("fileNull");
+     }
+     int cnt = new usersDAO().updateNick(user);
+     if(cnt==1) {
+    	 session.setAttribute("user", user);
+     }
+     response.sendRedirect("MyPage.jsp");
      
      
 	}

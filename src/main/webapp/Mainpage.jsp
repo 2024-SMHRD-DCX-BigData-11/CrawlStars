@@ -736,7 +736,7 @@ My Post
 					
 					<div style="display: flex">
 					<div>
-					<img onerror=this.src="images/플리픽도안2.png" src="images/플리픽도안2.png" id="posted_img">
+					<img src="images/플리픽도안2.png" id="posted_img">
 					</div>
 					<div>
 					<div style="width: 500px; height: 200px; padding-top: 30px; "id="pl_body">내용</div>
@@ -852,12 +852,14 @@ const getPost = (post_id) =>{
 			 return response.json();
 			})
 			.then(data => {
-				console.log(data);
+				console.log("데이터",data);
+				console.log("데이터",data.Post.post_img);
     		pl_title.innerText=data.Post.post_title;
-    		posted_img.src=data.Post.post_img;
+    		posted_img.src=data.Post.post_img;   		
     		pl_body.innerText=data.Post.post_body;
     		pl_owner.innerText=data.Post.post_id;
     		pl_hashtag.innerHTML ="";
+    		
     		if(data.post_hashtag!=null){
     			for(i=0;i<data.post_hashtag.length;i++){
     				pl_hashtag.innerHTML= pl_hashtag.innerHTML + "<span>#"+data.post_hashtag[i]+"</span>"

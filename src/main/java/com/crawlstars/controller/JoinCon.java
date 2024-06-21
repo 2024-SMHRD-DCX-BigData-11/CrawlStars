@@ -74,6 +74,8 @@ public class JoinCon extends HttpServlet {
         
         if (multi.getFilesystemName("user_img") == null) {
             user_img = "defaultemp.png";
+        }else {
+        	user_img = "ProfileImg/"+user_img;
         }
 
         System.out.println(user_img);

@@ -642,9 +642,6 @@ border-radius:50%;
    margin-left: 10px;
 }
 
-#MyPlaylist {
-   margin-top: 25px;
-}
 
 Button {
    background-color: rgb(18, 18, 18);
@@ -777,12 +774,14 @@ if(request.getParameter("sp_id")!=null){
                </td>
               <td>
                <button class="change-photo-btn" onclick="triggerFileInput()">사진 변경</button>
-               <input name="user_img" type="file" id="fileInput" class="hidden" accept="image/*" onchange="handleFileChange(event)">
+              
+               
                </td>
                </tr>
                </table>
                <br>     
                 <form action="UpdateprofileCon" method="post" enctype="multipart/form-data" >
+                 <input name="user_img" type="file" id="fileInput" class="hidden" accept="image/*" onchange="handleFileChange(event)">
                 <label for="name" style="font-size:14px;">닉네임</label><br>
                 
                 <input type="text" id="inputName" name="inputname" placeholder="Enter your Name">

@@ -1,3 +1,5 @@
+<%@page import="se.michaelthelin.spotify.model_objects.specification.Artist"%>
+<%@page import="se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopArtistsRequest"%>
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="java.util.List"%>
 <%@page import="com.crawlstars.model.Like_plsDAO"%>
@@ -629,8 +631,8 @@ if(like_pl!=null){
 			<% 
 	GetRecommendationsRequest getRecommendationsRequest=spotifyApi.getRecommendations()
           .seed_artists("0LcJLqbBmaGUft1e9Mm8HV")
-          .seed_genres("electro")
-          .seed_tracks("01iyCAUm8EvOFqVWYJ3dVX").build();
+          .seed_genres("k-pop")
+          .seed_tracks("775S83AMYbQc8SYteOktTL").build();
 	Recommendations recommendations = getRecommendationsRequest.execute();
 	for(int i =0;i<recommendations.getTracks().length;){
 		%>
@@ -938,7 +940,6 @@ if(like_pl!=null){
 			 })
 			 .then(data => {
 			   PlaylistDetail.replaceChildren();
-			   console.log('데이터1',data.id)
 			   var h = 1;
 			   if(data.tracks.total	 != 0){
 			    	var plInfoImg = data.images[0].url

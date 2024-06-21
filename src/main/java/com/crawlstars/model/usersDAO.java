@@ -41,7 +41,7 @@ public class usersDAO {
 	
 	public int updateNick(users users) {
 		SqlSession session = sqlSessionFactory.openSession(true);
-		int result = session.selectOne("com.crawlstars.database.usersMapper.updateNick", users);
+		int result = session.update("com.crawlstars.database.usersMapper.updateNick", users);
 		session.close();
 		return result;
 	}
