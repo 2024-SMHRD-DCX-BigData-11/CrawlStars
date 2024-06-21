@@ -575,7 +575,10 @@ Button:hover {
 				<span>내 라이브러리</span>
 				<button class="MakePlaylist" onclick="CInputPL(event)">+</button>
 				<br>
-				<div Id="MyPlaylist">
+				<div Id="MyPlaylist" style="
+    overflow-y: auto;
+    height: 170px;
+">
 					<%	GetListOfCurrentUsersPlaylistsRequest getListOfCurrentUsersPlaylistsRequest = spotifyApi
 		    .getListOfCurrentUsersPlaylists().build();
 					if(getListOfCurrentUsersPlaylistsRequest!=null){
@@ -602,7 +605,10 @@ Button:hover {
 				</div>
 				
 			<span>좋아요한 플레이리스트</span>
-			<div Id="Likedlist">
+			<div Id="Likedlist" style="
+    overflow-y: auto;
+    height: 170px;
+">
 	<%List<Like_pls> like_pl = new Like_plsDAO().GetLikePL(user.getId()); 
 if(like_pl!=null){
 	for(int i=0;i<like_pl.size();i++){

@@ -657,7 +657,10 @@ My Post
 
 <!-- 마이포스트 토글창 -->
  
-  <div id="setting">
+  <div id="setting" style="
+    overflow-y: auto;
+    height: 170px;
+">
   <%for(int i=0;i<posts.size();i++){
 	if(posts.get(i).getSp_id().equals(user.getId())){
 		
@@ -736,7 +739,7 @@ My Post
 					
 					<div style="display: flex">
 					<div>
-					<img src="images/플리픽도안2.png" id="posted_img">
+					<img onerror=this.src="images/플리픽도안2.png" src="images/플리픽도안2.png" id="posted_img">
 					</div>
 					<div>
 					<div style="width: 500px; height: 200px; padding-top: 30px; "id="pl_body">내용</div>
