@@ -86,13 +86,33 @@
 ## 📍 화면 구성
 
 ### Spotify Login
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/61ac1822-73d2-4bde-8172-654817cf4c6e)
+
 ### First Login
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/19f85be0-7f7e-43df-92cc-3b07cc715af3)
+
 ### Main Page
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/9620da65-7a62-4f52-8a96-0c73b2a03144)
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/39c55e6e-e436-4499-98f2-3558ef55c2f3)
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/18f5eee2-8ccd-45bb-86a7-017b7edf633c)
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/69484a01-f818-4e88-a3c2-8bf4381bf37d)
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/e4e6fe11-0ae5-4add-b357-35c45d18e92b)
+
 ### My Page
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/9d02d5cf-299b-4031-b5f4-4a29768ac2dd)
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/5109637a-a6e2-42de-a2d7-f4e5fa0fb9c8)
+
 ### Playlist
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/1a1151c2-0fa8-457e-96ca-8b6aec47c94c)
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/b9809737-926c-4298-8bdd-a8f9e8a49bfc)
+
+
 ### Social
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/90a4849b-c100-418c-9ab5-a98f45198ad8)
 
 <br>
+
+## WBS
 
 ##  👪 팀원 역할
 <table>
