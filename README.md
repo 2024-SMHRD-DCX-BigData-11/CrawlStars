@@ -100,7 +100,7 @@
     <td align="center"><strong>원지은</strong></td>
   </tr>
   <tr>
-    <td align="center"><b>PM 
+    <td align="center"><b>PM,
 DB설계 및 풀스택 개발
 문서 작성</b></td>
     <td align="center"><b>프론트엔드 개발
