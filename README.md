@@ -41,7 +41,7 @@
         <td>개발도구</td>
         <td>
             <img src="https://img.shields.io/badge/Eclipse-2C2255?style=for-the-badge&logo=Eclipse&logoColor=white"/>
-<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Spotify</title><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+
             <img src="https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=VisualStudioCode&logoColor=white"/>
         </td>
     </tr>
@@ -73,10 +73,46 @@
 ## 🏢 시스템 아키텍쳐
 
 ## 📍 UML
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/3d39a62f-71be-4682-8c03-2726bfa8c401)
 
 ## 📍 서비스 흐름도
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/8567f069-a4e1-43d0-984b-2016cfcd1dc3)
+### 메뉴구성
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/28d6e20e-9602-47c5-86be-84a862a3bd52)
 
 ## 📍 ER 다이어그램
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/331c1cd7-7c0e-4759-b5c6-73abc8fc7baa)
+
 ## 📍 화면 구성
+
+### 
 ##  👪 팀원 역할
+<table>
+  <tr>
+    <td align="center"><img src="https://item.kakaocdn.net/do/fd49574de6581aa2a91d82ff6adb6c0115b3f4e3c2033bfd702a321ec6eda72c" width="100" height="100"/></td>
+    <td align="center"><img src="https://mb.ntdtv.kr/assets/uploads/2019/01/Screen-Shot-2019-01-08-at-4.31.55-PM-e1546932545978.png" width="100" height="100"/></td>
+    <td align="center"><img src="https://mblogthumb-phinf.pstatic.net/20160127_177/krazymouse_1453865104404DjQIi_PNG/%C4%AB%C4%AB%BF%C0%C7%C1%B7%BB%C1%EE_%B6%F3%C0%CC%BE%F0.png?type=w2" width="100" height="100"/></td>
+    <td align="center"><img src="https://i.pinimg.com/236x/ed/bb/53/edbb53d4f6dd710431c1140551404af9.jpg" width="100" height="100"/></td>
+    <td align="center"><img src="https://pbs.twimg.com/media/B-n6uPYUUAAZSUx.png" width="100" height="100"/></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>신현국</strong></td>
+    <td align="center"><strong>위건</strong></td>
+    <td align="center"><strong>배소정</strong></td>
+    <td align="center"><strong>원지은</strong></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Frontend</b></td>
+    <td align="center"><b>Frontend</b></td>
+    <td align="center"><b>Backend</b></td>
+    <td align="center"><b>Backend</b></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/LKFCHK" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/자신의username작성해주세요" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/자신의username작성해주세요" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/자신의username작성해주세요" target='_blank'>github</a></td>
+  </tr>
+</table>
+
 ##  💣 트러블 슈팅
