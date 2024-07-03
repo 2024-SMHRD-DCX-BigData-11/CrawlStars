@@ -4,9 +4,11 @@
 ## 😊 서비스 소개
 *  플리픽 - Spotify API를 활용한 Playlist 기반 SNS 서비스
 <br>
+
 ## 🗓️ 프로젝트 기간
 * 2024.05.10 ~ 2024.06.20
 <br>
+
 ## ⭐ 주요 기능
 * 기능 1: Spotify API SDK를 활용한 음악 플레이어 구현
 * 기능 2: Spotify API를 이용한 Playlist를 만들고 수정 기능
@@ -15,7 +17,8 @@
 * 기능 5: WebSocket을 활용한 사용자 간의 DirectMessage 기능
 * 기능 6: User의 활동기록(좋아요,게시물)을 누구나 볼수 있는 마이 페이지 기능
 * 기능 7: Db상의 Playlist나 Post를 차단목록을 제외하고 보여주는 검색기능
-  <br>
+<br>
+
 ## 🪡 기술 스택
 <table>
     <tr>
@@ -65,7 +68,6 @@
         </td>
     </tr>
 </table>
-
 
 <br>
 
