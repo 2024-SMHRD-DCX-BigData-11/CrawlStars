@@ -160,7 +160,7 @@ DB설계 및 풀스택 개발<br>
 ![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/35bf5259-84f7-44ce-927f-880c1475b668)
 <br>
  해결방안
-<br>
+<br><br>
  1. 비동기 방식으로 페이지 이동 최소화
 <br>
 
@@ -172,7 +172,7 @@ DB설계 및 풀스택 개발<br>
 
 ![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/cfd20312-ce46-4182-8e68-b6a4428746b4)
 
-<br>
+<br><br>
 * 문제2<br>
  문제점 설명
 <br>
@@ -181,14 +181,14 @@ DB설계 및 풀스택 개발<br>
 
 <br>
 ex) 재생 목록에 원하는 곡을 선택하는 기능이 없다.
-<br>
+<br><br>
  해결방안
 <br>
 1. 재생목록에 인덱스값을 지정하여 재생을 인덱스 값 만큼 하는 방법
 <br>
    => 비동기 통신이 한번에 여러번 일어나서 명령이 사라지는 현상이 생김
-<br>
-3. 시간을 두고 명령을 내려서 정확히 명령을 수행 할 수 있도록 코드를 작성
+<br><br>
+2. 시간을 두고 명령을 내려서 정확히 명령을 수행 할 수 있도록 코드를 작성
 <br>
 
 ![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/7955deb5-c981-4dcd-a543-1b92a076e414)
