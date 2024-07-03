@@ -114,6 +114,9 @@
 
 ## WBS
 
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/7e523e2f-2a07-4d1a-a447-ec8b049994f1)
+
+
 ##  👪 팀원 역할
 <table>
   <tr>
