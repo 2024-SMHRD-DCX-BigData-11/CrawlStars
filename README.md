@@ -71,17 +71,17 @@
 
 ## 🏢 시스템 아키텍쳐
 
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/28d6e20e-9602-47c5-86be-84a862a3bd52)
+<br>
 ## 📍 UML
 ![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/3d39a62f-71be-4682-8c03-2726bfa8c401)
-
+<br>
 ## 📍 서비스 흐름도
 ![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/8567f069-a4e1-43d0-984b-2016cfcd1dc3)
-### 메뉴구성
-![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/28d6e20e-9602-47c5-86be-84a862a3bd52)
-
+<br>
 ## 📍 ER 다이어그램
 ![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/331c1cd7-7c0e-4759-b5c6-73abc8fc7baa)
-
+<br>
 ## 📍 화면 구성
 
 ### 
@@ -100,10 +100,15 @@
     <td align="center"><strong>원지은</strong></td>
   </tr>
   <tr>
-    <td align="center"><b>Frontend</b></td>
-    <td align="center"><b>Frontend</b></td>
-    <td align="center"><b>Backend</b></td>
-    <td align="center"><b>Backend</b></td>
+    <td align="center"><b>PM 
+DB설계 및 풀스택 개발
+문서 작성</b></td>
+    <td align="center"><b>프론트엔드 개발
+웹 디자인</b></td>
+    <td align="center"><b>풀스텍 개발 및
+기능 모듈 관리</b></td>
+    <td align="center"><b>프론트엔드 개발 
+테스트 설계</b></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/LKFCHK" target='_blank'>github</a></td>
