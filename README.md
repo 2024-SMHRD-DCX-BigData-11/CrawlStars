@@ -37,7 +37,6 @@
     <tr>
         <td>라이브러리</td>
         <td>
-            <br>
           Spotify Api, Spotify SDK Api
         </td>
     </tr>
