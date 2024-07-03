@@ -163,16 +163,22 @@ DB설계 및 풀스택 개발<br>
 <br>
  1. 비동기 방식으로 페이지 이동 최소화
 <br>
+
  ![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/8812aad2-c19a-4d9e-a480-f8b35c4fd7c6)
+ 
 <br>
  2. 플레이어 작동시 세션값 추가하고 페이지 이동하고 플레이어 구성 이후 즉시 플레이어 실행
 <br>
+
 ![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/cfd20312-ce46-4182-8e68-b6a4428746b4)
+
 <br>
 * 문제2<br>
  문제점 설명
 <br>
+
 ![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/178407b2-7d78-4dec-8fdb-2ba10358b939)
+
 <br>
 ex) 재생 목록에 원하는 곡을 선택하는 기능이 없다.
 <br>
@@ -184,5 +190,6 @@ ex) 재생 목록에 원하는 곡을 선택하는 기능이 없다.
 <br>
 3. 시간을 두고 명령을 내려서 정확히 명령을 수행 할 수 있도록 코드를 작성
 <br>
+
 ![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/7955deb5-c981-4dcd-a543-1b92a076e414)
 
