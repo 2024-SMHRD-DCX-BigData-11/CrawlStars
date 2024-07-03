@@ -156,10 +156,14 @@ DB설계 및 풀스택 개발<br>
 <br>
 
 ### 문제1<br>
+
  * 문제점 설명
+
 ![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/35bf5259-84f7-44ce-927f-880c1475b668)
 <br>
+
  * 해결방안
+
 <br><br>
  1. 비동기 방식으로 페이지 이동 최소화
 <br>
@@ -174,7 +178,9 @@ DB설계 및 풀스택 개발<br>
 
 <br><br>
 ### 문제2<br>
+
  * 문제점 설명
+   
 <br>
 
 ![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/178407b2-7d78-4dec-8fdb-2ba10358b939)
@@ -182,7 +188,9 @@ DB설계 및 풀스택 개발<br>
 <br>
 ex) 재생 목록에 원하는 곡을 선택하는 기능이 없다.
 <br><br>
+
  * 해결방안
+
 <br>
 1. 재생목록에 인덱스값을 지정하여 재생을 인덱스 값 만큼 하는 방법
 <br>
