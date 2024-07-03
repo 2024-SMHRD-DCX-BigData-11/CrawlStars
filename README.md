@@ -98,7 +98,7 @@
 ##  👪 팀원 역할
 <table>
   <tr>
-    <td align="center"  width="100" height="100">![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/90a7faa4-7023-429d-bf60-1a8bd672c4d0)
+    <td align="center"><img src="https://item.kakaocdn.net/do/fd49574de6581aa2a91d82ff6adb6c0115b3f4e3c2033bfd702a321ec6eda72c" width="100" height="100"/>
 </td>
     <td align="center"><img src="https://mb.ntdtv.kr/assets/uploads/2019/01/Screen-Shot-2019-01-08-at-4.31.55-PM-e1546932545978.png" width="100" height="100"/></td>
     <td align="center"><img src="https://mblogthumb-phinf.pstatic.net/20160127_177/krazymouse_1453865104404DjQIi_PNG/%C4%AB%C4%AB%BF%C0%C7%C1%B7%BB%C1%EE_%B6%F3%C0%CC%BE%F0.png?type=w2" width="100" height="100"/></td>
