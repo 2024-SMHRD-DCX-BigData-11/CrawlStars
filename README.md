@@ -37,8 +37,9 @@
     <tr>
         <td>라이브러리</td>
         <td>
-            <img src="https://img.shields.io/badge/spotify-#1DB954?style=for-the-badge&logo=spotify&logoColor=white"/>
-            <img src="https://img.shields.io/badge/KakaoMap-FFCD00?style=for-the-badge&logo=Kakao&logoColor=white"/>
+           ![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/bdea2305-9f20-488f-a310-84b1a6e32480)
+            ![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/f02a8448-c903-4d79-b99f-36bd91eb5da9)
+
         </td>
     </tr>
     <tr>
