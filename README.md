@@ -100,21 +100,21 @@
     <td align="center"><strong>원지은</strong></td>
   </tr>
   <tr>
-    <td align="center"><b>PM,
-DB설계 및 풀스택 개발
+    <td align="center"><b>PM<br>
+DB설계 및 풀스택 개발<br>
 문서 작성</b></td>
-    <td align="center"><b>프론트엔드 개발
+    <td align="center"><b>프론트엔드 개발<br>
 웹 디자인</b></td>
-    <td align="center"><b>풀스텍 개발 및
+    <td align="center"><b>풀스텍 개발 <br>
 기능 모듈 관리</b></td>
-    <td align="center"><b>프론트엔드 개발 
+    <td align="center"><b>프론트엔드 개발 <br>
 테스트 설계</b></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/LKFCHK" target='_blank'>github</a></td>
-    <td align="center"><a href="https://github.com/자신의username작성해주세요" target='_blank'>github</a></td>
-    <td align="center"><a href="https://github.com/자신의username작성해주세요" target='_blank'>github</a></td>
-    <td align="center"><a href="https://github.com/자신의username작성해주세요" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/captainofrock" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/yonggu2" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/bella19192" target='_blank'>github</a></td>
   </tr>
 </table>
 
