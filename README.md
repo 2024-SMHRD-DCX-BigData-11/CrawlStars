@@ -122,9 +122,9 @@
   <tr>
     <td align="center"><img src="https://item.kakaocdn.net/do/fd49574de6581aa2a91d82ff6adb6c0115b3f4e3c2033bfd702a321ec6eda72c" width="100" height="100"/>
 </td>
-    <td align="center"><img src="https://mb.ntdtv.kr/assets/uploads/2019/01/Screen-Shot-2019-01-08-at-4.31.55-PM-e1546932545978.png" width="100" height="100"/></td>
-    <td align="center"><img src="https://mblogthumb-phinf.pstatic.net/20160127_177/krazymouse_1453865104404DjQIi_PNG/%C4%AB%C4%AB%BF%C0%C7%C1%B7%BB%C1%EE_%B6%F3%C0%CC%BE%F0.png?type=w2" width="100" height="100"/></td>
-    <td align="center"><img src="https://i.pinimg.com/236x/ed/bb/53/edbb53d4f6dd710431c1140551404af9.jpg" width="100" height="100"/></td>
+    <td align="center"><img src="https://avatars.githubusercontent.com/u/168691345?v=4" width="100" height="100"/></td>
+    <td align="center"><img src="https://avatars.githubusercontent.com/u/102844938?v=4" width="100" height="100"/></td>
+    <td align="center"><img src="https://avatars.githubusercontent.com/u/171222547?v=4" width="100" height="100"/></td>
   </tr>
   <tr>
     <td align="center"><strong>신현국</strong></td>
@@ -152,3 +152,27 @@ DB설계 및 풀스택 개발<br>
 </table>
 
 ##  💣 트러블 슈팅
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/f969caad-5041-4ba4-abc4-fe906482ded6)
+
+
+* 문제1<br>
+ 문제점 설명
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/35bf5259-84f7-44ce-927f-880c1475b668)
+
+ 해결방안
+ 1. 비동기 방식으로 페이지 이동 최소화
+ ![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/8812aad2-c19a-4d9e-a480-f8b35c4fd7c6)
+ 2. 플레이어 작동시 세션값 추가하고 페이지 이동하고 플레이어 구성 이후 즉시 플레이어 실행
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/cfd20312-ce46-4182-8e68-b6a4428746b4)
+
+* 문제2<br>
+ 문제점 설명
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/178407b2-7d78-4dec-8fdb-2ba10358b939)
+ex) 재생 목록에 원하는 곡을 선택하는 기능이 없다.
+
+ 해결방안
+1. 재생목록에 인덱스값을 지정하여 재생을 인덱스 값 만큼 하는 방법
+   => 비동기 통신이 한번에 여러번 일어나서 명령이 사라지는 현상이 생김
+2. 시간을 두고 명령을 내려서 정확히 명령을 수행 할 수 있도록 코드를 작성
+![image](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/7955deb5-c981-4dcd-a543-1b92a076e414)
+
