@@ -6,8 +6,8 @@
 <br>
 
 ## 📹 실행화면 
-![Uploading ezgif-2-0b57729251.gif…]()
 
+![ezgif-2-0b57729251](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/4da81bb2-3d87-456b-b3cb-ed0ff57a4d1a)
 
 
 ## 🗓️ 프로젝트 기간
