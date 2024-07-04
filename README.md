@@ -6,7 +6,8 @@
 <br>
 
 ## 📹 실행화면 
-![움짤용 (2)](https://github.com/2024-SMHRD-DCX-BigData-11/CrawlStars/assets/167580737/f18acb33-c7a9-49ed-b0cd-960f2c0c7ea4)
+![Uploading ezgif-2-0b57729251.gif…]()
+
 
 
 ## 🗓️ 프로젝트 기간
